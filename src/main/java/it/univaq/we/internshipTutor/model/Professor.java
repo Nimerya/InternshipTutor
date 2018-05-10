@@ -1,20 +1,34 @@
 package it.univaq.we.internshipTutor.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table(name = "professor")
 public class Professor {
-    private int id;
-    private String firstName;
-    private String lastName;
-    private String email;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
+    private int id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id", nullable = false)
+    private Department department;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "professor")
+    private List<StudentInternship> studentInternships;
+
+    @Column(name = "first_name", nullable = false, length = 255)
+    private String firstName;
+
+    @Column(name = "last_name", nullable = false, length = 255)
+    private String lastName;
+
+    @Column(name = "email", nullable = false, length = 255)
+    private String email;
+
     public int getId() {
         return id;
     }
@@ -23,8 +37,22 @@ public class Professor {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "first_name", nullable = false, length = 255)
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public List<StudentInternship> getStudentInternships() {
+        return studentInternships;
+    }
+
+    public void setStudentInternships(List<StudentInternship> studentInternships) {
+        this.studentInternships = studentInternships;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -33,8 +61,6 @@ public class Professor {
         this.firstName = firstName;
     }
 
-    @Basic
-    @Column(name = "last_name", nullable = false, length = 255)
     public String getLastName() {
         return lastName;
     }
@@ -43,8 +69,6 @@ public class Professor {
         this.lastName = lastName;
     }
 
-    @Basic
-    @Column(name = "email", nullable = false, length = 255)
     public String getEmail() {
         return email;
     }
@@ -58,15 +82,12 @@ public class Professor {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Professor professor = (Professor) o;
-        return id == professor.id &&
-                Objects.equals(firstName, professor.firstName) &&
-                Objects.equals(lastName, professor.lastName) &&
-                Objects.equals(email, professor.email);
+        return id == professor.id;
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, firstName, lastName, email);
+        return Objects.hash(id);
     }
 }

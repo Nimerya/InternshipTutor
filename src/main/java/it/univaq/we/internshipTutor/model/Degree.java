@@ -1,19 +1,32 @@
 package it.univaq.we.internshipTutor.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table(name = "degree")
 public class Degree {
-    private int id;
-    private String name;
-    private String clazz;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
+    private int id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id", nullable = false)
+    private Department department;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "degree")
+    private List<Student> students;
+
+    @Column(name = "name", nullable = false, length = 255)
+    private String name;
+
+    @Column(name = "class", nullable = false, length = 255)
+    private String clazz;
+
+
     public int getId() {
         return id;
     }
@@ -22,8 +35,22 @@ public class Degree {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "name", nullable = false, length = 255)
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
+
     public String getName() {
         return name;
     }
@@ -32,8 +59,6 @@ public class Degree {
         this.name = name;
     }
 
-    @Basic
-    @Column(name = "class", nullable = false, length = 45)
     public String getClazz() {
         return clazz;
     }
@@ -47,14 +72,12 @@ public class Degree {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Degree degree = (Degree) o;
-        return id == degree.id &&
-                Objects.equals(name, degree.name) &&
-                Objects.equals(clazz, degree.clazz);
+        return id == degree.id;
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, name, clazz);
+        return Objects.hash(id);
     }
 }

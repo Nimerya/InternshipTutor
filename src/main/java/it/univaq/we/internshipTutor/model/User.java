@@ -1,22 +1,40 @@
 package it.univaq.we.internshipTutor.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
+@Table(name = "user")
 public class User {
-    private int id;
-    private String email;
-    private String password;
-    private String firstName;
-    private String lastName;
-    private String phoneNumber;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
+    private int id;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "student_id", nullable = true)
+    private Student student;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id", nullable = true)
+    private Student company;
+
+    @Column(name = "email", nullable = false, length = 255)
+    private String email;
+
+    @Column(name = "password", nullable = false, length = 255)
+    private String password;
+
+    @Column(name = "first_name", nullable = false, length = 255)
+    private String firstName;
+
+    @Column(name = "last_name", nullable = false, length = 255)
+    private String lastName;
+
+    @Column(name = "phone_number", nullable = false, length = 255)
+    private String phoneNumber;
+
     public int getId() {
         return id;
     }
@@ -25,8 +43,22 @@ public class User {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "email", nullable = false, length = 255)
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public Student getCompany() {
+        return company;
+    }
+
+    public void setCompany(Student company) {
+        this.company = company;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -35,8 +67,6 @@ public class User {
         this.email = email;
     }
 
-    @Basic
-    @Column(name = "password", nullable = false, length = 255)
     public String getPassword() {
         return password;
     }
@@ -45,8 +75,6 @@ public class User {
         this.password = password;
     }
 
-    @Basic
-    @Column(name = "first_name", nullable = false, length = 255)
     public String getFirstName() {
         return firstName;
     }
@@ -55,8 +83,6 @@ public class User {
         this.firstName = firstName;
     }
 
-    @Basic
-    @Column(name = "last_name", nullable = false, length = 255)
     public String getLastName() {
         return lastName;
     }
@@ -65,8 +91,6 @@ public class User {
         this.lastName = lastName;
     }
 
-    @Basic
-    @Column(name = "phone_number", nullable = false, length = 255)
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -75,22 +99,18 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id &&
-                Objects.equals(email, user.email) &&
-                Objects.equals(password, user.password) &&
-                Objects.equals(firstName, user.firstName) &&
-                Objects.equals(lastName, user.lastName) &&
-                Objects.equals(phoneNumber, user.phoneNumber);
+        return id == user.id;
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, email, password, firstName, lastName, phoneNumber);
+        return Objects.hash(id);
     }
 }

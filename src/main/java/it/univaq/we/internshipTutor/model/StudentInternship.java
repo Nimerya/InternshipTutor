@@ -4,15 +4,35 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "student_internship", schema = "internship_tutor", catalog = "")
+@Table(name = "student_internship")
 public class StudentInternship {
-    private int id;
-    private Integer cfu;
-    private Integer review;
-    private Byte accepted;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
+    private int id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "student_id", nullable = false)
+    private Student student;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "internship_id", nullable = false)
+    private Internship internship;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "professor_id", nullable = false)
+    private Professor professor;
+
+    @Column(name = "cfu", nullable = true)
+    private Integer cfu;
+
+    @Column(name = "review", nullable = true)
+    private Integer review;
+
+    @Column(name = "accepted", nullable = true)
+    private Byte accepted;
+
     public int getId() {
         return id;
     }
@@ -21,8 +41,30 @@ public class StudentInternship {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "cfu", nullable = true)
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public Internship getInternship() {
+        return internship;
+    }
+
+    public void setInternship(Internship internship) {
+        this.internship = internship;
+    }
+
+    public Professor getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
+    }
+
     public Integer getCfu() {
         return cfu;
     }
@@ -31,8 +73,6 @@ public class StudentInternship {
         this.cfu = cfu;
     }
 
-    @Basic
-    @Column(name = "review", nullable = true)
     public Integer getReview() {
         return review;
     }
@@ -41,8 +81,6 @@ public class StudentInternship {
         this.review = review;
     }
 
-    @Basic
-    @Column(name = "accepted", nullable = true)
     public Byte getAccepted() {
         return accepted;
     }
@@ -56,15 +94,12 @@ public class StudentInternship {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         StudentInternship that = (StudentInternship) o;
-        return id == that.id &&
-                Objects.equals(cfu, that.cfu) &&
-                Objects.equals(review, that.review) &&
-                Objects.equals(accepted, that.accepted);
+        return id == that.id;
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, cfu, review, accepted);
+        return Objects.hash(id);
     }
 }

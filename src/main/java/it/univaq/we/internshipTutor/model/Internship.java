@@ -1,34 +1,76 @@
 package it.univaq.we.internshipTutor.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table(name = "internship")
 public class Internship {
-    private int id;
-    private String title;
-    private String address;
-    private String city;
-    private String province;
-    private String state;
-    private Byte remote;
-    private String schedule;
-    private int length;
-    private String modeItIt;
-    private String modeEnGb;
-    private String goalsItIt;
-    private String goalsEnGb;
-    private Byte refund;
-    private String detailsItIt;
-    private String detailsEnGb;
-    private String facilitations;
-    private Byte active;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
+    private int id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id", nullable = false)
+    private Company company;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "internship")
+    private List<StudentInternship> studentInternships;
+
+    @Column(name = "title", nullable = false, length = 255)
+    private String title;
+
+    @Column(name = "address", nullable = false, length = 255)
+    private String address;
+
+    @Column(name = "city", nullable = false, length = 255)
+    private String city;
+
+    @Column(name = "province", nullable = false, length = 255)
+    private String province;
+
+    @Column(name = "state", nullable = false, length = 255)
+    private String state;
+
+    @Column(name = "remote", nullable = true)
+    private Byte remote;
+
+    @Column(name = "schedule", nullable = true, length = -1)
+    private String schedule;
+
+    @Column(name = "length", nullable = false)
+    private int length;
+
+    @Column(name = "mode_it-IT", nullable = false, length = 255)
+    private String modeItIt;
+
+    @Column(name = "mode_en-GB", nullable = true, length = 255)
+    private String modeEnGb;
+
+    @Column(name = "goals_it-IT", nullable = true, length = -1)
+    private String goalsItIt;
+
+    @Column(name = "goals_en-GB", nullable = true, length = -1)
+    private String goalsEnGb;
+
+    @Column(name = "refund", nullable = true)
+    private Byte refund;
+
+    @Column(name = "details_it-IT", nullable = true, length = -1)
+    private String detailsItIt;
+
+    @Column(name = "details_en-GB", nullable = true, length = -1)
+    private String detailsEnGb;
+
+    @Column(name = "facilitations", nullable = true, length = -1)
+    private String facilitations;
+
+    @Column(name = "active", nullable = true)
+    private Byte active;
+
     public int getId() {
         return id;
     }
@@ -37,8 +79,22 @@ public class Internship {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "title", nullable = false, length = 255)
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public List<StudentInternship> getStudentInternships() {
+        return studentInternships;
+    }
+
+    public void setStudentInternships(List<StudentInternship> studentInternships) {
+        this.studentInternships = studentInternships;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -47,8 +103,6 @@ public class Internship {
         this.title = title;
     }
 
-    @Basic
-    @Column(name = "address", nullable = false, length = 255)
     public String getAddress() {
         return address;
     }
@@ -57,8 +111,6 @@ public class Internship {
         this.address = address;
     }
 
-    @Basic
-    @Column(name = "city", nullable = false, length = 255)
     public String getCity() {
         return city;
     }
@@ -67,8 +119,6 @@ public class Internship {
         this.city = city;
     }
 
-    @Basic
-    @Column(name = "province", nullable = false, length = 255)
     public String getProvince() {
         return province;
     }
@@ -77,8 +127,6 @@ public class Internship {
         this.province = province;
     }
 
-    @Basic
-    @Column(name = "state", nullable = false, length = 255)
     public String getState() {
         return state;
     }
@@ -87,8 +135,6 @@ public class Internship {
         this.state = state;
     }
 
-    @Basic
-    @Column(name = "remote", nullable = true)
     public Byte getRemote() {
         return remote;
     }
@@ -97,8 +143,6 @@ public class Internship {
         this.remote = remote;
     }
 
-    @Basic
-    @Column(name = "schedule", nullable = true, length = -1)
     public String getSchedule() {
         return schedule;
     }
@@ -107,8 +151,6 @@ public class Internship {
         this.schedule = schedule;
     }
 
-    @Basic
-    @Column(name = "length", nullable = false)
     public int getLength() {
         return length;
     }
@@ -117,8 +159,6 @@ public class Internship {
         this.length = length;
     }
 
-    @Basic
-    @Column(name = "mode_it-IT", nullable = false, length = 255)
     public String getModeItIt() {
         return modeItIt;
     }
@@ -127,8 +167,6 @@ public class Internship {
         this.modeItIt = modeItIt;
     }
 
-    @Basic
-    @Column(name = "mode_en-GB", nullable = true, length = 255)
     public String getModeEnGb() {
         return modeEnGb;
     }
@@ -137,8 +175,6 @@ public class Internship {
         this.modeEnGb = modeEnGb;
     }
 
-    @Basic
-    @Column(name = "goals_it-IT", nullable = true, length = -1)
     public String getGoalsItIt() {
         return goalsItIt;
     }
@@ -147,8 +183,6 @@ public class Internship {
         this.goalsItIt = goalsItIt;
     }
 
-    @Basic
-    @Column(name = "goals_en-GB", nullable = true, length = 45)
     public String getGoalsEnGb() {
         return goalsEnGb;
     }
@@ -157,8 +191,6 @@ public class Internship {
         this.goalsEnGb = goalsEnGb;
     }
 
-    @Basic
-    @Column(name = "refund", nullable = true)
     public Byte getRefund() {
         return refund;
     }
@@ -167,8 +199,6 @@ public class Internship {
         this.refund = refund;
     }
 
-    @Basic
-    @Column(name = "details_it-IT", nullable = true, length = -1)
     public String getDetailsItIt() {
         return detailsItIt;
     }
@@ -177,8 +207,6 @@ public class Internship {
         this.detailsItIt = detailsItIt;
     }
 
-    @Basic
-    @Column(name = "details_en-GB", nullable = true, length = -1)
     public String getDetailsEnGb() {
         return detailsEnGb;
     }
@@ -187,8 +215,6 @@ public class Internship {
         this.detailsEnGb = detailsEnGb;
     }
 
-    @Basic
-    @Column(name = "facilitations", nullable = true, length = -1)
     public String getFacilitations() {
         return facilitations;
     }
@@ -197,8 +223,6 @@ public class Internship {
         this.facilitations = facilitations;
     }
 
-    @Basic
-    @Column(name = "active", nullable = true)
     public Byte getActive() {
         return active;
     }
@@ -212,29 +236,12 @@ public class Internship {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Internship that = (Internship) o;
-        return id == that.id &&
-                length == that.length &&
-                Objects.equals(title, that.title) &&
-                Objects.equals(address, that.address) &&
-                Objects.equals(city, that.city) &&
-                Objects.equals(province, that.province) &&
-                Objects.equals(state, that.state) &&
-                Objects.equals(remote, that.remote) &&
-                Objects.equals(schedule, that.schedule) &&
-                Objects.equals(modeItIt, that.modeItIt) &&
-                Objects.equals(modeEnGb, that.modeEnGb) &&
-                Objects.equals(goalsItIt, that.goalsItIt) &&
-                Objects.equals(goalsEnGb, that.goalsEnGb) &&
-                Objects.equals(refund, that.refund) &&
-                Objects.equals(detailsItIt, that.detailsItIt) &&
-                Objects.equals(detailsEnGb, that.detailsEnGb) &&
-                Objects.equals(facilitations, that.facilitations) &&
-                Objects.equals(active, that.active);
+        return id == that.id;
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, title, address, city, province, state, remote, schedule, length, modeItIt, modeEnGb, goalsItIt, goalsEnGb, refund, detailsItIt, detailsEnGb, facilitations, active);
+        return Objects.hash(id);
     }
 }

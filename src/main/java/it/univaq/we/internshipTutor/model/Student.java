@@ -1,29 +1,62 @@
 package it.univaq.we.internshipTutor.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table(name = "student")
 public class Student {
-    private int id;
-    private Timestamp birthday;
-    private String matriculationNumber;
-    private String birthplaceCity;
-    private String birthplaceProvince;
-    private String birthplaceState;
-    private String residenceAdress;
-    private String residenceCity;
-    private String residenceProvince;
-    private String residenceState;
-    private String fiscalCode;
-    private byte handicap;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
+    private int id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "degree_id", nullable = false)
+    private Degree degree;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "student")
+    private List<StudentInternship> studentInternships;
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "student")
+    private User user;
+
+    @Column(name = "birthday", nullable = false)
+    private Timestamp birthday;
+
+    @Column(name = "matriculation_number", nullable = false, length = 255)
+    private String matriculationNumber;
+
+    @Column(name = "birthplace_city", nullable = false, length = 255)
+    private String birthplaceCity;
+
+    @Column(name = "birthplace_province", nullable = false, length = 255)
+    private String birthplaceProvince;
+
+    @Column(name = "birthplace_state", nullable = false, length = 255)
+    private String birthplaceState;
+
+    @Column(name = "residence_adress", nullable = false, length = 255)
+    private String residenceAdress;
+
+    @Column(name = "residence_city", nullable = false, length = 255)
+    private String residenceCity;
+
+    @Column(name = "residence_province", nullable = false, length = 255)
+    private String residenceProvince;
+
+    @Column(name = "residence_state", nullable = false, length = 255)
+    private String residenceState;
+
+    @Column(name = "fiscal_code", nullable = false, length = 255)
+    private String fiscalCode;
+
+    @Column(name = "handicap", nullable = false)
+    private byte handicap;
+
     public int getId() {
         return id;
     }
@@ -32,8 +65,30 @@ public class Student {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "birthday", nullable = false)
+    public Degree getDegree() {
+        return degree;
+    }
+
+    public void setDegree(Degree degree) {
+        this.degree = degree;
+    }
+
+    public List<StudentInternship> getStudentInternships() {
+        return studentInternships;
+    }
+
+    public void setStudentInternships(List<StudentInternship> studentInternships) {
+        this.studentInternships = studentInternships;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public Timestamp getBirthday() {
         return birthday;
     }
@@ -42,8 +97,6 @@ public class Student {
         this.birthday = birthday;
     }
 
-    @Basic
-    @Column(name = "matriculation_number", nullable = false, length = 255)
     public String getMatriculationNumber() {
         return matriculationNumber;
     }
@@ -52,8 +105,6 @@ public class Student {
         this.matriculationNumber = matriculationNumber;
     }
 
-    @Basic
-    @Column(name = "birthplace_city", nullable = false, length = 255)
     public String getBirthplaceCity() {
         return birthplaceCity;
     }
@@ -62,8 +113,6 @@ public class Student {
         this.birthplaceCity = birthplaceCity;
     }
 
-    @Basic
-    @Column(name = "birthplace_province", nullable = false, length = 255)
     public String getBirthplaceProvince() {
         return birthplaceProvince;
     }
@@ -72,8 +121,6 @@ public class Student {
         this.birthplaceProvince = birthplaceProvince;
     }
 
-    @Basic
-    @Column(name = "birthplace_state", nullable = false, length = 255)
     public String getBirthplaceState() {
         return birthplaceState;
     }
@@ -82,8 +129,6 @@ public class Student {
         this.birthplaceState = birthplaceState;
     }
 
-    @Basic
-    @Column(name = "residence_adress", nullable = false, length = 255)
     public String getResidenceAdress() {
         return residenceAdress;
     }
@@ -92,8 +137,6 @@ public class Student {
         this.residenceAdress = residenceAdress;
     }
 
-    @Basic
-    @Column(name = "residence_city", nullable = false, length = 255)
     public String getResidenceCity() {
         return residenceCity;
     }
@@ -102,8 +145,6 @@ public class Student {
         this.residenceCity = residenceCity;
     }
 
-    @Basic
-    @Column(name = "residence_province", nullable = false, length = 255)
     public String getResidenceProvince() {
         return residenceProvince;
     }
@@ -112,8 +153,6 @@ public class Student {
         this.residenceProvince = residenceProvince;
     }
 
-    @Basic
-    @Column(name = "residence_state", nullable = false, length = 255)
     public String getResidenceState() {
         return residenceState;
     }
@@ -122,8 +161,6 @@ public class Student {
         this.residenceState = residenceState;
     }
 
-    @Basic
-    @Column(name = "fiscal_code", nullable = false, length = 255)
     public String getFiscalCode() {
         return fiscalCode;
     }
@@ -132,8 +169,6 @@ public class Student {
         this.fiscalCode = fiscalCode;
     }
 
-    @Basic
-    @Column(name = "handicap", nullable = false)
     public byte getHandicap() {
         return handicap;
     }
@@ -147,23 +182,12 @@ public class Student {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Student student = (Student) o;
-        return id == student.id &&
-                handicap == student.handicap &&
-                Objects.equals(birthday, student.birthday) &&
-                Objects.equals(matriculationNumber, student.matriculationNumber) &&
-                Objects.equals(birthplaceCity, student.birthplaceCity) &&
-                Objects.equals(birthplaceProvince, student.birthplaceProvince) &&
-                Objects.equals(birthplaceState, student.birthplaceState) &&
-                Objects.equals(residenceAdress, student.residenceAdress) &&
-                Objects.equals(residenceCity, student.residenceCity) &&
-                Objects.equals(residenceProvince, student.residenceProvince) &&
-                Objects.equals(residenceState, student.residenceState) &&
-                Objects.equals(fiscalCode, student.fiscalCode);
+        return id == student.id;
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, birthday, matriculationNumber, birthplaceCity, birthplaceProvince, birthplaceState, residenceAdress, residenceCity, residenceProvince, residenceState, fiscalCode, handicap);
+        return Objects.hash(id);
     }
 }
