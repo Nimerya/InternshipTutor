@@ -5,33 +5,20 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "student_internship", schema = "internship_tutor", catalog = "")
-@IdClass(StudentInternshipPK.class)
 public class StudentInternship {
-    private int studentId;
-    private int internshipId;
+    private int id;
     private Integer cfu;
-    private int professorId;
     private Integer review;
     private Byte accepted;
 
     @Id
-    @Column(name = "student_id", nullable = false)
-    public int getStudentId() {
-        return studentId;
+    @Column(name = "id", nullable = false)
+    public int getId() {
+        return id;
     }
 
-    public void setStudentId(int studentId) {
-        this.studentId = studentId;
-    }
-
-    @Id
-    @Column(name = "internship_id", nullable = false)
-    public int getInternshipId() {
-        return internshipId;
-    }
-
-    public void setInternshipId(int internshipId) {
-        this.internshipId = internshipId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Basic
@@ -42,16 +29,6 @@ public class StudentInternship {
 
     public void setCfu(Integer cfu) {
         this.cfu = cfu;
-    }
-
-    @Id
-    @Column(name = "professor_id", nullable = false)
-    public int getProfessorId() {
-        return professorId;
-    }
-
-    public void setProfessorId(int professorId) {
-        this.professorId = professorId;
     }
 
     @Basic
@@ -79,9 +56,7 @@ public class StudentInternship {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         StudentInternship that = (StudentInternship) o;
-        return studentId == that.studentId &&
-                internshipId == that.internshipId &&
-                professorId == that.professorId &&
+        return id == that.id &&
                 Objects.equals(cfu, that.cfu) &&
                 Objects.equals(review, that.review) &&
                 Objects.equals(accepted, that.accepted);
@@ -90,6 +65,6 @@ public class StudentInternship {
     @Override
     public int hashCode() {
 
-        return Objects.hash(studentId, internshipId, cfu, professorId, review, accepted);
+        return Objects.hash(id, cfu, review, accepted);
     }
 }
