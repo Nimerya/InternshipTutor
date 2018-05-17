@@ -3,6 +3,7 @@ package it.univaq.we.internshipTutor.model;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Table(name = "professor")
@@ -12,6 +13,9 @@ public class Professor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private int id;
+
+    @Transient
+    private UUID uuid;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id", nullable = false)
@@ -28,6 +32,10 @@ public class Professor {
 
     @Column(name = "email", nullable = false, length = 255)
     private String email;
+
+    public Professor() {}
+
+    public Professor(UUID uuid) { setUuid(uuid); }
 
     public int getId() {
         return id;
@@ -77,17 +85,25 @@ public class Professor {
         this.email = email;
     }
 
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
+
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Professor professor = (Professor) o;
-        return id == professor.id;
+    public boolean equals(final Object obj) {
+        if (this == obj)
+            return true;
+        if (!(obj instanceof Professor))
+            return false;
+        return getUuid().equals(((Professor) obj).getUuid());
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(id);
+        return getUuid().hashCode();
     }
 }

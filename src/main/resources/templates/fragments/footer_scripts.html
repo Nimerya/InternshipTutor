@@ -1,0 +1,21 @@
+<!-- this line is not needed; it is only used to declare xmlns syntax -->
+<html th:fragment="head" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <!-- smooth-scrolling-of-move-up -->
+    <script type="text/javascript" th:src="@{/js/move-top.js}"></script>
+    <script type="text/javascript" th:src="@{/js/easing.js}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            /*
+            var defaults = {
+                containerID: 'toTop', // fading element id
+                containerHoverID: 'toTopHover', // fading element hover id
+                scrollSpeed: 1200,
+                easingType: 'linear'
+            };
+            */
+
+            $().UItoTop({ easingType: 'easeOutQuart' });
+
+        });
+    </script>
+</html>

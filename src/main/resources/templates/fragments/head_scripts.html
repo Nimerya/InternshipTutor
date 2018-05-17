@@ -1,0 +1,16 @@
+<!-- this line is not needed; it is only used to declare xmlns syntax -->
+<html th:fragment="head_scripts" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <!-- js -->
+    <script th:src="@{/js/jquery-1.11.1.min.js}"> </script>
+    <script th:src="@{/js/bootstrap.js}"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            $(".scroll").click(function(event){
+                event.preventDefault();
+                $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+            });
+        });
+    </script>
+    <script th:src="@{/js/menu_jquery.js}"></script> <!-- pop-up -->
+    <!-- //js -->
+</html>

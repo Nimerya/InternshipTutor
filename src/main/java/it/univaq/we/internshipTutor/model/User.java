@@ -2,6 +2,7 @@ package it.univaq.we.internshipTutor.model;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Table(name = "user")
@@ -11,6 +12,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private int id;
+
+    @Transient
+    private UUID uuid;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", nullable = true)
@@ -34,6 +38,10 @@ public class User {
 
     @Column(name = "phone_number", nullable = false, length = 255)
     private String phoneNumber;
+
+    public User() {}
+
+    public User(UUID uuid) { setUuid(uuid); }
 
     public int getId() {
         return id;
@@ -100,17 +108,25 @@ public class User {
     }
 
 
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
+
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return id == user.id;
+    public boolean equals(final Object obj) {
+        if (this == obj)
+            return true;
+        if (!(obj instanceof User))
+            return false;
+        return getUuid().equals(((User) obj).getUuid());
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(id);
+        return getUuid().hashCode();
     }
 }
