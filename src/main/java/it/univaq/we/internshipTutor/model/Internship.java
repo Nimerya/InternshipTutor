@@ -83,7 +83,7 @@ public class Internship {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
