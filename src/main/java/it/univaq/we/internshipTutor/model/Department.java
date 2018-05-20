@@ -3,6 +3,7 @@ package it.univaq.we.internshipTutor.model;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Table(name = "department")
@@ -11,7 +12,10 @@ public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private int id;
+    private Long id;
+
+    @Transient
+    private UUID uuid;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy="department")
     List<Degree> degrees;
@@ -28,11 +32,15 @@ public class Department {
     @Column(name = "description_en-GB", nullable = true, length = 255)
     private String descriptionEnGb;
 
-    public int getId() {
+    public Department() {}
+
+    public Department(UUID uuid) { setUuid(uuid); }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -76,17 +84,25 @@ public class Department {
         this.descriptionEnGb = descriptionEnGb;
     }
 
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
+
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Department that = (Department) o;
-        return id == that.id;
+    public boolean equals(final Object obj) {
+        if (this == obj)
+            return true;
+        if (!(obj instanceof Department))
+            return false;
+        return getUuid().equals(((Department) obj).getUuid());
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(id);
+        return getUuid().hashCode();
     }
 }

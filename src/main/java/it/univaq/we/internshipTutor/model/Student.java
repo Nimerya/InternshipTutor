@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Table(name = "student")
@@ -13,6 +14,9 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private int id;
+
+    @Transient
+    private UUID uuid;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "degree_id", nullable = false)
@@ -57,11 +61,15 @@ public class Student {
     @Column(name = "handicap", nullable = false)
     private byte handicap;
 
+    public Student() {}
+
+    public Student(UUID uuid) { setUuid(uuid); }
+
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -177,17 +185,25 @@ public class Student {
         this.handicap = handicap;
     }
 
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
+
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Student student = (Student) o;
-        return id == student.id;
+    public boolean equals(final Object obj) {
+        if (this == obj)
+            return true;
+        if (!(obj instanceof Student))
+            return false;
+        return getUuid().equals(((Student) obj).getUuid());
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(id);
+        return getUuid().hashCode();
     }
 }
