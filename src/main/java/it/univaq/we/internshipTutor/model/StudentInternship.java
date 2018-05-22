@@ -11,7 +11,7 @@ public class StudentInternship {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private int id;
+    private Long id;
 
     @Transient
     private UUID uuid;
@@ -41,7 +41,7 @@ public class StudentInternship {
 
     public StudentInternship(UUID uuid) { setUuid(uuid); }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 

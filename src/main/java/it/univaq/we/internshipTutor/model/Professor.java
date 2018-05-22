@@ -12,7 +12,7 @@ public class Professor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private int id;
+    private Long id;
 
     @Transient
     private UUID uuid;
@@ -37,7 +37,7 @@ public class Professor {
 
     public Professor(UUID uuid) { setUuid(uuid); }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
