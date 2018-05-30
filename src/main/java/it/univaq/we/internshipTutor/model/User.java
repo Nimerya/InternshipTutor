@@ -1,7 +1,9 @@
 package it.univaq.we.internshipTutor.model;
 
 import javax.persistence.*;
-import java.util.Objects;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import java.util.UUID;
 
 @Entity
 @Table(name = "user")
@@ -10,7 +12,10 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private int id;
+    private Long id;
+
+    @Transient
+    private UUID uuid;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", nullable = true)
@@ -21,6 +26,8 @@ public class User {
     private Student company;
 
     @Column(name = "email", nullable = false, length = 255)
+    @Email(message = "*Please provide a valid Email")
+    @NotEmpty(message = "*Please provide an email")
     private String email;
 
     @Column(name = "password", nullable = false, length = 255)
@@ -35,11 +42,15 @@ public class User {
     @Column(name = "phone_number", nullable = false, length = 255)
     private String phoneNumber;
 
-    public int getId() {
+    public User() {}
+
+    public User(UUID uuid) { setUuid(uuid); }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -100,17 +111,25 @@ public class User {
     }
 
 
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
+
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return id == user.id;
+    public boolean equals(final Object obj) {
+        if (this == obj)
+            return true;
+        if (!(obj instanceof User))
+            return false;
+        return getUuid().equals(((User) obj).getUuid());
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(id);
+        return getUuid().hashCode();
     }
 }
