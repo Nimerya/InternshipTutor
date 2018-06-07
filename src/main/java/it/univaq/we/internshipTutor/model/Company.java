@@ -27,6 +27,7 @@ public class Company {
     private String address;
 
     @Column(name = "fiscal_code", nullable = true, length = 255)
+
     private String fiscalCode;
 
     @Column(name = "vat_number", nullable = true, length = 255)
