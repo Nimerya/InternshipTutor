@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ProfessorRepository extends JpaRepository<Professor, Long> {
 
-    public List<Professor> findAll();
+    List<Professor> findAll();
 
-    public Professor findBy(Long id);
+    Professor findProfessorById(Long id);
 }

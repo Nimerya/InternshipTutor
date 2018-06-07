@@ -5,8 +5,10 @@ import java.util.List;
 
 public interface IDegreeService {
 
-    public List<Degree> findAll();
+    List<Degree> findAll();
 
-    public Degree findBy(Long id);
+    Degree findDegreeById(Long id);
+
+    <S extends Degree> S save(S degree);
 
 }

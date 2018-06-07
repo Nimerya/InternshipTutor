@@ -19,5 +19,5 @@ public class ProfessorService implements IProfessorService {
     public List<Professor> findAll(){ return professorRepository.findAll();}
 
     @Override
-    public Professor findBy(Long id){ return professorRepository.findBy(id);}
+    public Professor findProfessorById(Long id){ return professorRepository.findProfessorById(id);}
 }

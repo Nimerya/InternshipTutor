@@ -6,7 +6,9 @@ import java.util.List;
 
 public interface DepartmentRepository extends JpaRepository<Department,Long> {
 
-    public List<Department> findAll();
+    List<Department> findAll();
 
-    public Department findBy(Long id);
+    Department findDepartmentById(Long id);
+
+    <S extends Department> S save(S department);
 }

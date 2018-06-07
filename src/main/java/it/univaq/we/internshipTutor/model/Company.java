@@ -2,12 +2,11 @@ package it.univaq.we.internshipTutor.model;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 @Entity
 @Table(name = "company")
-public class Company {
+public class Company implements java.io.Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,7 +45,6 @@ public class Company {
     public Company(UUID uuid) {
         setUuid(uuid);
     }
-
 
     public UUID getUuid() {
         return uuid;

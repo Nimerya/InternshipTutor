@@ -8,5 +8,5 @@ public interface IStudentInternshipService{
 
     List<StudentInternship> findAll();
 
-    StudentInternship findBy(Long id);
+    StudentInternship findStudentInternshipById(Long id);
 }

@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface StudentInternshipRepository extends JpaRepository<StudentInternship, Long> {
 
-    public List<StudentInternship> findAll();
+    List<StudentInternship> findAll();
 
-    public StudentInternship findBy(Long id);
+    StudentInternship findStudentInternshipById(Long id);
 }

@@ -20,8 +20,13 @@ public class DegreeService implements IDegreeService {
     }
 
     @Override
-    public Degree findBy(Long id){
-        return degreeRepository.findBy(id);
+    public Degree findDegreeById(Long id){
+        return degreeRepository.findDegreeById(id);
+    }
+
+    @Override
+    public Degree save(Degree degree){
+        return degreeRepository.save(degree);
     }
 
 

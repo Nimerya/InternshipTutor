@@ -8,5 +8,5 @@ public interface ICompanyService {
 
     List<Company> findAll();
 
-    Company findBy(Long id);
+    Company findCompanyById(Long id);
 }

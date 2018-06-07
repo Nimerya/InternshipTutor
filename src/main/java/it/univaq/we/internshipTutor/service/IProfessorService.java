@@ -8,5 +8,5 @@ public interface IProfessorService {
 
     List<Professor> findAll();
 
-    Professor findBy(Long id);
+    Professor findProfessorById(Long id);
 }

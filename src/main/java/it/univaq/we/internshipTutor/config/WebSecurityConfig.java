@@ -15,7 +15,7 @@ import javax.sql.DataSource;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
+    /*
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -38,14 +38,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .dataSource(dataSource)
                 .passwordEncoder(bCryptPasswordEncoder);
     }
-
+    */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/", "/index", "/error*").permitAll()
+                    .antMatchers("/", "/index", "/error").permitAll()
                     .anyRequest().authenticated()
                     .and()
+                /*.authorizeRequests()
+                    .antMatchers("/create/**")
+                    .hasRole("ADMIN")
+                    .and()*/
                 .formLogin()
                     .loginPage("/login")
                     .permitAll()
@@ -59,7 +63,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) {
         web.ignoring().antMatchers("/resources/static/**").anyRequest();
-
     }
 
 }
