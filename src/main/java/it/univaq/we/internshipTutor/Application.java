@@ -1,4 +1,4 @@
-package it.univaq.we.testSpringMysqlFreemarker;
+package it.univaq.we.internshipTutor;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
