@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface CompanyRepository extends JpaRepository<Company, Long>{
 
-    public List<Company> findAll();
+    List<Company> findAll();
 
-    public Company findBy(Long id);
+    Company findCompanyById(Long id);
 }

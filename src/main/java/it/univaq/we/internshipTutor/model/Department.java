@@ -26,10 +26,10 @@ public class Department {
     @Column(name = "name", nullable = false, length = 255)
     private String name;
 
-    @Column(name = "description_it-IT", nullable = true, length = 255)
+    @Column(name = "description_it_it", nullable = true, length = 255)
     private String descriptionItIt;
 
-    @Column(name = "description_en-GB", nullable = true, length = 255)
+    @Column(name = "description_en_gb", nullable = true, length = 255)
     private String descriptionEnGb;
 
     public Department() {}

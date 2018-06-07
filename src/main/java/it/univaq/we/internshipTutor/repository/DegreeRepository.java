@@ -8,7 +8,9 @@ import java.util.List;
 
 public interface DegreeRepository extends JpaRepository<Degree,Long>{
 
-    public List<Degree> findAll();
+    List<Degree> findAll();
 
-    public Degree findBy(Long id);
+    Degree findDegreeById(Long id);
+
+    <S extends Degree> S save(S degree);
 }

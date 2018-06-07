@@ -19,6 +19,6 @@ public class CompanyService implements ICompanyService {
     public List<Company> findAll() { return companyRepository.findAll();}
 
     @Override
-    public Company findBy(Long id) { return companyRepository.findBy(id);}
+    public Company findCompanyById(Long id) { return companyRepository.findCompanyById(id);}
 }
 

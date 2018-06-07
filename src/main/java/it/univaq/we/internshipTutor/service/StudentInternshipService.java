@@ -19,6 +19,6 @@ public class StudentInternshipService implements IStudentInternshipService  {
     public List<StudentInternship> findAll(){ return studentInternshipRepository.findAll();}
 
     @Override
-    public StudentInternship findBy(Long id){ return studentInternshipRepository.findBy(id);}
+    public StudentInternship findStudentInternshipById(Long id){ return studentInternshipRepository.findStudentInternshipById(id);}
 
 }

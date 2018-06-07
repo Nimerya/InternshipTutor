@@ -5,8 +5,8 @@ import java.util.List;
 
 public interface IUserService {
 
-    public List<User> findAll();
+    List<User> findAll();
 
-    public User findBy(Long id);
+    User findUserById(Long id);
 
 }

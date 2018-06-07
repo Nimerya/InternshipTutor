@@ -48,25 +48,25 @@ public class Internship {
     @Column(name = "length", nullable = false)
     private int length;
 
-    @Column(name = "mode_it-IT", nullable = false, length = 255)
+    @Column(name = "mode_it_it", nullable = false, length = 255)
     private String modeItIt;
 
-    @Column(name = "mode_en-GB", nullable = true, length = 255)
+    @Column(name = "mode_en_gb", nullable = true, length = 255)
     private String modeEnGb;
 
-    @Column(name = "goals_it-IT", nullable = true, length = -1)
+    @Column(name = "goals_it_it", nullable = true, length = -1)
     private String goalsItIt;
 
-    @Column(name = "goals_en-GB", nullable = true, length = -1)
+    @Column(name = "goals_en_gb", nullable = true, length = -1)
     private String goalsEnGb;
 
     @Column(name = "refund", nullable = true)
     private Byte refund;
 
-    @Column(name = "details_it-IT", nullable = true, length = -1)
+    @Column(name = "details_it_it", nullable = true, length = -1)
     private String detailsItIt;
 
-    @Column(name = "details_en-GB", nullable = true, length = -1)
+    @Column(name = "details_en_gb", nullable = true, length = -1)
     private String detailsEnGb;
 
     @Column(name = "facilitations", nullable = true, length = -1)

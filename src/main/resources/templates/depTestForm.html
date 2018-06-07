@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form method="POST" th:action="@{/create/department}" th:object="${department}">
+
+    <p>id:
+        <input type="text" th:field="*{id}" />
+    </p>
+
+    <p>Name:
+        <input type="text" th:field="*{name}" />
+    </p>
+    <p>descriptionItIt:
+        <input type="text" th:field="*{descriptionItIt}" />
+    </p>
+    <p>descriptionEnGb:
+        <input type="text" th:field="*{descriptionEnGb}" />
+    </p>
+
+    <input type="submit" value="Submit" />
+</form>
+
+</body>
+</html>
