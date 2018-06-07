@@ -1,10 +1,39 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Home page</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<!-- TODO change title -->
+	<title>Title</title>
+	<!-- head -->
+	<meta th:replace="fragments/head :: head">
+	<!-- head -->
+	<!-- head_scripts -->
+	<meta th:replace="fragments/head_scripts :: head_scripts">
+	<!-- head_scripts -->
 </head>
 <body>
-<p>BRAVOH</p>
+	<!-- header -->
+	<div th:replace="fragments/header"></div>
+	<!-- header -->
+	<!-- banner -->
+	<div th:replace="fragments/banner"></div>
+	<!-- banner -->
+	<!-- welcome -->
+	<div th:replace="fragments/welcome"></div>
+	<!-- welcome -->
+	<!-- slider -->
+	<div th:replace="fragments/slider"></div>
+	<!-- slider -->
+	<!-- news -->
+	<div th:replace="fragments/news"></div>
+	<!-- news -->
+	<!-- news_bottom -->
+	<div th:replace="fragments/news_bottom"></div>
+	<!-- news_bottom -->
+	<!-- footer -->
+	<div th:replace="fragments/footer"></div>
+	<!-- footer -->
+	<!-- footer_scripts -->
+	<div th:replace="fragments/footer_scripts"></div>
+	<!-- footer_scripts -->
 </body>
 </html>

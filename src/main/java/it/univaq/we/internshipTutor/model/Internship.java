@@ -3,6 +3,7 @@ package it.univaq.we.internshipTutor.model;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Table(name = "internship")
@@ -11,7 +12,10 @@ public class Internship {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private int id;
+    private Long id;
+
+    @Transient
+    private UUID uuid;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
@@ -71,11 +75,15 @@ public class Internship {
     @Column(name = "active", nullable = true)
     private Byte active;
 
-    public int getId() {
+    public Internship() {}
+
+    public Internship(UUID uuid) { setUuid(uuid); }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -231,17 +239,25 @@ public class Internship {
         this.active = active;
     }
 
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
+
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Internship that = (Internship) o;
-        return id == that.id;
+    public boolean equals(final Object obj) {
+        if (this == obj)
+            return true;
+        if (!(obj instanceof Internship))
+            return false;
+        return getUuid().equals(((Internship) obj).getUuid());
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(id);
+        return getUuid().hashCode();
     }
 }
