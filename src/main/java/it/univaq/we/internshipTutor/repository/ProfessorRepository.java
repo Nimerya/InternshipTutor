@@ -10,4 +10,6 @@ public interface ProfessorRepository extends JpaRepository<Professor, Long> {
     List<Professor> findAll();
 
     Professor findProfessorById(Long id);
+
+    <S extends Professor> S save(S professor);
 }

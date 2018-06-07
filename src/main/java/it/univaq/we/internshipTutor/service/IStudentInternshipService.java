@@ -9,4 +9,7 @@ public interface IStudentInternshipService{
     List<StudentInternship> findAll();
 
     StudentInternship findStudentInternshipById(Long id);
+
+    <S extends StudentInternship> S save(S studentInternship);
+
 }

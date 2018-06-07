@@ -21,4 +21,9 @@ public class StudentInternshipService implements IStudentInternshipService  {
     @Override
     public StudentInternship findStudentInternshipById(Long id){ return studentInternshipRepository.findStudentInternshipById(id);}
 
+    @Override
+    public StudentInternship save(StudentInternship studentInternship){
+        return studentInternshipRepository.save(studentInternship);
+    }
+
 }

@@ -10,4 +10,6 @@ public interface IStudentService {
 
     public Student findStudentById(Long id);
 
+    <S extends Student> S save(S student);
+
 }

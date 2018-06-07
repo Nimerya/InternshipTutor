@@ -7,8 +7,10 @@ import java.util.List;
 
 public interface InternshipRepository extends JpaRepository<Internship, Long> {
 
-    public List<Internship> findAll();
+     List<Internship> findAll();
 
-    public Internship findInternshipById(Long id);
+     Internship findInternshipById(Long id);
+
+    <S extends Internship> S save(S internship);
 
 }

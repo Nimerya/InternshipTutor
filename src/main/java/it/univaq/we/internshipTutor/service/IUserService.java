@@ -9,4 +9,7 @@ public interface IUserService {
 
     User findUserById(Long id);
 
+    <S extends User> S save(S user);
+
+
 }

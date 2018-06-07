@@ -20,4 +20,9 @@ public class ProfessorService implements IProfessorService {
 
     @Override
     public Professor findProfessorById(Long id){ return professorRepository.findProfessorById(id);}
+
+    @Override
+    public Professor save(Professor professor){
+        return professorRepository.save(professor);
+    }
 }

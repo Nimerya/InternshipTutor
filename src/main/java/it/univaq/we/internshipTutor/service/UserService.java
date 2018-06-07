@@ -27,9 +27,8 @@ public class UserService implements IUserService {
         return userRepository.findUserById(id);
     }
 
-
-
-
-
-
+    @Override
+    public User save(User user){
+        return userRepository.save(user);
+    }
 }

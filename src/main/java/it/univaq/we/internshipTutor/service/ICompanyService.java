@@ -9,4 +9,6 @@ public interface ICompanyService {
     List<Company> findAll();
 
     Company findCompanyById(Long id);
+
+    <S extends Company> S save(S company);
 }

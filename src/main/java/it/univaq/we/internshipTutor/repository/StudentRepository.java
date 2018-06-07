@@ -8,8 +8,10 @@ import java.util.List;
 
 public interface StudentRepository extends JpaRepository<Student, Long> {
 
-    public List<Student> findAll();
+     List<Student> findAll();
 
-    public Student findStudentById(Long id);
+     Student findStudentById(Long id);
+
+    <S extends Student> S save(S student);
 
 }
