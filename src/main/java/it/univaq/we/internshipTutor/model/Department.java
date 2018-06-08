@@ -1,6 +1,7 @@
 package it.univaq.we.internshipTutor.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -24,6 +25,7 @@ public class Department {
     List<Professor> professors;
 
     @Column(name = "name", nullable = false, length = 255)
+    @NotEmpty
     private String name;
 
     @Column(name = "description_it_it", nullable = true, length = 255)

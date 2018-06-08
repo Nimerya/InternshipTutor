@@ -22,7 +22,7 @@ public class CompanyService implements ICompanyService {
     public Company findCompanyById(Long id) { return companyRepository.findCompanyById(id);}
 
     @Override
-    public Company save(Company company){
+    public <S extends Company>S save(S company){
         return companyRepository.save(company);
     }
 }

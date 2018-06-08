@@ -22,7 +22,7 @@ public class ProfessorService implements IProfessorService {
     public Professor findProfessorById(Long id){ return professorRepository.findProfessorById(id);}
 
     @Override
-    public Professor save(Professor professor){
+    public <S extends Professor>S save(S professor){
         return professorRepository.save(professor);
     }
 }

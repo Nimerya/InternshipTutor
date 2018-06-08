@@ -25,7 +25,7 @@ public class DepartmentService implements IDepartmentService{
         }
 
         @Override
-        public Department save(Department department){
+        public <S extends Department>S save(S department){
             return departmentRepository.save(department);
         }
 

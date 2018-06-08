@@ -25,7 +25,7 @@ public class DegreeService implements IDegreeService {
     }
 
     @Override
-    public Degree save(Degree degree){
+    public <S extends Degree>S save(S degree){
         return degreeRepository.save(degree);
     }
 

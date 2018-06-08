@@ -34,6 +34,17 @@ ul,label{
 body a:hover{
 	text-decoration:none;
 }
+
+.btn.btn-square {
+    border-radius: 0;
+}
+.squared{
+    border-radius: 0!important;
+}
+.my-small-alert{
+    padding: 9px!important;
+    margin-bottom: 0px!important;
+}
 /*-- header-top --*/
 .header-top{
 	background: #10c7bf;
@@ -1189,137 +1200,138 @@ li.list-group-item1 {
 	line-height: 2em;
 	color: #888;
 	font-size: 0.9em;
-	margin-bottom: 1em;
-	font-weight: 300;
+    /*margin-bottom: 1em;*/
+    margin-bottom: 0.487em;
+    font-weight: 300;
 }
 .bs-docs-example {
-	margin: 1em 0;
+margin: 1em 0;
 }
 section#tables  p {
-	margin-top: 1em;
+margin-top: 1em;
 }
 .tab-container .tab-content {
-	border-radius: 0 2px 2px 2px;
-	border: 1px solid #e0e0e0;
-	padding: 16px;
-	background-color: #ffffff;
+border-radius: 0 2px 2px 2px;
+border: 1px solid #e0e0e0;
+padding: 16px;
+background-color: #ffffff;
 }
 .table td, .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
-	padding: 15px!important;
+padding: 15px!important;
 }
 .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
-	font-size: 0.9em;
-	color: #999;
-	border-top: none !important;
+font-size: 0.9em;
+color: #999;
+border-top: none !important;
 }
 .tab-content > .active {
-	display: block;
-	visibility: visible;
+display: block;
+visibility: visible;
 }
 .label {
-	font-weight: 300 !important;
+font-weight: 300 !important;
 }
 .label {
-	padding: 4px 6px;
-	border: none;
-	text-shadow: none;
+padding: 4px 6px;
+border: none;
+text-shadow: none;
 }
 .alert {
-	font-size: 0.85em;
+font-size: 0.85em;
 }
 h1.t-button,h2.t-button,h3.t-button,h4.t-button,h5.t-button {
-	line-height:2em;
-	margin-top:0.5em;
-	margin-bottom: 0.5em;
+line-height:2em;
+margin-top:0.5em;
+margin-bottom: 0.5em;
 }
 li.list-group-item1 {
-	line-height: 2.5em;
+line-height: 2.5em;
 }
 .input-group {
-	margin-bottom: 20px;
+margin-bottom: 20px;
 }
 .in-gp-tl{
-	padding:0;
+padding:0;
 }
 .in-gp-tb{
-	padding-right:0;
+padding-right:0;
 }
 .list-group {
-	margin-bottom: 48px;
+margin-bottom: 48px;
 }
 ol {
-	margin-bottom: 44px;
+margin-bottom: 44px;
 }
 h2.typoh2{
-    margin: 0 0 10px;
-} 
+margin: 0 0 10px;
+}
 .tab-content > .active {
-  display: block;
-  visibility: visible;
+display: block;
+visibility: visible;
 }
 .label {
-  font-weight: 300 !important;
+font-weight: 300 !important;
 }
 .label {
-  padding: 4px 6px;
-  border: none;
-  text-shadow: none;
+padding: 4px 6px;
+border: none;
+text-shadow: none;
 }
 .nav-tabs {
-  margin-bottom: 1em;
-} 
+margin-bottom: 1em;
+}
 h1.t-button,h2.t-button,h3.t-button,h4.t-button,h5.t-button {
-	line-height:1.8em;
-	margin-top:0.5em;
-	margin-bottom: 0.5em;
+line-height:1.8em;
+margin-top:0.5em;
+margin-bottom: 0.5em;
 }
 li.list-group-item1 {
-  line-height: 2.5em;
+line-height: 2.5em;
 }
 .input-group {
-  margin-bottom: 20px;
+margin-bottom: 20px;
 }
- .codes .row {
-    margin: 0;
+.codes .row {
+margin: 0;
 }
 .in-gp-tl{
-	padding:0;
+padding:0;
 }
 .in-gp-tb{
-	padding-right:0;
+padding-right:0;
 }
 .list-group {
-  margin-bottom: 48px;
+margin-bottom: 48px;
 }
 ol {
-  margin-bottom: 44px;
+margin-bottom: 44px;
 }
 h2.typoh2{
-    margin: 0 0 10px;
+margin: 0 0 10px;
 }
 .form-control1, .form-control_2.input-sm{
-	border: 1px solid #e0e0e0;
-	padding:5px 18px;
-	color: #616161;
-	background: #fff;
-	box-shadow: none !important;
-	width: 100%;
-	font-size: 0.85em;
-	font-weight: 300;
-	height: 40px;
-	border-radius: 0;
-	-webkit-border-radius: 0px;
-	-moz-border-radius: 0px;
-	-ms-border-radius: 0px;
-	-o-border-radius: 0px;
-	-webkit-appearance: none;
-	outline:none;
+border: 1px solid #e0e0e0;
+padding:5px 18px;
+color: #616161;
+background: #fff;
+box-shadow: none !important;
+width: 100%;
+font-size: 0.85em;
+font-weight: 300;
+height: 40px;
+border-radius: 0;
+-webkit-border-radius: 0px;
+-moz-border-radius: 0px;
+-ms-border-radius: 0px;
+-o-border-radius: 0px;
+-webkit-appearance: none;
+outline:none;
 }
 .control3{
-	margin:0 0 1em 0;
+margin:0 0 1em 0;
 }
 .codes label {
-    font-weight: 400;
+font-weight: 400;
 }
 /*-- icons --*/
 .codes a {

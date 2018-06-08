@@ -23,7 +23,7 @@ public class InternshipService implements IInternshipService {
     }
 
     @Override
-    public Internship save(Internship internship){
+    public <S extends Internship>S save(S internship){
         return internshipRepository.save(internship);
     }
 }

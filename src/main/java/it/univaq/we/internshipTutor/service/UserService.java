@@ -28,7 +28,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User save(User user){
+    public <S extends User>S save(S user){
         return userRepository.save(user);
     }
 }

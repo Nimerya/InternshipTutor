@@ -20,7 +20,7 @@ public class StudentService implements IStudentService {
     public Student findStudentById(Long id) { return studentRepository.findStudentById(id); }
 
     @Override
-    public Student save(Student student){
+    public <S extends Student>S save(S student){
         return studentRepository.save(student);
     }
 

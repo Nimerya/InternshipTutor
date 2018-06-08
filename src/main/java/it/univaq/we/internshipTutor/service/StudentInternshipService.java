@@ -22,7 +22,7 @@ public class StudentInternshipService implements IStudentInternshipService  {
     public StudentInternship findStudentInternshipById(Long id){ return studentInternshipRepository.findStudentInternshipById(id);}
 
     @Override
-    public StudentInternship save(StudentInternship studentInternship){
+    public <S extends StudentInternship>S save(S studentInternship){
         return studentInternshipRepository.save(studentInternship);
     }
 
