@@ -11,4 +11,8 @@ public interface IDepartmentService {
 
     <S extends Department> S save(S department);
 
+    void deleteDepartmentById(Long id);
+
+
+
 }

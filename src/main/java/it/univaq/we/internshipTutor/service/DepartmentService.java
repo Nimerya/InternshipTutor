@@ -29,4 +29,10 @@ public class DepartmentService implements IDepartmentService{
             return departmentRepository.save(department);
         }
 
+        @Override
+        public void deleteDepartmentById(Long id){
+        departmentRepository.deleteDepartmentById(id);
     }
+
+
+}
