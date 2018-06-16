@@ -1,0 +1,17 @@
+/*
+
+toastr custom ccs - to appear under the header
+
+ */
+
+.toast-top-right {
+    top: 12px;
+    right: 12px;
+    margin-top: 68px;
+}
+
+.toast-top-left {
+    top: 12px;
+    right: 12px;
+    margin-top: 68px;
+}
