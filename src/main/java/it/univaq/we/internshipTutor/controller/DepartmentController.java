@@ -75,13 +75,14 @@ public class DepartmentController {
 
 
     @RequestMapping(value={"/create/department"}, method = RequestMethod.GET)
-    public String renderCreate(ModelMap model) {
+    public ModelAndView renderCreate(ModelMap model) {
+
         HashMap<String, Object> map = new HashMap<>();
         map.put("department", new Department(UUID.randomUUID()));
         List<Department> departments = departmentService.findAll();
+        model.addAttribute("departments", departments);
 
         return new ModelAndView("department:create", map);
-        model.addAttribute("departments", departments);
     }
 
     @RequestMapping(value={"/update/department/{id}"}, method = RequestMethod.GET)
