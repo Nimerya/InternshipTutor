@@ -36,7 +36,7 @@ public class DepartmentController {
         departmentService.save(department);
 
         //TODO handle redirect/success message
-        return "redirect:/index";
+        return "redirect:/create/department";
     }
 
     @RequestMapping(value={"/update/department"}, method = RequestMethod.POST)
@@ -52,7 +52,7 @@ public class DepartmentController {
         departmentService.save(department);
 
         //TODO handle redirect/success message
-        return "redirect:/index";
+        return "redirect:/update/department/" + department.getId();
     }
 
     @RequestMapping(value={"/delete/department/{id}"}, method = RequestMethod.POST)
@@ -70,19 +70,18 @@ public class DepartmentController {
         departmentService.deleteDepartmentById(id);
 
         //TODO handle redirect/success message
-        return "redirect:/index";
+        return "redirect:/create/department";
     }
 
 
     @RequestMapping(value={"/create/department"}, method = RequestMethod.GET)
     public String renderCreate(ModelMap model) {
-
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("department", new Department(UUID.randomUUID()));
         List<Department> departments = departmentService.findAll();
 
-        model.addAttribute("department", new Department(UUID.randomUUID()));
+        return new ModelAndView("department:create", map);
         model.addAttribute("departments", departments);
-
-        return "department:create";
     }
 
     @RequestMapping(value={"/update/department/{id}"}, method = RequestMethod.GET)
