@@ -4,6 +4,7 @@ import it.univaq.we.internshipTutor.model.Department;
 import it.univaq.we.internshipTutor.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -81,7 +82,6 @@ public class DepartmentController {
         map.put("department", new Department(UUID.randomUUID()));
         List<Department> departments = departmentService.findAll();
         model.addAttribute("departments", departments);
-
         return new ModelAndView("department:create", map);
     }
 
@@ -96,6 +96,11 @@ public class DepartmentController {
         model.addAttribute("departments", departments);
 
         return "department:update";
+    }
+
+    @ModelAttribute
+    public void addAttributes(Model model) {
+        model.addAttribute("language", "english");
     }
 
 }
