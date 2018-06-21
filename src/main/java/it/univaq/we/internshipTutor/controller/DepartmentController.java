@@ -30,7 +30,7 @@ public class DepartmentController {
         if (result.hasErrors()) {
             // if there are errors during the binding (e.g. NotNull, Min, etc.)
             // redirect to the form displaying the errors
-            return "department:create";
+            return "department_create";
         }
 
         // else perform the insertion
@@ -46,7 +46,7 @@ public class DepartmentController {
         if (result.hasErrors()) {
             // if there are errors during the binding (e.g. NotNull, Min, etc.)
             // redirect to the form displaying the errors
-            return "department:update";
+            return "department_update";
         }
 
         // else perform the update
@@ -64,7 +64,7 @@ public class DepartmentController {
 
             // if there are errors during the binding (e.g. NotNull, Min, etc.)
             // redirect to the form displaying the errors
-            return "department:update";
+            return "department_update";
         }
 
         // else perform the remove
@@ -82,7 +82,7 @@ public class DepartmentController {
         map.put("department", new Department(UUID.randomUUID()));
         List<Department> departments = departmentService.findAll();
         model.addAttribute("departments", departments);
-        return new ModelAndView("department:create", map);
+        return new ModelAndView("department_create", map);
     }
 
     @RequestMapping(value={"/update/department/{id}"}, method = RequestMethod.GET)
@@ -95,7 +95,7 @@ public class DepartmentController {
         model.addAttribute("department", d);
         model.addAttribute("departments", departments);
 
-        return "department:update";
+        return "department_update";
     }
 
     @ModelAttribute
