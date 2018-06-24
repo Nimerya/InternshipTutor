@@ -1,41 +1,58 @@
 <!-- this line is not needed; it is only used to declare xmlns syntax -->
 <html th:fragment="head" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <!-- smooth-scrolling-of-move-up -->
-    <script type="text/javascript" th:src="@{/js/move-top.js}"></script>
-    <script type="text/javascript" th:src="@{/js/easing.js}"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            /*
-            var defaults = {
-                containerID: 'toTop', // fading element id
-                containerHoverID: 'toTopHover', // fading element hover id
-                scrollSpeed: 1200,
-                easingType: 'linear'
-            };
-            */
+<!-- smooth-scrolling-of-move-up -->
+<script type="text/javascript" th:src="@{/js/move-top.js}"></script>
+<script type="text/javascript" th:src="@{/js/easing.js}"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        /*
+        var defaults = {
+            containerID: 'toTop', // fading element id
+            containerHoverID: 'toTopHover', // fading element hover id
+            scrollSpeed: 1200,
+            easingType: 'linear'
+        };
+        */
 
-            $().UItoTop({ easingType: 'easeOutQuart' });
+        $().UItoTop({easingType: 'easeOutQuart'});
+    });
+</script>
 
-            toastr.options = {
-                "closeButton": true,
-                "debug": false,
-                "newestOnTop": false,
-                "progressBar": true,
-                "positionClass": "toast-top-left",
-                "preventDuplicates": false,
-                "onclick": null,
-                "showDuration": "300",
-                "hideDuration": "1000",
-                "timeOut": "5000",
-                "extendedTimeOut": "1000",
-                "showEasing": "swing",
-                "hideEasing": "linear",
-                "showMethod": "fadeIn",
-                "hideMethod": "fadeOut"
-            };
+<script>
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": true,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "1000",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    };
+</script>
 
-            toastr.info('Are you the 6 fingered man?');
-
-        });
+<th:block th:if="${popup != null}" th:switch="${popup.getKind()}">
+    <script th:case="'ERROR'">
+        var msg = '[[${popup.getMessage()}]]';
+        toastr["error"](msg, "Error!");
     </script>
+    <script th:case="'WARNING'">
+        var msg = '[[${popup.getMessage()}]]';
+        toastr["warning"](msg, "Warning!")
+    </script>
+    <script th:case="'SUCCESS'">
+        var msg = '[[${popup.getMessage()}]]';
+        toastr["success"](msg, "Success!") </script>
+    <script th:case="*">
+        // no popup/something is wrong
+    </script>
+</th:block>
+
 </html>

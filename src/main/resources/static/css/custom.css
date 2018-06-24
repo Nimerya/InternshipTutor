@@ -1,9 +1,4 @@
-/*
-
-toastr custom ccs - to appear under the header
-
- */
-
+/* toastr custom ccs - to appear under the header */
 .toast-top-right {
     top: 12px;
     right: 12px;
@@ -15,3 +10,27 @@ toastr custom ccs - to appear under the header
     right: 12px;
     margin-top: 68px;
 }
+
+.toast {
+    opacity: 1;
+}
+
+
+/* scrollable table */
+.scrollable{
+    height: 400px;
+    overflow-y: scroll;
+}
+
+/* custom */
+.btn.btn-square {
+    border-radius: 0;
+}
+.squared{
+    border-radius: 0!important;
+}
+.my-small-alert{
+    padding: 9px!important;
+    margin-bottom: 0!important;
+}
+
