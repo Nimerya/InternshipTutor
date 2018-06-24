@@ -13,4 +13,7 @@ public interface DegreeRepository extends JpaRepository<Degree,Long>{
     Degree findDegreeById(Long id);
 
     <S extends Degree> S save(S degree);
+
+    void deleteDegreeById(Long id);
+
 }
