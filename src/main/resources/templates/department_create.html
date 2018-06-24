@@ -84,14 +84,18 @@
             <div class="col-md-6">
                 <h3 class="w3ls-hdg">Department's List</h3>
                 <div th:if="${!departments.isEmpty()}" class="tab-content">
+                    <table class="table-hover table table-bordered squared no-margin-bottom">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th class="w-20 text-right">Action</th>
+                        </tr>
+                        </thead>
+                    </table>
                     <div class="tab-pane active scrollable" id="horizontal-form">
+
                         <table class="table-hover table table-bordered squared">
-                            <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th class="w-20 text-right">Action</th>
-                            </tr>
-                            </thead>
+
                             <tbody>
                             <tr th:each="department : ${departments}">
                                 <td th:text="${department.getName()}">
@@ -113,7 +117,7 @@
                     </div>
                 </div>
                 <div class="well" th:unless="${!departments.isEmpty()}">
-                    There are no Departments yet! Complete the form to create.
+                    There are no Departments yet!
                 </div>
             </div>
         </div>
