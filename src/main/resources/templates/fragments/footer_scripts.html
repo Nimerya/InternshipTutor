@@ -3,7 +3,26 @@
     <!-- smooth-scrolling-of-move-up -->
     <script type="text/javascript" th:src="@{/js/move-top.js}"></script>
     <script type="text/javascript" th:src="@{/js/easing.js}"></script>
-    <script type="text/javascript">
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        var message = /*[[${message}]]*/ 'default';
+
+        console.log(message);
+        console.log(message === null);
+
+        var type = /*[[${type}]]*/ 'default';
+
+
+        /*
+        *
+        * It's worth noting that the default will only be used when running the page statically,
+        * i.e. outside a web container. If ran inside a container and the variable message hasn't
+        * been declared the resulting source code will be var message = null;
+        *
+        * */
+
         $(document).ready(function() {
             /*
             var defaults = {
@@ -21,7 +40,7 @@
                 "debug": false,
                 "newestOnTop": false,
                 "progressBar": true,
-                "positionClass": "toast-top-left",
+                "positionClass": "toast-top-right",
                 "preventDuplicates": false,
                 "onclick": null,
                 "showDuration": "300",
@@ -34,8 +53,38 @@
                 "hideMethod": "fadeOut"
             };
 
-            toastr.info('Are you the 6 fingered man?');
+            if(message === null){}
+
+            else {
+
+                switch(type){
+
+                    case 'success':
+                        toastr.success(message);
+                        break;
+
+                    case 'warning':
+                        toastr.warning(message);
+                        break;
+
+                    case 'error':
+                        toastr.error(message);
+                        break;
+
+                    case 'info':
+                    default:
+                        toastr.info(message);
+                }
+
+            }
+
 
         });
+
+        /*]]>*/
+    </script>
+
+    <script type="text/javascript">
+
     </script>
 </html>

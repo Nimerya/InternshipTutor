@@ -7,14 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,65 +21,82 @@ public class DepartmentController {
     DepartmentService departmentService;
 
     @RequestMapping(value={"/create/department"}, method = RequestMethod.POST)
-    public String doCreate(@Valid @ModelAttribute("department") Department department, BindingResult result) {
+    public String doCreate(@Valid @ModelAttribute("department") Department department, BindingResult result, RedirectAttributes redirectAttributes) {
 
         if (result.hasErrors()) {
             // if there are errors during the binding (e.g. NotNull, Min, etc.)
             // redirect to the form displaying the errors
-            return "department:create";
+            // add error message in the model as flash attribute
+            redirectAttributes.addFlashAttribute("message", "Something Went Wrong, Try Again!");
+            redirectAttributes.addFlashAttribute("type", "warning");
+            return "redirect:/create/department";
         }
 
         // else perform the insertion
         departmentService.save(department);
 
-        //TODO handle redirect/success message
+        // add success message in the model as flash attribute
+        redirectAttributes.addFlashAttribute("message", "Created Successfully!");
+        redirectAttributes.addFlashAttribute("type", "success");
+
+        // render Create form
         return "redirect:/create/department";
     }
 
+
     @RequestMapping(value={"/update/department"}, method = RequestMethod.POST)
-    public String doUpdate(@Valid @ModelAttribute("department") Department department, BindingResult result) {
+    public String doUpdate(@Valid @ModelAttribute("department") Department department, BindingResult result, RedirectAttributes redirectAttributes) {
 
         if (result.hasErrors()) {
             // if there are errors during the binding (e.g. NotNull, Min, etc.)
             // redirect to the form displaying the errors
-            return "department:update";
+            redirectAttributes.addFlashAttribute("message", "Something Went Wrong. Try Again!");
+            redirectAttributes.addFlashAttribute("type", "warning");
+            return "redirect:/update/department/" + department.getId();
         }
 
         // else perform the update
         departmentService.save(department);
 
-        //TODO handle redirect/success message
+        // add success message in the model
+        redirectAttributes.addFlashAttribute("message", "Updated Successfully");
+        redirectAttributes.addFlashAttribute("type", "success");
+
+        // render Update form
         return "redirect:/update/department/" + department.getId();
     }
 
+
     @RequestMapping(value={"/delete/department/{id}"}, method = RequestMethod.POST)
-    public String doDelete(ModelMap model, @PathVariable(value = "id") Long id) {
-
+    public String doDelete(@PathVariable(value = "id") Long id, RedirectAttributes redirectAttributes) {
         if (id == null || id < 0) {
-            model.addAttribute("error:id", "error:id");
-
             // if there are errors during the binding (e.g. NotNull, Min, etc.)
             // redirect to the form displaying the errors
-            return "department:update";
+            // add error message in the model
+            redirectAttributes.addFlashAttribute("message", "Something Went Wrong, Try Again!");
+            redirectAttributes.addFlashAttribute("type", "warning");
+            return "redirect:/update/department/" + id;
         }
 
         // else perform the remove
         departmentService.deleteDepartmentById(id);
 
-        //TODO handle redirect/success message
+        // add success message in the model
+        redirectAttributes.addFlashAttribute("message", "Deleted Successfully");
+        redirectAttributes.addFlashAttribute("type", "success");
         return "redirect:/create/department";
     }
 
 
     @RequestMapping(value={"/create/department"}, method = RequestMethod.GET)
-    public ModelAndView renderCreate(ModelMap model) {
+    public String renderCreate(ModelMap model) {
 
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("department", new Department(UUID.randomUUID()));
+        model.addAttribute("department", new Department(UUID.randomUUID()));
         List<Department> departments = departmentService.findAll();
         model.addAttribute("departments", departments);
-        return new ModelAndView("department:create", map);
+        return "department:create";
     }
+
 
     @RequestMapping(value={"/update/department/{id}"}, method = RequestMethod.GET)
     public String renderUpdate(ModelMap model, @PathVariable(value = "id") Long id) {
