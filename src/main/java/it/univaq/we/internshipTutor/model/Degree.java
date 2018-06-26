@@ -1,6 +1,7 @@
 package it.univaq.we.internshipTutor.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -25,9 +26,11 @@ public class Degree {
     private List<Student> students;
 
     @Column(name = "name", nullable = false, length = 255)
+    @NotEmpty
     private String name;
 
     @Column(name = "class", nullable = false, length = 255)
+    @NotEmpty
     private String clazz;
 
     public Degree() {}

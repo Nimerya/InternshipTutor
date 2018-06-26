@@ -1,15 +1,16 @@
 package it.univaq.we.internshipTutor.controller;
 
 import it.univaq.we.internshipTutor.model.Department;
+import it.univaq.we.internshipTutor.model.Popup;
 import it.univaq.we.internshipTutor.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
@@ -99,21 +100,18 @@ public class DepartmentController {
 
 
     @RequestMapping(value={"/update/department/{id}"}, method = RequestMethod.GET)
-    public String renderUpdate(ModelMap model, @PathVariable(value = "id") Long id) {
+    public String renderUpdate(ModelMap model, @PathVariable(value = "id") Long id, HttpSession httpSession) {
 
         Department d = departmentService.findDepartmentById(id);
+        model.addAttribute("department", d);
 
         List<Department> departments = departmentService.findAll();
-
-        model.addAttribute("department", d);
         model.addAttribute("departments", departments);
 
-        return "department:update";
-    }
+        model.addAttribute("popup", httpSession.getAttribute("popup"));
+        httpSession.removeAttribute("popup");
 
-    @ModelAttribute
-    public void addAttributes(Model model) {
-        model.addAttribute("language", "english");
+        return "department_update";
     }
 
 }

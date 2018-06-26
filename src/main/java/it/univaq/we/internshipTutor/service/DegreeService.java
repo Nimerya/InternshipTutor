@@ -29,5 +29,11 @@ public class DegreeService implements IDegreeService {
         return degreeRepository.save(degree);
     }
 
+    @Override
+    public void deleteDegreeById(Long id){
+        degreeRepository.deleteDegreeById(id);
+    }
+
+
 
 }

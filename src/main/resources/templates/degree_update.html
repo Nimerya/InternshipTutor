@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Create a new Department</title>
+    <title>Create a new Degree</title>
     <!-- head -->
     <meta th:replace="fragments/head :: head">
     <!-- head -->
@@ -12,18 +12,20 @@
 <body>
 
 <!-- header -->
-<div th:replace="fragments/header"></div>
+<div th:replace="fragments/header :: header"></div>
 <!-- header -->
 
 <div class="codes about">
     <div class="container">
         <div id="forms" class="grid_3 grid_4">
             <div class="col-md-6">
-                <h3 class="w3ls-hdg">Create a new Department</h3>
+                <h3 class="w3ls-hdg">Edit Degree</h3>
                 <div class="tab-content">
                     <div class="tab-pane active">
-                        <form method="POST" th:action="@{/create/department}" th:object="${department}"
+                        <form method="POST" th:action="@{/update/degree}" th:object="${degree}"
                               class="form-horizontal">
+
+                            <input th:field="*{id}" type="hidden" id="id">
 
                             <!-- name -->
                             <div class="form-group">
@@ -34,13 +36,8 @@
                                 <!-- input -->
                                 <div class="col-sm-9">
                                     <input th:field="*{name}" type="text" class="form-control1" id="name"
-                                           placeholder="Insert department name">
+                                           placeholder="Insert degree name">
                                 </div>
-
-                                <!-- help text
-                                <div class="col-sm-2">
-                                    <p class="help-block"></p>
-                                </div> -->
 
                                 <!-- error box -->
                                 <div class="col-sm-offset-3 col-sm-9">
@@ -53,30 +50,60 @@
 
                             </div>
 
-                            <!-- descriptionItIt -->
+                            <!-- department -->
                             <div class="form-group">
-                                <label for="descriptionItIt" class="col-sm-3 control-label">Desc. (IT)</label>
+                                <label for="department" class="col-sm-3 control-label">Department</label>
                                 <div class="col-sm-9">
-                                    <input th:field="*{descriptionItIt}" type="text" class="form-control1"
-                                           id="descriptionItIt"
-                                           placeholder="Insert italian description">
+                                    <select name="department" id="department" class="form-control1">
+                                        <th:block th:each="department : ${departments}">
+                                            <option th:value="${department.getId()}" th:text="${department.getName()}" th:selected="(${department.getId()} == *{department.getId()})"></option>
+                                        </th:block>
+                                    </select>
                                 </div>
                             </div>
 
-                            <!-- descriptionEnGb -->
+                            <!-- class -->
                             <div class="form-group">
-                                <label for="descriptionEnGb" class="col-sm-3 control-label">Desc. (EN)</label>
+
+
+                                <!-- label -->
+                                <label for="class" class="col-sm-3 control-label">Class</label>
+                                <!-- input -->
                                 <div class="col-sm-9">
-                                    <input th:field="*{descriptionEnGb}" type="text" class="form-control1"
-                                           id="descriptionEnGb"
-                                           placeholder="Insert english description">
+                                    <input th:field="*{clazz}" type="text" class="form-control1" id="class"
+                                           placeholder="Insert degree class">
                                 </div>
+
+
+                                <!-- error box -->
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <div class="alert alert-danger squared my-small-alert"
+                                         role="alert"
+                                         th:if="${#fields.hasErrors('clazz')}"
+                                         th:errors="*{clazz}">
+                                    </div>
+                                </div>
+
                             </div>
 
                             <!-- submit -->
                             <div class="form-group">
                                 <div class="col-sm-offset-3 col-sm-9">
-                                    <input type="submit" class="btn btn-info btn-block pull-right squared btn-lg" value="Insert"/>
+                                    <input type="submit" class="btn btn-info btn-block squared btn-lg"
+                                           value="Update"/>
+                                </div>
+                            </div>
+
+
+                        </form>
+
+                        <form method="POST" th:action="@{'/delete/degree/'+${degree.getId()}}"
+                              class="form-horizontal">
+                            <!-- submit -->
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <input type="submit" class="btn btn-danger btn-block squared btn-lg"
+                                           value="Delete"/>
                                 </div>
                             </div>
                         </form>
@@ -84,8 +111,8 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <h3 class="w3ls-hdg">Department's List</h3>
-                <div th:if="${!departments.isEmpty()}" class="tab-content">
+                <h3 class="w3ls-hdg">Degree's List</h3>
+                <div class="tab-content">
                     <div class="tab-pane active" id="horizontal-form">
                         <table class="table-hover table table-bordered squared">
                             <thead>
@@ -95,12 +122,11 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="department : ${departments}">
-                                <td th:text="${department.getName()}">
+                            <tr th:each="degree : ${degrees}">
+                                <td th:text="${degree.getName()}" >
                                 </td>
                                 <td class="w-20 text-right">
-                                    <a th:href="@{'/update/department/'+${department.getId()}}"
-                                       class="btn-default-border btn-xs squared">
+                                    <a th:href="@{'/update/degree/'+${degree.getId()}}" class="btn-default-border  btn-xs squared">
                                         <i class="fa fa-edit">
                                         </i>
                                         Edit
@@ -114,14 +140,12 @@
                         </table>
                     </div>
                 </div>
-                <div class="well" th:unless="${!departments.isEmpty()}">
-                    There is no Department yet! Complete the form to create.
-                </div>
             </div>
+
         </div>
 
     </div>
-</div>
+
 </div>
 
 

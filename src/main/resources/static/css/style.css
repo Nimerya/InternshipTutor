@@ -35,16 +35,7 @@ body a:hover{
 	text-decoration:none;
 }
 
-.btn.btn-square {
-    border-radius: 0;
-}
-.squared{
-    border-radius: 0!important;
-}
-.my-small-alert{
-    padding: 9px!important;
-    margin-bottom: 0px!important;
-}
+
 /*-- header-top --*/
 .header-top{
 	background: #10c7bf;

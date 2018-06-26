@@ -11,4 +11,7 @@ public interface IDegreeService {
 
     <S extends Degree> S save(S degree);
 
+    void deleteDegreeById(Long id);
+
+
 }
