@@ -1,0 +1,226 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create a new User</title>
+    <!-- head -->
+    <meta th:replace="fragments/head :: head">
+    <!-- head -->
+    <!-- head_scripts -->
+    <meta th:replace="fragments/head_scripts :: head_scripts">
+    <!-- head_scripts -->
+</head>
+<body>
+
+
+
+<!-- header -->
+<div th:replace="fragments/header :: header"></div>
+<!-- header -->
+
+<div class="codes about">
+    <div class="container">
+        <div id="forms" class="grid_3 grid_4">
+            <div class="col-md-6">
+                <h3 class="w3ls-hdg">Create a new User</h3>
+                <div class="tab-content">
+                    <div class="tab-pane active">
+                        <form method="POST" th:action="@{/create/user}" th:object="${user}"
+                              class="form-horizontal">
+
+                            <!-- email -->
+                            <div class="form-group">
+
+
+                                <!-- label -->
+                                <label for="email" class="col-sm-3 control-label">Email</label>
+                                <!-- input -->
+                                <div class="col-sm-9">
+                                    <input th:field="*{email}" type="email" class="form-control1" id="email"
+                                           placeholder="Insert email" disabled="disabled">
+                                </div>
+
+                                <!-- error box -->
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <div class="alert alert-danger squared my-small-alert"
+                                         role="alert"
+                                         th:if="${#fields.hasErrors('email')}"
+                                         th:errors="*{email}">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- password -->
+                            <div class="form-group">
+
+
+                                <!-- label -->
+                                <label for="password" class="col-sm-3 control-label">Password</label>
+                                <!-- input -->
+                                <div class="col-sm-9">
+                                    <input th:field="*{password}" type="password" class="form-control1" id="password"
+                                           placeholder="Insert password" disabled="disabled">
+                                </div>
+
+
+                                <!-- error box -->
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <div class="alert alert-danger squared my-small-alert"
+                                         role="alert"
+                                         th:if="${#fields.hasErrors('password')}"
+                                         th:errors="*{password}">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- first name -->
+                            <div class="form-group">
+
+
+                                <!-- label -->
+                                <label for="firstName" class="col-sm-3 control-label">First Name</label>
+                                <!-- input -->
+                                <div class="col-sm-9">
+                                    <input th:field="*{firstName}" type="text" class="form-control1" id="firstName"
+                                           placeholder="Insert First Name">
+                                </div>
+
+
+                                <!-- error box -->
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <div class="alert alert-danger squared my-small-alert"
+                                         role="alert"
+                                         th:if="${#fields.hasErrors('firstName')}"
+                                         th:errors="*{firstName}">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- last name -->
+                            <div class="form-group">
+
+
+                                <!-- label -->
+                                <label for="lastName" class="col-sm-3 control-label">Last Name</label>
+                                <!-- input -->
+                                <div class="col-sm-9">
+                                    <input th:field="*{lastName}" type="text" class="form-control1" id="lastName"
+                                           placeholder="Insert Last Name">
+                                </div>
+
+                                <!-- error box -->
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <div class="alert alert-danger squared my-small-alert"
+                                         role="alert"
+                                         th:if="${#fields.hasErrors('lastName')}"
+                                         th:errors="*{lastName}">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- phone number -->
+                            <div class="form-group">
+
+
+                                <!-- label -->
+                                <label for="lastName" class="col-sm-3 control-label">Phone Number</label>
+                                <!-- input -->
+                                <div class="col-sm-9">
+                                    <input th:field="*{phoneNumber}" type="text" class="form-control1" id="phoneNumber"
+                                           placeholder="Insert Phone Number">
+                                </div>
+
+                                <!-- error box -->
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <div class="alert alert-danger squared my-small-alert"
+                                         role="alert"
+                                         th:if="${#fields.hasErrors('phoneNumber')}"
+                                         th:errors="*{phoneNumber}">
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <!-- submit -->
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <input type="submit" class="btn btn-info btn-block squared btn-lg"
+                                           value="Update"/>
+                                </div>
+                            </div>
+
+
+                        </form>
+
+                        <form method="POST" th:action="@{'/delete/user/'+${user.getId()}}"
+                              class="form-horizontal">
+                            <!-- submit -->
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <input type="submit" class="btn btn-danger btn-block squared btn-lg"
+                                           value="Delete"/>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h3 class="w3ls-hdg">User's List</h3>
+                <div th:if="${!users.isEmpty()}" class="tab-content">
+                    <table class="table-hover table table-bordered squared no-margin-bottom">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th class="w-20 text-right">Action</th>
+                        </tr>
+                        </thead>
+                    </table>
+                    <div class="tab-pane active scrollable" id="horizontal-form">
+
+                        <table class="table-hover table table-bordered squared">
+
+                            <tbody>
+                            <tr th:each="user : ${users}">
+                                <td th:text="${user.getEmail()}">
+                                </td>
+                                <td class="w-20 text-right">
+                                    <a th:href="@{'/update/user/'+${user.getId()}}"
+                                       class="btn-default-border btn-xs squared">
+                                        <i class="fa fa-edit">
+                                        </i>
+                                        Edit
+                                    </a>
+
+                                </td>
+                            </tr>
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+                <div class="well" th:unless="${!users.isEmpty()}">
+                    There are no Users yet!
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<!-- footer -->
+<div th:replace="fragments/footer"></div>
+<!-- footer -->
+<!-- footer_scripts -->
+<div th:replace="fragments/footer_scripts"></div>
+<!-- footer_scripts -->
+
+</body>
+</html>

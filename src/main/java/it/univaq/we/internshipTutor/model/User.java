@@ -26,9 +26,12 @@ public class User {
     private Student company;
 
     @Column(name = "email", nullable = false, length = 255)
-    @Email(message = "*Please provide a valid Email")
-    @NotEmpty(message = "*Please provide an email")
+    @Email()
+    @NotEmpty()
     private String email;
+
+    @Column(name = "image", nullable = true, length = 255)
+    private String image;
 
     @Column(name = "password", nullable = false, length = 255)
     private String password;
@@ -110,6 +113,13 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public UUID getUuid() {
         return uuid;

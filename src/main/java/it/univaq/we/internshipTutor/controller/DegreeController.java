@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
@@ -109,9 +108,9 @@ public class DegreeController {
     @RequestMapping(value={"/update/degree/{id}"}, method = RequestMethod.GET)
     public String renderUpdate(ModelMap model, @PathVariable(value = "id") Long id) {
 
-        Degree d = degreeService.findDegreeById(id);
 
         if(!model.containsAttribute("degree")){
+            Degree d = degreeService.findDegreeById(id);
             model.addAttribute("degree", d);
         }
 

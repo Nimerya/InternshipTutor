@@ -11,5 +11,6 @@ public interface IUserService {
 
     <S extends User> S save(S user);
 
+    void deleteUserById(Long id);
 
 }

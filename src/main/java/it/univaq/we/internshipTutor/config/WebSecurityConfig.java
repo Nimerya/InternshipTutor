@@ -15,48 +15,49 @@ import javax.sql.DataSource;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    /*
+
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Autowired
-    private DataSource dataSource;
+    /*
+        @Autowired
+        private DataSource dataSource;
 
-    // TODO fix queries
-    @Value("${spring.queries.users-query}")
-    private String usersQuery;
+        // TODO fix queries
+        @Value("${spring.queries.users-query}")
+        private String usersQuery;
 
-    @Value("${spring.queries.roles-query}")
-    private String rolesQuery;
+        @Value("${spring.queries.roles-query}")
+        private String rolesQuery;
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.
-                jdbcAuthentication()
-                .usersByUsernameQuery(usersQuery)
-                .authoritiesByUsernameQuery(rolesQuery)
-                .dataSource(dataSource)
-                .passwordEncoder(bCryptPasswordEncoder);
-    }
-    */
+        @Override
+        protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+            auth.
+                    jdbcAuthentication()
+                    .usersByUsernameQuery(usersQuery)
+                    .authoritiesByUsernameQuery(rolesQuery)
+                    .dataSource(dataSource)
+                    .passwordEncoder(bCryptPasswordEncoder);
+        }
+        */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/", "/index", "/error").permitAll()
-                    .anyRequest().authenticated()
-                    .and()
+                .antMatchers("/", "/index", "/error").permitAll()
+                .anyRequest().authenticated()
+                .and()
                 /*.authorizeRequests()
                     .antMatchers("/create/**")
                     .hasRole("ADMIN")
                     .and()*/
                 .formLogin()
-                    .loginPage("/login")
-                    .permitAll()
-                    .and()
+                .loginPage("/login")
+                .permitAll()
+                .and()
                 .logout()
-                    .permitAll()
-                    .and()
+                .permitAll()
+                .and()
                 .exceptionHandling().accessDeniedPage("/error");
     }
 
