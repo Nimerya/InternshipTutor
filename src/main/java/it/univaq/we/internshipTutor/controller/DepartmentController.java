@@ -29,6 +29,9 @@ public class DepartmentController {
             // redirect to the form displaying the errors
             // add error message in the model as flash attribute
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong. Try Again!"));
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.department", result);
+            redirectAttributes.addFlashAttribute("department", department);
+
             return "redirect:/create/department";
         }
 
@@ -50,6 +53,8 @@ public class DepartmentController {
             // if there are errors during the binding (e.g. NotNull, Min, etc.)
             // redirect to the form displaying the errors
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong. Try Again!"));
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.department", result);
+            redirectAttributes.addFlashAttribute("department", department);
             return "redirect:/update/department/" + department.getId();
         }
 
@@ -85,7 +90,9 @@ public class DepartmentController {
     @RequestMapping(value={"/create/department"}, method = RequestMethod.GET)
     public String renderCreate(ModelMap model) {
 
-        model.addAttribute("department", new Department(UUID.randomUUID()));
+        if(!model.containsAttribute("department")){
+            model.addAttribute("department", new Department(UUID.randomUUID()));
+        }
         List<Department> departments = departmentService.findAll();
         model.addAttribute("departments", departments);
         return "department_create";
@@ -96,7 +103,10 @@ public class DepartmentController {
     public String renderUpdate(ModelMap model, @PathVariable(value = "id") Long id) {
 
         Department d = departmentService.findDepartmentById(id);
-        model.addAttribute("department", d);
+
+        if(!model.containsAttribute("department")){
+            model.addAttribute("department", d);
+        }
 
         List<Department> departments = departmentService.findAll();
         model.addAttribute("departments", departments);

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -29,103 +30,96 @@ public class DegreeController {
     DepartmentService departmentService;
 
     @RequestMapping(value={"/create/degree"}, method = RequestMethod.POST)
-    public String doCreate(@Valid @ModelAttribute("degree") Degree degree, BindingResult result, HttpSession httpSession, ModelMap model) {
+    public String doCreate(@Valid @ModelAttribute("degree") Degree degree, BindingResult result, RedirectAttributes redirectAttributes) {
 
-        if (result.hasErrors()) {
+        if(result.hasErrors()) {
             // if there are errors during the binding (e.g. NotNull, Min, etc.)
             // redirect to the form displaying the errors
-            List<Degree> degrees = degreeService.findAll();
-            model.addAttribute("degrees", degrees);
-
-            List<Department> departments = departmentService.findAll();
-            model.addAttribute("departments", departments);
-
-            model.addAttribute("popup", new Popup("WARNING"));
-            return "degree_create";
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong. Try Again!"));
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.degree", result);
+            redirectAttributes.addFlashAttribute("degree", degree);
+            return "redirect:/create/degree";
         }
 
         // else perform the insertion
         degreeService.save(degree);
 
-        httpSession.setAttribute("popup", new Popup());
+        // add success message in the model
+        redirectAttributes.addFlashAttribute("popup", new Popup("success", "Operation Completed Successfully!"));
 
         return "redirect:/create/degree";
     }
 
     @RequestMapping(value={"/update/degree"}, method = RequestMethod.POST)
-    public String doUpdate(@Valid @ModelAttribute("degree") Degree degree, BindingResult result, ModelMap model, HttpSession httpSession) {
+    public String doUpdate(@Valid @ModelAttribute("degree") Degree degree, BindingResult result, RedirectAttributes redirectAttributes) {
 
-        if (result.hasErrors()) {
+        if(result.hasErrors()) {
             // if there are errors during the binding (e.g. NotNull, Min, etc.)
             // redirect to the form displaying the errors
-
-            List<Degree> degrees = degreeService.findAll();
-            model.addAttribute("degrees", degrees);
-
-            List<Department> departments = departmentService.findAll();
-            model.addAttribute("departments", departments);
-
-            model.addAttribute("popup", new Popup("WARNING"));
-            return "degree_update";
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong. Try Again!"));
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.degree", result);
+            redirectAttributes.addFlashAttribute("degree", degree);
+            return "redirect:/update/degree/" + degree.getId();
         }
 
-        // else perform the update
+        // else perform the insertion
         degreeService.save(degree);
 
-        httpSession.setAttribute("popup", new Popup());
+        // add success message in the model
+        redirectAttributes.addFlashAttribute("popup", new Popup("success", "Operation Completed Successfully!"));
+
         return "redirect:/update/degree/" + degree.getId();
     }
 
     @RequestMapping(value={"/delete/degree/{id}"}, method = RequestMethod.POST)
-    public String doDelete(ModelMap model, @PathVariable(value = "id") Long id, HttpSession httpSession) {
+    public String doDelete(ModelMap model, @PathVariable(value = "id") Long id, RedirectAttributes redirectAttributes) {
 
         if (id == null || id < 0) {
-            model.addAttribute("popup", new Popup("ERROR", "id"));
-
             // if there are errors during the binding (e.g. NotNull, Min, etc.)
             // redirect to the form displaying the errors
-            return "degree_update";
+            // add error message in the model
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong. Try Again!"));
+            return "redirect:/update/degree/" + id;
         }
 
         // else perform the remove
         degreeService.deleteDegreeById(id);
 
-        httpSession.setAttribute("popup", new Popup());
+        // add success message in the model
+        redirectAttributes.addFlashAttribute("popup", new Popup("success", "Operation Completed Successfully!"));
         return "redirect:/create/degree";
     }
 
 
     @RequestMapping(value={"/create/degree"}, method = RequestMethod.GET)
-    public String renderCreate(ModelMap model, HttpSession httpSession) {
+    public String renderCreate(ModelMap model) {
 
-        model.addAttribute("degree", new Degree(UUID.randomUUID()));
+        if(!model.containsAttribute("degree")){
+            model.addAttribute("degree", new Degree(UUID.randomUUID()));
+        }
 
         List<Degree> degrees = degreeService.findAll();
         model.addAttribute("degrees", degrees);
-
         List<Department> departments = departmentService.findAll();
         model.addAttribute("departments", departments);
-
-        model.addAttribute("popup", httpSession.getAttribute("popup"));
-        httpSession.removeAttribute("popup");
 
         return "degree_create";
     }
 
     @RequestMapping(value={"/update/degree/{id}"}, method = RequestMethod.GET)
-    public String renderUpdate(ModelMap model, @PathVariable(value = "id") Long id, HttpSession httpSession) {
+    public String renderUpdate(ModelMap model, @PathVariable(value = "id") Long id) {
 
         Degree d = degreeService.findDegreeById(id);
-        model.addAttribute("degree", d);
+
+        if(!model.containsAttribute("degree")){
+            model.addAttribute("degree", d);
+        }
 
         List<Degree> degrees = degreeService.findAll();
         model.addAttribute("degrees", degrees);
 
         List<Department> departments = departmentService.findAll();
         model.addAttribute("departments", departments);
-
-        model.addAttribute("popup", httpSession.getAttribute("popup"));
-        httpSession.removeAttribute("popup");
 
         return "degree_update";
     }
