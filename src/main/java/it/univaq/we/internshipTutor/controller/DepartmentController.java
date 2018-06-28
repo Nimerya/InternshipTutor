@@ -28,8 +28,7 @@ public class DepartmentController {
             // if there are errors during the binding (e.g. NotNull, Min, etc.)
             // redirect to the form displaying the errors
             // add error message in the model as flash attribute
-            redirectAttributes.addFlashAttribute("message", "Something Went Wrong, Try Again!");
-            redirectAttributes.addFlashAttribute("type", "warning");
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong. Try Again!"));
             return "redirect:/create/department";
         }
 
@@ -37,8 +36,7 @@ public class DepartmentController {
         departmentService.save(department);
 
         // add success message in the model as flash attribute
-        redirectAttributes.addFlashAttribute("message", "Created Successfully!");
-        redirectAttributes.addFlashAttribute("type", "success");
+        redirectAttributes.addFlashAttribute("popup", new Popup("success", "Operation Completed Successfully!"));
 
         // render Create form
         return "redirect:/create/department";
@@ -51,8 +49,7 @@ public class DepartmentController {
         if (result.hasErrors()) {
             // if there are errors during the binding (e.g. NotNull, Min, etc.)
             // redirect to the form displaying the errors
-            redirectAttributes.addFlashAttribute("message", "Something Went Wrong. Try Again!");
-            redirectAttributes.addFlashAttribute("type", "warning");
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong. Try Again!"));
             return "redirect:/update/department/" + department.getId();
         }
 
@@ -60,9 +57,7 @@ public class DepartmentController {
         departmentService.save(department);
 
         // add success message in the model
-        redirectAttributes.addFlashAttribute("message", "Updated Successfully");
-        redirectAttributes.addFlashAttribute("type", "success");
-
+        redirectAttributes.addFlashAttribute("popup", new Popup("success", "Operation Completed Successfully!"));
         // render Update form
         return "redirect:/update/department/" + department.getId();
     }
@@ -74,8 +69,7 @@ public class DepartmentController {
             // if there are errors during the binding (e.g. NotNull, Min, etc.)
             // redirect to the form displaying the errors
             // add error message in the model
-            redirectAttributes.addFlashAttribute("message", "Something Went Wrong, Try Again!");
-            redirectAttributes.addFlashAttribute("type", "warning");
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong. Try Again!"));
             return "redirect:/update/department/" + id;
         }
 
@@ -83,8 +77,7 @@ public class DepartmentController {
         departmentService.deleteDepartmentById(id);
 
         // add success message in the model
-        redirectAttributes.addFlashAttribute("message", "Deleted Successfully");
-        redirectAttributes.addFlashAttribute("type", "success");
+        redirectAttributes.addFlashAttribute("popup", new Popup("success", "Operation Completed Successfully!"));
         return "redirect:/create/department";
     }
 
@@ -95,21 +88,18 @@ public class DepartmentController {
         model.addAttribute("department", new Department(UUID.randomUUID()));
         List<Department> departments = departmentService.findAll();
         model.addAttribute("departments", departments);
-        return "department:create";
+        return "department_create";
     }
 
 
     @RequestMapping(value={"/update/department/{id}"}, method = RequestMethod.GET)
-    public String renderUpdate(ModelMap model, @PathVariable(value = "id") Long id, HttpSession httpSession) {
+    public String renderUpdate(ModelMap model, @PathVariable(value = "id") Long id) {
 
         Department d = departmentService.findDepartmentById(id);
         model.addAttribute("department", d);
 
         List<Department> departments = departmentService.findAll();
         model.addAttribute("departments", departments);
-
-        model.addAttribute("popup", httpSession.getAttribute("popup"));
-        httpSession.removeAttribute("popup");
 
         return "department_update";
     }
