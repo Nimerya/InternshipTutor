@@ -22,33 +22,27 @@ public class FileUploadService {
     private String docsPath;
 
 
-    public String uploadImage(MultipartFile image, String fileName){
+    public String uploadImage(MultipartFile image, String fileName) throws Exception{
 
-        System.out.println("kjgcjcgjc"+imagesPath);
+        System.out.println("kjgcjcgjc" + imagesPath);
 
-        if(image != null && image.getSize() > 0){
-            try {
-                InputStream is = image.getInputStream();
-                // image format check
-                if (ImageIO.read(is) != null){
-                    is.close();
+        if (image != null && image.getSize() > 0) {
 
-                    InputStream is2 = image.getInputStream();
-                    File savedImage = File.createTempFile(fileName, "", new File(imagesPath));
-                    Files.copy(is2, savedImage.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            InputStream is = image.getInputStream();
+            // image format check
+            if (ImageIO.read(is) != null) {
+                is.close();
 
-                    return savedImage.getName();
-                }else{
-                    return "default.png";
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                return "default.png";
+                InputStream is2 = image.getInputStream();
+                File savedImage = File.createTempFile(fileName, "", new File(imagesPath));
+                Files.copy(is2, savedImage.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+                return savedImage.getName();
+            } else {
+                throw new Exception("uploaded file is not an image");
             }
-        }else{
+        } else {
             return "default.png";
         }
-
     }
-
 }

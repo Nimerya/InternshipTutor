@@ -48,7 +48,13 @@ public class UserController {
         }
 
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setImage(fileUploadService.uploadImage(imageFile, user.getFirstName()+"_"+user.getLastName()));
+
+        try{
+            user.setImage(fileUploadService.uploadImage(imageFile, user.getFirstName()+"_"+user.getLastName()));
+        }catch (Exception e){
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong! Check the image you have selected"));
+            return "redirect:/create/user";
+        }
 
         // else perform the insertion
         userService.save(user);
@@ -74,8 +80,14 @@ public class UserController {
             return "redirect:/update/user/" + user.getId();
         }
 
-
-        user.setImage(fileUploadService.uploadImage(image, user.getFirstName()+"_"+user.getLastName()));
+        try{
+            user.setImage(fileUploadService.uploadImage(image, user.getFirstName()+"_"+user.getLastName()));
+        }catch (Exception e){
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong! Check the image you have selected"));
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.user", result);
+            redirectAttributes.addFlashAttribute("user", user);
+            return "redirect:/update/user/" + user.getId();
+        }
 
         // else perform the insertion
         userService.save(user);
