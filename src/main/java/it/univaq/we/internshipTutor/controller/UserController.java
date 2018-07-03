@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import static it.univaq.we.internshipTutor.model.Popup.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -41,7 +42,7 @@ public class UserController {
         if (result.hasErrors()) {
             // if there are errors during the binding (e.g. NotNull, Min, etc.)
             // redirect to the form displaying the errors
-            redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong. Try Again!"));
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.user", result);
             redirectAttributes.addFlashAttribute("user", user);
             return "redirect:/create/user";
@@ -52,12 +53,19 @@ public class UserController {
         try{
             user.setImage(fileUploadService.uploadImage(imageFile, user.getFirstName()+"_"+user.getLastName()));
         }catch (Exception e){
-            redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong! Check the image you have selected"));
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong! Check the image you have uploaded"));
             return "redirect:/create/user";
         }
 
-        // else perform the insertion
-        userService.save(user);
+        try{
+            // else perform the insertion
+            userService.save(user);
+        }catch (Exception e){
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
+            return "redirect:/create/user";
+        }
 
         // add success message in the model
         redirectAttributes.addFlashAttribute("popup", new Popup("success", "Operation Completed Successfully!"));
@@ -69,31 +77,41 @@ public class UserController {
     public String doUpdate(@Valid @ModelAttribute("user") User user,
                            BindingResult result,
                            RedirectAttributes redirectAttributes,
-                           @RequestParam("image")MultipartFile image) {
+                           @RequestParam("imageFile")MultipartFile imageFile) {
 
         if (result.hasErrors()) {
             // if there are errors during the binding (e.g. NotNull, Min, etc.)
             // redirect to the form displaying the errors
-            redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong. Try Again!"));
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.user", result);
             redirectAttributes.addFlashAttribute("user", user);
             return "redirect:/update/user/" + user.getId();
         }
 
         try{
-            user.setImage(fileUploadService.uploadImage(image, user.getFirstName()+"_"+user.getLastName()));
+            user.setImage(fileUploadService.uploadImage(imageFile, user.getFirstName()+"_"+user.getLastName()));
         }catch (Exception e){
+            e.printStackTrace();
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong! Check the image you have selected"));
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.user", result);
             redirectAttributes.addFlashAttribute("user", user);
             return "redirect:/update/user/" + user.getId();
         }
 
-        // else perform the insertion
-        userService.save(user);
+        try{
+            // otherwise the password will be emptied
+            String oldPassword = userService.findUserById(user.getId()).getPassword();
+            user.setPassword(oldPassword);
+
+            userService.save(user);
+        }catch (Exception e){
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
+            return "redirect:/update/user/" + user.getId();
+        }
 
         // add success message in the model
-        redirectAttributes.addFlashAttribute("popup", new Popup("success", "Operation Completed Successfully!"));
+        redirectAttributes.addFlashAttribute("popup", new Popup());
 
         return "redirect:/update/user/" + user.getId();
     }
@@ -105,15 +123,21 @@ public class UserController {
             // if there are errors during the binding (e.g. NotNull, Min, etc.)
             // redirect to the form displaying the errors
             // add error message in the model
-            redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong. Try Again!"));
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
             return "redirect:/update/user/" + id;
         }
 
-        // else perform the remove
-        userService.deleteUserById(id);
+        try{
+            // else perform the insertion
+            userService.deleteUserById(id);
+        }catch (Exception e){
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
+            return "redirect:/create/user";
+        }
 
         // add success message in the model
-        redirectAttributes.addFlashAttribute("popup", new Popup("success", "Operation Completed Successfully!"));
+        redirectAttributes.addFlashAttribute("popup", new Popup());
         return "redirect:/create/user";
     }
 
@@ -136,8 +160,8 @@ public class UserController {
 
 
         if (!model.containsAttribute("user")) {
-            User d = userService.findUserById(id);
-            model.addAttribute("user", d);
+            User u = userService.findUserById(id);
+            model.addAttribute("user", u);
         }
 
         List<User> users = userService.findAll();

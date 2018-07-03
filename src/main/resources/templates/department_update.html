@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Create a new Department</title>
+    <title>Update Department</title>
     <!-- head -->
     <meta th:replace="fragments/head :: head">
     <!-- head -->
@@ -19,7 +19,7 @@
     <div class="container">
         <div id="forms" class="grid_3 grid_4">
             <div class="col-md-6">
-                <h3 class="w3ls-hdg">Edit Department</h3>
+                <h3 class="w3ls-hdg">Update Department</h3>
                 <div class="tab-content">
                     <div class="tab-pane active">
                         <form method="POST" th:action="@{/update/department}" th:object="${department}"
@@ -58,7 +58,7 @@
                             <div class="form-group">
                                 <label for="descriptionItIt" class="col-sm-3 control-label">Desc. (IT)</label>
                                 <div class="col-sm-9">
-                                    <textarea th:field="*{descriptionItIt}" class="form-control1" id="descriptionItIt" placeholder="Insert italian description"></textarea>
+                                    <textarea rows="3" th:field="*{descriptionItIt}" class="form-control1 textarea-long" id="descriptionItIt" placeholder="Insert italian description"></textarea>
                                 </div>
                             </div>
 
@@ -66,7 +66,7 @@
                             <div class="form-group">
                                 <label for="descriptionEnGb" class="col-sm-3 control-label">Desc. (EN)</label>
                                 <div class="col-sm-9">
-                                    <textarea th:field="*{descriptionEnGb}" class="form-control1" id="descriptionEnGb" placeholder="Insert english description"></textarea>
+                                    <textarea rows="3" th:field="*{descriptionEnGb}" class="form-control1 textarea-long" id="descriptionEnGb" placeholder="Insert english description"></textarea>
                                 </div>
                             </div>
 

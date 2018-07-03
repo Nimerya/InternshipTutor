@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import static it.univaq.we.internshipTutor.model.Popup.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -34,17 +35,23 @@ public class DegreeController {
         if(result.hasErrors()) {
             // if there are errors during the binding (e.g. NotNull, Min, etc.)
             // redirect to the form displaying the errors
-            redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong. Try Again!"));
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.degree", result);
             redirectAttributes.addFlashAttribute("degree", degree);
             return "redirect:/create/degree";
         }
 
-        // else perform the insertion
-        degreeService.save(degree);
+        try{
+            // else perform the insertion
+            degreeService.save(degree);
+        }catch (Exception e){
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
+            return "redirect:/create/degree";
+        }
+
 
         // add success message in the model
-        redirectAttributes.addFlashAttribute("popup", new Popup("success", "Operation Completed Successfully!"));
+        redirectAttributes.addFlashAttribute("popup", new Popup());
 
         return "redirect:/create/degree";
     }
@@ -55,7 +62,7 @@ public class DegreeController {
         if(result.hasErrors()) {
             // if there are errors during the binding (e.g. NotNull, Min, etc.)
             // redirect to the form displaying the errors
-            redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong. Try Again!"));
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.degree", result);
             redirectAttributes.addFlashAttribute("degree", degree);
             return "redirect:/update/degree/" + degree.getId();
@@ -65,7 +72,7 @@ public class DegreeController {
         degreeService.save(degree);
 
         // add success message in the model
-        redirectAttributes.addFlashAttribute("popup", new Popup("success", "Operation Completed Successfully!"));
+        redirectAttributes.addFlashAttribute("popup", new Popup());
 
         return "redirect:/update/degree/" + degree.getId();
     }
@@ -77,7 +84,7 @@ public class DegreeController {
             // if there are errors during the binding (e.g. NotNull, Min, etc.)
             // redirect to the form displaying the errors
             // add error message in the model
-            redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong. Try Again!"));
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
             return "redirect:/update/degree/" + id;
         }
 
@@ -85,7 +92,7 @@ public class DegreeController {
         degreeService.deleteDegreeById(id);
 
         // add success message in the model
-        redirectAttributes.addFlashAttribute("popup", new Popup("success", "Operation Completed Successfully!"));
+        redirectAttributes.addFlashAttribute("popup", new Popup());
         return "redirect:/create/degree";
     }
 

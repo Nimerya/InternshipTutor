@@ -12,7 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
 @Service
-public class FileUploadService {
+public class FileUploadService implements IFileUploadService {
 
 
     @Value("${spring.file.path.images}")
@@ -22,9 +22,8 @@ public class FileUploadService {
     private String docsPath;
 
 
+    @Override
     public String uploadImage(MultipartFile image, String fileName) throws Exception{
-
-        System.out.println("kjgcjcgjc" + imagesPath);
 
         if (image != null && image.getSize() > 0) {
 
@@ -42,7 +41,7 @@ public class FileUploadService {
                 throw new Exception("uploaded file is not an image");
             }
         } else {
-            return "default.png";
+            return "default.jpg";
         }
     }
 }

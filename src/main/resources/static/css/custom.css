@@ -38,3 +38,16 @@
     margin-bottom: 0!important;
 }
 
+.textarea-long{
+    height: auto!important;
+}
+
+.form-image{
+    height: 198px;
+    width: 198px;
+}
+
+.file-upload{
+    padding-top: 9px!important;
+}
+

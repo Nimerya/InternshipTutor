@@ -13,14 +13,14 @@ public class Popup {
 
     private static final String CODE = "";
 
-    private static final String ERR_MSG_IT = "Non è stato possibile completare l'operazione!";
-    private static final String ERR_MSG_EN = "The operation cannot be completed!";
+    public static final String ERR_MSG_IT = "Non è stato possibile completare l'operazione!";
+    public static final String ERR_MSG_EN = "The operation cannot be completed!";
 
-    private static final String WAR_MSG_IT = "Qualcosa è andato storto!";
-    private static final String WAR_MSG_EN = "Something went wrong!";
+    public static final String WAR_MSG_IT = "Qualcosa è andato storto!";
+    public static final String WAR_MSG_EN = "Something went wrong!";
 
-    private static final String SUCC_MSG_IT = "Operazione eseguita con successo!";
-    private static final String SUCC_MSG_EN = "Operation completed!";
+    public static final String SUCC_MSG_IT = "Operazione eseguita con successo!";
+    public static final String SUCC_MSG_EN = "Operation completed successfully!";
 
 
     public Popup(){

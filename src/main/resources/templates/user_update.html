@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Create a new User</title>
+    <title>Update User</title>
     <!-- head -->
     <meta th:replace="fragments/head :: head">
     <!-- head -->
@@ -21,11 +21,16 @@
     <div class="container">
         <div id="forms" class="grid_3 grid_4">
             <div class="col-md-6">
-                <h3 class="w3ls-hdg">Create a new User</h3>
+                <h3 class="w3ls-hdg">Update User</h3>
                 <div class="tab-content">
                     <div class="tab-pane active">
-                        <form method="POST" th:action="@{/create/user}" th:object="${user}"
+                        <form method="POST"
+                              th:action="@{/update/user}"
+                              th:object="${user}"
+                              enctype="multipart/form-data"
                               class="form-horizontal">
+
+                            <input th:field="*{id}" type="hidden" id="id">
 
                             <!-- email -->
                             <div class="form-group">
@@ -35,8 +40,10 @@
                                 <label for="email" class="col-sm-3 control-label">Email</label>
                                 <!-- input -->
                                 <div class="col-sm-9">
-                                    <input th:field="*{email}" type="email" class="form-control1" id="email"
-                                           placeholder="Insert email" disabled="disabled">
+                                    <input th:field="*{email}" type="email"
+                                           class="form-control1"
+                                           id="email"
+                                           readonly="readonly">
                                 </div>
 
                                 <!-- error box -->
@@ -58,8 +65,9 @@
                                 <label for="password" class="col-sm-3 control-label">Password</label>
                                 <!-- input -->
                                 <div class="col-sm-9">
-                                    <input th:field="*{password}" type="password" class="form-control1" id="password"
-                                           placeholder="Insert password" disabled="disabled">
+                                    <input type="password" class="form-control1" id="password"
+                                           placeholder="************"
+                                           readonly="readonly">
                                 </div>
 
 
@@ -144,6 +152,44 @@
 
                             </div>
 
+
+                            <!-- current image -->
+                            <div class="form-group">
+
+
+                                <!-- label -->
+                                <label for="image" class="col-sm-3 control-label">Current Image</label>
+                                <!-- input -->
+                                <div class="col-sm-9">
+                                    <!-- TODO fix image path -->
+                                    <img th:src="'/internshiptutor/images/' + *{image}" src="/static/images/default.jpg" class="form-image"/>
+                                    <input type="hidden" th:field="*{image}" name="image" id="image">
+                                </div>
+
+                            </div>
+
+                            <!-- new image -->
+                            <div class="form-group">
+
+
+                                <!-- label -->
+                                <label for="imageFile" class="col-sm-3 control-label">Image</label>
+                                <!-- input -->
+                                <div class="col-sm-9">
+                                    <input  type="file" class="form-control1 file-upload" id="imageFile" name="imageFile"
+                                            placeholder="Upload an image">
+                                </div>
+
+                                <!-- error box -->
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <div class="alert alert-danger squared my-small-alert"
+                                         role="alert"
+                                         th:if="${#fields.hasErrors('image')}"
+                                         th:errors="*{image}">
+                                    </div>
+                                </div>
+
+                            </div>
 
                             <!-- submit -->
                             <div class="form-group">
