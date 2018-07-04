@@ -51,3 +51,40 @@
     padding-top: 9px!important;
 }
 
+.table-fixed {
+    width: 100%;
+    border: 0!important;
+    /*background-color: #f3f3f3;*/
+}
+.table-fixed tbody {
+    height: 350px;
+    overflow-y: auto;
+    width: 100%;
+}
+.table-fixed thead, .table-fixed tbody, .table-fixed tr, .table-fixed td, .table-fixed th {
+    display: block;
+}
+
+.table-fixed thead{
+    border-top: 1px solid #10B4AC!important;
+}
+
+.table-fixed thead tr th{
+    background-color: #10B4AC;
+    border-color: #10B4AC;
+    color: #fff;
+}
+
+.table-fixed tbody{
+    border: 0!important;
+}
+
+.table-fixed tbody td {
+    float: left;
+}
+.table-fixed thead tr th {
+    float: left;
+}
+
+
+

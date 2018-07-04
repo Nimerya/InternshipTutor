@@ -65,7 +65,7 @@
                                 <label for="password" class="col-sm-3 control-label">Password</label>
                                 <!-- input -->
                                 <div class="col-sm-9">
-                                    <input type="password" class="form-control1" id="password"
+                                    <input type="password" class="form-control1"
                                            placeholder="************"
                                            readonly="readonly">
                                 </div>
@@ -161,8 +161,7 @@
                                 <label for="image" class="col-sm-3 control-label">Current Image</label>
                                 <!-- input -->
                                 <div class="col-sm-9">
-                                    <!-- TODO fix image path -->
-                                    <img th:src="'/internshiptutor/images/' + *{image}" src="/static/images/default.jpg" class="form-image"/>
+                                    <img th:src="@{'/files/images/' + *{image}}" src="/static/images/default.jpg" class="form-image"/>
                                     <input type="hidden" th:field="*{image}" name="image" id="image">
                                 </div>
 
@@ -216,42 +215,37 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <h3 class="w3ls-hdg">User's List</h3>
-                <div th:if="${!users.isEmpty()}" class="tab-content">
-                    <table class="table-hover table table-bordered squared no-margin-bottom">
+                <h3 class="w3ls-hdg">Users List</h3>
+                <div th:if="${!users.isEmpty()}">
+                    <!--<table class="table-hover table table-bordered squared table-fixed">-->
+                    <table class="table table-fixed table-bordered squared">
                         <thead>
                         <tr>
-                            <th>Name</th>
-                            <th class="w-20 text-right">Action</th>
+                            <th class="col-xs-9">Name</th>
+                            <th class="col-xs-3 text-right">Action</th>
                         </tr>
                         </thead>
+
+                        <tbody>
+                        <tr th:each="user : ${users}">
+                            <td th:text="${user.getEmail()}" class="col-xs-9">
+                            </td>
+                            <td class="col-xs-3 text-right">
+                                <a th:href="@{'/update/user/'+${user.getId()}}"
+                                   class="btn-default-border btn-xs squared">
+                                    <i class="fa fa-edit">
+                                    </i>
+                                    Edit
+                                </a>
+
+                            </td>
+                        </tr>
+
+                        </tbody>
                     </table>
-                    <div class="tab-pane active scrollable" id="horizontal-form">
-
-                        <table class="table-hover table table-bordered squared">
-
-                            <tbody>
-                            <tr th:each="user : ${users}">
-                                <td th:text="${user.getEmail()}">
-                                </td>
-                                <td class="w-20 text-right">
-                                    <a th:href="@{'/update/user/'+${user.getId()}}"
-                                       class="btn-default-border btn-xs squared">
-                                        <i class="fa fa-edit">
-                                        </i>
-                                        Edit
-                                    </a>
-
-                                </td>
-                            </tr>
-
-                            </tbody>
-
-                        </table>
+                    <div class="well" th:unless="${!users.isEmpty()}">
+                        There are no Users yet!
                     </div>
-                </div>
-                <div class="well" th:unless="${!users.isEmpty()}">
-                    There are no Users yet!
                 </div>
             </div>
         </div>
