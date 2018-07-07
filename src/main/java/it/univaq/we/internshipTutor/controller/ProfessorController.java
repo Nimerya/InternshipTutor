@@ -1,7 +1,9 @@
 package it.univaq.we.internshipTutor.controller;
 
+import it.univaq.we.internshipTutor.model.Department;
 import it.univaq.we.internshipTutor.model.Professor;
 import it.univaq.we.internshipTutor.model.Popup;
+import it.univaq.we.internshipTutor.service.DepartmentService;
 import it.univaq.we.internshipTutor.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,9 @@ public class ProfessorController {
 
     @Autowired
     ProfessorService professorService;
+
+    @Autowired
+    DepartmentService departmentService;
 
     @RequestMapping(value={"/create/professor"}, method = RequestMethod.POST)
     public String doCreate(@Valid @ModelAttribute("professor") Professor professor, BindingResult result, RedirectAttributes redirectAttributes) {
@@ -112,6 +117,8 @@ public class ProfessorController {
         List<Professor> professors = professorService.findAll();
         model.addAttribute("professors", professors);
 
+        List<Department> departments = departmentService.findAll();
+        model.addAttribute("departments", departments);
         return "professor_create";
     }
 
@@ -127,6 +134,9 @@ public class ProfessorController {
 
         List<Professor> professors = professorService.findAll();
         model.addAttribute("professors", professors);
+
+        List<Department> departments = departmentService.findAll();
+        model.addAttribute("departments", departments);
 
         return "professor_update";
     }
