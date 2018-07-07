@@ -26,4 +26,9 @@ public class InternshipService implements IInternshipService {
     public <S extends Internship>S save(S internship){
         return internshipRepository.save(internship);
     }
+
+    @Override
+    public void deleteInternshipById(Long id){
+        internshipRepository.deleteInternshipById(id);
+    }
 }

@@ -12,4 +12,6 @@ public interface CompanyRepository extends JpaRepository<Company, Long>{
     Company findCompanyById(Long id);
 
     <S extends Company> S save(S company);
+
+    void deleteCompanyById(Long id);
 }

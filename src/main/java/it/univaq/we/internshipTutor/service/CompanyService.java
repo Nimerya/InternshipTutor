@@ -25,5 +25,10 @@ public class CompanyService implements ICompanyService {
     public <S extends Company>S save(S company){
         return companyRepository.save(company);
     }
+
+    @Override
+    public void deleteCompanyById(Long id){
+        companyRepository.deleteCompanyById(id);
+    }
 }
 

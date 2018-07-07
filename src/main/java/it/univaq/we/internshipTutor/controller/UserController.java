@@ -1,11 +1,9 @@
 package it.univaq.we.internshipTutor.controller;
 
 import it.univaq.we.internshipTutor.model.User;
-import it.univaq.we.internshipTutor.model.Student;
 import it.univaq.we.internshipTutor.model.Popup;
 import it.univaq.we.internshipTutor.service.FileUploadService;
 import it.univaq.we.internshipTutor.service.UserService;
-import it.univaq.we.internshipTutor.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;

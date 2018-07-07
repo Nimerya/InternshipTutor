@@ -12,4 +12,6 @@ public interface ProfessorRepository extends JpaRepository<Professor, Long> {
     Professor findProfessorById(Long id);
 
     <S extends Professor> S save(S professor);
+
+    void deleteProfessorById(Long id);
 }

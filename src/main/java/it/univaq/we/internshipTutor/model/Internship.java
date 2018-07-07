@@ -1,6 +1,9 @@
 package it.univaq.we.internshipTutor.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -25,30 +28,38 @@ public class Internship {
     private List<StudentInternship> studentInternships;
 
     @Column(name = "title", nullable = false, length = 255)
+    @NotEmpty
     private String title;
 
     @Column(name = "address", nullable = false, length = 255)
+    @NotEmpty
     private String address;
 
     @Column(name = "city", nullable = false, length = 255)
+    @NotEmpty
     private String city;
 
     @Column(name = "province", nullable = false, length = 255)
+    @NotEmpty
     private String province;
 
     @Column(name = "state", nullable = false, length = 255)
+    @NotEmpty
     private String state;
 
     @Column(name = "remote", nullable = true)
-    private Byte remote;
+    private Boolean remote;
 
     @Column(name = "schedule", nullable = true, length = -1)
     private String schedule;
 
     @Column(name = "length", nullable = false)
+    @Min(1)
+    @Max(24)
     private int length;
 
     @Column(name = "mode_it_it", nullable = false, length = 255)
+    @NotEmpty
     private String modeItIt;
 
     @Column(name = "mode_en_gb", nullable = true, length = 255)
@@ -61,7 +72,7 @@ public class Internship {
     private String goalsEnGb;
 
     @Column(name = "refund", nullable = true)
-    private Byte refund;
+    private Boolean refund;
 
     @Column(name = "details_it_it", nullable = true, length = -1)
     private String detailsItIt;
@@ -73,7 +84,7 @@ public class Internship {
     private String facilitations;
 
     @Column(name = "active", nullable = true)
-    private Byte active;
+    private Boolean active;
 
     public Internship() {}
 
@@ -143,11 +154,11 @@ public class Internship {
         this.state = state;
     }
 
-    public Byte getRemote() {
+    public Boolean getRemote() {
         return remote;
     }
 
-    public void setRemote(Byte remote) {
+    public void setRemote(Boolean remote) {
         this.remote = remote;
     }
 
@@ -199,11 +210,11 @@ public class Internship {
         this.goalsEnGb = goalsEnGb;
     }
 
-    public Byte getRefund() {
+    public Boolean getRefund() {
         return refund;
     }
 
-    public void setRefund(Byte refund) {
+    public void setRefund(Boolean refund) {
         this.refund = refund;
     }
 
@@ -231,11 +242,11 @@ public class Internship {
         this.facilitations = facilitations;
     }
 
-    public Byte getActive() {
+    public Boolean getActive() {
         return active;
     }
 
-    public void setActive(Byte active) {
+    public void setActive(Boolean active) {
         this.active = active;
     }
 

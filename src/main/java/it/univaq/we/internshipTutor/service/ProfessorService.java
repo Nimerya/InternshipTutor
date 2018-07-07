@@ -25,4 +25,9 @@ public class ProfessorService implements IProfessorService {
     public <S extends Professor>S save(S professor){
         return professorRepository.save(professor);
     }
+
+    @Override
+    public void deleteProfessorById(Long id){
+        professorRepository.deleteProfessorById(id);
+    }
 }

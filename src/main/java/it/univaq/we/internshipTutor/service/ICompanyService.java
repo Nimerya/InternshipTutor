@@ -11,4 +11,6 @@ public interface ICompanyService {
     Company findCompanyById(Long id);
 
     <S extends Company> S save(S company);
+
+    void deleteCompanyById(Long id);
 }

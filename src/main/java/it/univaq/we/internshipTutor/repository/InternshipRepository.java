@@ -13,4 +13,7 @@ public interface InternshipRepository extends JpaRepository<Internship, Long> {
 
     <S extends Internship> S save(S internship);
 
+    void deleteInternshipById(Long id);
+
+
 }

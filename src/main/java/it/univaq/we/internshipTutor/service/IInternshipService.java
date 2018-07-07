@@ -11,5 +11,7 @@ public interface IInternshipService {
 
     <S extends Internship> S save(S internship);
 
+    void deleteInternshipById(Long id);
+
 
 }

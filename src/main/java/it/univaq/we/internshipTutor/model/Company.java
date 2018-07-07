@@ -1,6 +1,7 @@
 package it.univaq.we.internshipTutor.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,22 +21,25 @@ public class Company implements java.io.Serializable {
     private List<Internship> internships;
 
     @Column(name = "name", nullable = false, length = 255)
+    @NotEmpty
     private String name;
 
     @Column(name = "address", nullable = false, length = 255)
+    @NotEmpty
     private String address;
 
     @Column(name = "fiscal_code", nullable = true, length = 255)
-
     private String fiscalCode;
 
     @Column(name = "vat_number", nullable = true, length = 255)
     private String vatNumber;
 
     @Column(name = "attorney", nullable = false, length = 255)
+    @NotEmpty
     private String attorney;
 
     @Column(name = "jurisdiction", nullable = false, length = 255)
+    @NotEmpty
     private String jurisdiction;
 
     // constructor used by persistence
