@@ -42,6 +42,9 @@ public class Company implements java.io.Serializable {
     @NotEmpty
     private String jurisdiction;
 
+    @Column(name = "active", nullable = true)
+    private Boolean active;
+
     // constructor used by persistence
     public Company() {}
 
@@ -120,6 +123,14 @@ public class Company implements java.io.Serializable {
 
     public void setJurisdiction(String jurisdiction) {
         this.jurisdiction = jurisdiction;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     // https://stackoverflow.com/questions/5031614/the-jpa-hashcode-equals-dilemma

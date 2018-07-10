@@ -1,8 +1,9 @@
 package it.univaq.we.internshipTutor.controller;
 
-import it.univaq.we.internshipTutor.model.User;
-import it.univaq.we.internshipTutor.model.Popup;
+import it.univaq.we.internshipTutor.model.*;
+import it.univaq.we.internshipTutor.service.CompanyService;
 import it.univaq.we.internshipTutor.service.FileUploadService;
+import it.univaq.we.internshipTutor.service.StudentService;
 import it.univaq.we.internshipTutor.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -25,6 +26,15 @@ public class UserController {
     UserService userService;
 
     @Autowired
+    CompanyService companyService;
+
+    @Autowired
+    StudentService studentService;
+
+    @Autowired
+    RoleService roleService;
+
+    @Autowired
     FileUploadService fileUploadService;
 
     @Autowired
@@ -43,6 +53,11 @@ public class UserController {
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.user", result);
             redirectAttributes.addFlashAttribute("user", user);
+            return "redirect:/create/user";
+        }
+
+        if(user.getCompany() != null && user.getStudent() != null){
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong! Cannot link user to both a company and a student."));
             return "redirect:/create/user";
         }
 
@@ -81,6 +96,13 @@ public class UserController {
             // if there are errors during the binding (e.g. NotNull, Min, etc.)
             // redirect to the form displaying the errors
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.user", result);
+            redirectAttributes.addFlashAttribute("user", user);
+            return "redirect:/update/user/" + user.getId();
+        }
+
+        if(user.getCompany() != null && user.getStudent() != null){
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong! Cannot link user to both a company and a student."));
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.user", result);
             redirectAttributes.addFlashAttribute("user", user);
             return "redirect:/update/user/" + user.getId();
@@ -150,6 +172,15 @@ public class UserController {
         List<User> users = userService.findAll();
         model.addAttribute("users", users);
 
+        List<Company> companies = companyService.findAll();
+        model.addAttribute("companies", companies);
+
+        List<Student> students = studentService.findAll();
+        model.addAttribute("students", students);
+
+        List<Role> roles = roleService.findAll();
+        model.addAttribute("roles", roles);
+
         return "user_create";
     }
 
@@ -165,6 +196,14 @@ public class UserController {
         List<User> users = userService.findAll();
         model.addAttribute("users", users);
 
+        List<Company> companies = companyService.findAll();
+        model.addAttribute("companies", companies);
+
+        List<Student> students = studentService.findAll();
+        model.addAttribute("students", students);
+
+        List<Role> roles = roleService.findAll();
+        model.addAttribute("roles", roles);
 
         return "user_update";
     }

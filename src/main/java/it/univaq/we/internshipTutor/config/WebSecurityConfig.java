@@ -22,27 +22,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    /*
-        @Autowired
-        private DataSource dataSource;
 
-        // TODO fix queries
-        @Value("${spring.queries.users-query}")
-        private String usersQuery;
+    @Autowired
+    private DataSource dataSource;
 
-        @Value("${spring.queries.roles-query}")
-        private String rolesQuery;
+    // TODO fix queries
+    @Value("${spring.queries.users-query}")
+    private String usersQuery;
 
-        @Override
-        protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-            auth.
-                    jdbcAuthentication()
-                    .usersByUsernameQuery(usersQuery)
-                    .authoritiesByUsernameQuery(rolesQuery)
-                    .dataSource(dataSource)
-                    .passwordEncoder(bCryptPasswordEncoder);
-        }
-        */
+    @Value("${spring.queries.roles-query}")
+    private String rolesQuery;
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.
+                jdbcAuthentication()
+                .usersByUsernameQuery(usersQuery)
+                .authoritiesByUsernameQuery(rolesQuery)
+                .dataSource(dataSource)
+                .passwordEncoder(bCryptPasswordEncoder);
+    }
+
 
     // allow semicolons in url
     @Bean

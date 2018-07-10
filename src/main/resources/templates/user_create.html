@@ -29,6 +29,50 @@
                               th:object="${user}"
                               class="form-horizontal">
 
+
+
+                            <!-- roles -->
+                            <div class="form-group">
+                                <label for="role" class="col-sm-3 control-label">Role</label>
+                                <div class="col-sm-9">
+                                    <select name="role" id="role" class="form-control1">
+                                        <option selected="selected">-</option>
+                                        <th:block th:each="role : ${roles}">
+                                            <option th:value="${role.getId()}"
+                                                    th:text="${role.getName()}"></option>
+                                        </th:block>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- students -->
+                            <div class="form-group">
+                                <label for="student" class="col-sm-3 control-label">Associated Student</label>
+                                <div class="col-sm-9">
+                                    <select name="student" id="student" class="form-control1">
+                                        <option selected="selected">-</option>
+                                        <th:block th:each="student : ${students}">
+                                            <option th:value="${student.getId()}"
+                                                    th:text="${student.getMatriculationNumber()}"></option>
+                                        </th:block>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- companies -->
+                            <div class="form-group">
+                                <label for="company" class="col-sm-3 control-label">Associated Company</label>
+                                <div class="col-sm-9">
+                                    <select name="company" id="company" class="form-control1">
+                                        <option selected="selected">-</option>
+                                        <th:block th:each="company : ${companies}">
+                                            <option th:value="${company.getId()}"
+                                                    th:text="${company.getName()}"></option>
+                                        </th:block>
+                                    </select>
+                                </div>
+                            </div>
+
                             <!-- email -->
                             <div class="form-group">
 

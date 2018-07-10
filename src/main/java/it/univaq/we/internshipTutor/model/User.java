@@ -25,6 +25,10 @@ public class User {
     @JoinColumn(name = "company_id", nullable = true)
     private Student company;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id", nullable = false)
+    private Role role;
+
     @Column(name = "email", nullable = false, length = 255)
     @Email()
     @NotEmpty()
