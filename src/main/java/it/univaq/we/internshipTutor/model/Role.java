@@ -1,6 +1,7 @@
 package it.univaq.we.internshipTutor.model;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -17,6 +18,9 @@ public class Role {
 
     @Column(name = "name", nullable = false, length = 255)
     private String name;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "role")
+    private List<User> users;
 
     public Long getId() {
         return id;
@@ -46,7 +50,7 @@ public class Role {
     public boolean equals(final Object obj) {
         if (this == obj)
             return true;
-        if (!(obj instanceof User))
+        if (!(obj instanceof Role))
             return false;
         return getUuid().equals(((Role) obj).getUuid());
     }

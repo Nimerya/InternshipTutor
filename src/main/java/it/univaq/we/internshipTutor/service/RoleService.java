@@ -1,6 +1,7 @@
 package it.univaq.we.internshipTutor.service;
 
 import it.univaq.we.internshipTutor.model.Role;
+import it.univaq.we.internshipTutor.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
@@ -14,7 +15,7 @@ public class RoleService implements IRoleService{
     private RoleRepository roleRepository;
 
     @Override
-    public List<Roles> findAll(){
+    public List<Role> findAll(){
         return roleRepository.findAll();
     }
 

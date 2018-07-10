@@ -55,6 +55,7 @@
                                 <label for="department" class="col-sm-3 control-label">Department</label>
                                 <div class="col-sm-9">
                                     <select name="department" id="department" class="form-control1">
+                                        <option selected="selected"  value = "">-</option>
                                         <th:block th:each="department : ${departments}">
                                             <option th:value="${department.getId()}" th:text="${department.getName()}" th:selected="(${department.getId()} == *{department.getId()})"></option>
                                         </th:block>

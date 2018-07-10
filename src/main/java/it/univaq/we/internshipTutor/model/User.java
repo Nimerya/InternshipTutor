@@ -23,15 +23,15 @@ public class User {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = true)
-    private Student company;
+    private Company company;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
     @Column(name = "email", nullable = false, length = 255)
-    @Email()
-    @NotEmpty()
+    @Email
+    @NotEmpty
     private String email;
 
     @Column(name = "image", nullable = true, length = 255)
@@ -69,11 +69,11 @@ public class User {
         this.student = student;
     }
 
-    public Student getCompany() {
+    public Company getCompany() {
         return company;
     }
 
-    public void setCompany(Student company) {
+    public void setCompany(Company company) {
         this.company = company;
     }
 
@@ -131,6 +131,14 @@ public class User {
 
     public void setUuid(UUID uuid) {
         this.uuid = uuid;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override
