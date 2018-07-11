@@ -26,4 +26,8 @@ public class StudentInternshipService implements IStudentInternshipService  {
         return studentInternshipRepository.save(studentInternship);
     }
 
+    @Override
+    public void deleteStudentInternshipById(Long id){ studentInternshipRepository.deleteStudentInternshipById(id); }
+
+
 }

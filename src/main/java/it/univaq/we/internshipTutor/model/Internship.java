@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -22,6 +23,7 @@ public class Internship {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
+    @NotNull
     private Company company;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "internship")
@@ -59,10 +61,10 @@ public class Internship {
     private int length;
 
     @Column(name = "mode_it_it", nullable = false, length = 255)
-    @NotEmpty
     private String modeItIt;
 
     @Column(name = "mode_en_gb", nullable = true, length = 255)
+    @NotEmpty
     private String modeEnGb;
 
     @Column(name = "goals_it_it", nullable = true, length = -1)

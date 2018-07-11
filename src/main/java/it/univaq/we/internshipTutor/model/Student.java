@@ -1,6 +1,9 @@
 package it.univaq.we.internshipTutor.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Objects;
@@ -20,42 +23,54 @@ public class Student {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "degree_id", nullable = false)
+    @NotNull
     private Degree degree;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "student")
     private List<StudentInternship> studentInternships;
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "student")
+    @NotNull
     private User user;
 
     @Column(name = "birthday", nullable = false)
+    @NotNull
     private Timestamp birthday;
 
     @Column(name = "matriculation_number", nullable = false, length = 255)
+    @NotEmpty
     private String matriculationNumber;
 
     @Column(name = "birthplace_city", nullable = false, length = 255)
+    @NotEmpty
     private String birthplaceCity;
 
     @Column(name = "birthplace_province", nullable = false, length = 255)
+    @NotEmpty
     private String birthplaceProvince;
 
     @Column(name = "birthplace_state", nullable = false, length = 255)
+    @NotEmpty
     private String birthplaceState;
 
     @Column(name = "residence_adress", nullable = false, length = 255)
+    @NotEmpty
     private String residenceAdress;
 
     @Column(name = "residence_city", nullable = false, length = 255)
+    @NotEmpty
     private String residenceCity;
 
     @Column(name = "residence_province", nullable = false, length = 255)
+    @NotEmpty
     private String residenceProvince;
 
     @Column(name = "residence_state", nullable = false, length = 255)
+    @NotEmpty
     private String residenceState;
 
     @Column(name = "fiscal_code", nullable = false, length = 255)
+    @NotEmpty
     private String fiscalCode;
 
     @Column(name = "handicap", nullable = false)

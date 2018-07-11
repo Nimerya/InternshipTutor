@@ -1,0 +1,202 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Update Student-Internsnip</title>
+    <!-- head -->
+    <meta th:replace="fragments/head :: head">
+    <!-- head -->
+    <!-- head_scripts -->
+    <meta th:replace="fragments/head_scripts :: head_scripts">
+    <!-- head_scripts -->
+</head>
+<body>
+
+<!-- header -->
+<div th:replace="fragments/header :: header"></div>
+<!-- header -->
+
+<div class="codes about">
+    <div class="container">
+        <div id="forms" class="grid_3 grid_4">
+            <div class="col-md-6">
+                <h3 class="w3ls-hdg">Update Student-Internsnip</h3>
+                <div class="tab-content">
+                    <div class="tab-pane active">
+                        <form method="POST" th:action="@{/update/studentinternship}" th:object="${studentinternship}"
+                              class="form-horizontal">
+
+                            <input th:field="*{id}" type="hidden" id="id">
+
+                            <!-- student -->
+                            <div class="form-group">
+                                <label for="student" class="col-sm-3 control-label">Students</label>
+                                <div class="col-sm-9">
+                                    <select name="student" id="student" class="form-control1">
+                                        <option selected="selected"  value = "">-</option>
+                                        <th:block th:each="student : ${students}">
+                                            <option th:value="${student.getId()}" th:text="${student.getMatriculationNumber()}" th:selected="(${student.getId()} == *{student.getId()})"></option>
+                                        </th:block>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- internship -->
+                            <div class="form-group">
+                                <label for="internship" class="col-sm-3 control-label">Internships</label>
+                                <div class="col-sm-9">
+                                    <select name="internship" id="internship" class="form-control1">
+                                        <option selected="selected"  value = "">-</option>
+                                        <th:block th:each="internship : ${internships}">
+                                            <option th:value="${internship.getId()}" th:text="${internship.getTitle() +' - '+internship.getCompany().getName()}" th:selected="(${internship.getId()} == *{internship.getId()})"></option>
+                                        </th:block>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- professor -->
+                            <div class="form-group">
+                                <label for="professor" class="col-sm-3 control-label">Professors</label>
+                                <div class="col-sm-9">
+                                    <select name="professor" id="professor" class="form-control1">
+                                        <option selected="selected"  value = "">-</option>
+                                        <th:block th:each="professor : ${professors}">
+                                            <option th:value="${professor.getId()}" th:text="${professor.getFirstName()+' '+professor.getLastName()+' - '+professor.getDepartment().getName()}" th:selected="(${professor.getId()} == *{professor.getId()})"></option>
+                                        </th:block>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- cfu -->
+                            <div class="form-group">
+
+
+                                <!-- label -->
+                                <label for="cfu" class="col-sm-3 control-label">CFU</label>
+                                <!-- input -->
+                                <div class="col-sm-9">
+                                    <input th:field="*{cfu}" type="number" min="1" class="form-control1" id="cfu"
+                                           placeholder="Insert number of CFU">
+                                </div>
+
+                                <!-- error box -->
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <div class="alert alert-danger squared my-small-alert"
+                                         role="alert"
+                                         th:if="${#fields.hasErrors('cfu')}"
+                                         th:errors="*{cfu}">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- review -->
+                            <div class="form-group">
+
+
+                                <!-- label -->
+                                <label for="review" class="col-sm-3 control-label">Review</label>
+                                <!-- input -->
+                                <div class="col-sm-9">
+                                    <input th:field="*{review}" type="number" min="1" max="5" class="form-control1" id="review"
+                                           placeholder="Insert a review">
+                                </div>
+
+                                <!-- error box -->
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <div class="alert alert-danger squared my-small-alert"
+                                         role="alert"
+                                         th:if="${#fields.hasErrors('review')}"
+                                         th:errors="*{review}">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- checkboxes -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Options</label>
+                                <div class="col-sm-9">
+                                    <div class="checkbox-inline"><label><input th:field="*{accepted}" type="checkbox"> Accepted</label></div>
+                                </div>
+                            </div>
+
+
+                            <!-- submit -->
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <input type="submit" class="btn btn-info btn-block squared btn-lg"
+                                           value="Update"/>
+                                </div>
+                            </div>
+
+
+                        </form>
+
+                        <form method="POST" th:action="@{'/delete/studentinternship/'+${studentinternship.getId()}}"
+                              class="form-horizontal">
+                            <!-- submit -->
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <input type="submit" class="btn btn-danger btn-block squared btn-lg"
+                                           value="Delete"/>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h3 class="w3ls-hdg">List</h3>
+                <div th:if="${!studentinternships.isEmpty()}">
+                    <!--<table class="table-hover table table-bordered squared table-fixed">-->
+                    <table class="table table-fixed table-bordered squared">
+                        <thead>
+                        <tr>
+                            <th class="col-xs-4">Student</th>
+                            <th class="col-xs-4">Internship</th>
+                            <th class="col-xs-4 text-right">Action</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr th:each="studentinternship : ${studentinternships}">
+                            <td th:text="${studentinternship.getStudent().getMatriculationNumber()}" class="col-xs-4">
+                            </td>
+                            <td th:text="${studentinternship.getInternship().getTitle()}" class="col-xs-4">
+                            </td>
+                            <td class="col-xs-4 text-right">
+                                <a th:href="@{'/update/studentinternship/'+${studentinternship.getId()}}"
+                                   class="btn-default-border btn-xs squared">
+                                    <i class="fa fa-edit">
+                                    </i>
+                                    Edit
+                                </a>
+
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="well" th:unless="${!studentinternships.isEmpty()}">
+                    There are no Student-Internship association yet!
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- footer -->
+<div th:replace="fragments/footer"></div>
+<!-- footer -->
+<!-- footer_scripts -->
+<div th:replace="fragments/footer_scripts"></div>
+<!-- footer_scripts -->
+
+</body>
+</html>

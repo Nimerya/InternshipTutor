@@ -32,6 +32,7 @@ public class Department {
     private String descriptionItIt;
 
     @Column(name = "description_en_gb", nullable = true, length = 255)
+    @NotEmpty
     private String descriptionEnGb;
 
     public Department() {}

@@ -28,10 +28,12 @@ public class Company implements java.io.Serializable {
     @NotEmpty
     private String address;
 
-    @Column(name = "fiscal_code", nullable = true, length = 255)
+    @Column(name = "fiscal_code", nullable = false, length = 255)
+    @NotEmpty
     private String fiscalCode;
 
-    @Column(name = "vat_number", nullable = true, length = 255)
+    @Column(name = "vat_number", nullable = false, length = 255)
+    @NotEmpty
     private String vatNumber;
 
     @Column(name = "attorney", nullable = false, length = 255)
