@@ -1,6 +1,9 @@
 package it.univaq.we.internshipTutor.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,18 +21,23 @@ public class Professor {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id", nullable = false)
+    @NotNull
     private Department department;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "professor")
     private List<StudentInternship> studentInternships;
 
     @Column(name = "first_name", nullable = false, length = 255)
+    @NotEmpty
     private String firstName;
 
     @Column(name = "last_name", nullable = false, length = 255)
+    @NotEmpty
     private String lastName;
 
     @Column(name = "email", nullable = false, length = 255)
+    @Email
+    @NotEmpty
     private String email;
 
     public Professor() {}

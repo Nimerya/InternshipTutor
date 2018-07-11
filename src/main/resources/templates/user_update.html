@@ -36,8 +36,8 @@
                             <div class="form-group">
                                 <label for="role" class="col-sm-3 control-label">Role</label>
                                 <div class="col-sm-9">
-                                    <option selected="selected"  value = "">-</option>
                                     <select name="role" id="role" class="form-control1">
+                                        <option selected="selected"  value = "">-</option>
                                         <th:block th:each="role : ${roles}">
                                             <option th:value="${role.getId()}" th:text="${role.getName()}" th:selected="(${role.getId()} == *{role?.getId()})"></option>
                                         </th:block>
@@ -49,8 +49,8 @@
                             <div class="form-group">
                                 <label for="student" class="col-sm-3 control-label">Associated Student</label>
                                 <div class="col-sm-9">
-                                    <option selected="selected"  value = "">-</option>
                                     <select name="student" id="student" class="form-control1">
+                                        <option selected="selected"  value = "">-</option>
                                         <th:block th:each="student : ${students}">
                                             <option th:value="${student.getId()}" th:text="${student.getMatriculationNumber()}" th:selected="(${student.getId()} == *{student?.getId()})"></option>
                                         </th:block>
@@ -62,8 +62,8 @@
                             <div class="form-group">
                                 <label for="company" class="col-sm-3 control-label">Associated Company</label>
                                 <div class="col-sm-9">
-                                    <option selected="selected"  value = "">-</option>
                                     <select name="company" id="company" class="form-control1">
+                                        <option selected="selected"  value = "">-</option>
                                         <th:block th:each="company : ${companies}">
                                             <option th:value="${company.getId()}" th:text="${company.getName()}" th:selected="(${company.getId()} == *{company?.getId()})"></option>
                                         </th:block>

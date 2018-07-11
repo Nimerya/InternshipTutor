@@ -1,6 +1,10 @@
 package it.univaq.we.internshipTutor.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -18,24 +22,31 @@ public class StudentInternship {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", nullable = false)
+    @NotNull
     private Student student;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "internship_id", nullable = false)
+    @NotNull
     private Internship internship;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "professor_id", nullable = false)
+    @NotNull
     private Professor professor;
 
-    @Column(name = "cfu", nullable = true)
+    @Column(name = "cfu", nullable = false)
+    @NotNull
+    @Min(1)
     private Integer cfu;
 
     @Column(name = "review", nullable = true)
+    @Min(1)
+    @Max(5)
     private Integer review;
 
     @Column(name = "accepted", nullable = true)
-    private Byte accepted;
+    private Boolean accepted;
 
     public StudentInternship() {}
 
@@ -89,11 +100,11 @@ public class StudentInternship {
         this.review = review;
     }
 
-    public Byte getAccepted() {
+    public Boolean getAccepted() {
         return accepted;
     }
 
-    public void setAccepted(Byte accepted) {
+    public void setAccepted(Boolean accepted) {
         this.accepted = accepted;
     }
 

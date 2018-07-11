@@ -2,6 +2,7 @@ package it.univaq.we.internshipTutor.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -20,6 +21,7 @@ public class Degree {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "department_id", nullable = false)
+    @NotNull
     private Department department;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "degree")

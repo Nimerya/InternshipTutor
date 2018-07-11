@@ -52,14 +52,27 @@ public class UserController {
             for (FieldError error : errors ) {
                 System.out.println (error.getObjectName() + " - " + error.getDefaultMessage());
             }
-            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN+"AAA"));
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.user", result);
             redirectAttributes.addFlashAttribute("user", user);
             return "redirect:/create/user";
         }
 
+        // a user cannot be a company and a student at the same time
         if(user.getCompany() != null && user.getStudent() != null){
-            redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong! Cannot link user to both a company and a student."));
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong! Cannot link user to both a Company and a Student."));
+            return "redirect:/create/user";
+        }
+
+        // a student should have student role
+        if(user.getStudent() != null && !user.getRole().getName().equals("STUDENT")){
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong! A Student should have STUDENT role."));
+            return "redirect:/create/user";
+        }
+
+        // a company should have company role
+        if(user.getCompany() != null && !user.getRole().getName().equals("COMPANY")){
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong! A Company should have COMPANY role."));
             return "redirect:/create/user";
         }
 
@@ -69,7 +82,7 @@ public class UserController {
             user.setImage(fileUploadService.uploadImage(imageFile, user.getFirstName()+"_"+user.getLastName()));
         }catch (Exception e){
             e.printStackTrace();
-            redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong! Check the image you have uploaded"));
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong!\\nCheck the image you have uploaded"));
             return "redirect:/create/user";
         }
 
@@ -103,10 +116,22 @@ public class UserController {
             return "redirect:/update/user/" + user.getId();
         }
 
+
+        // a user cannot be a company and a student at the same time
         if(user.getCompany() != null && user.getStudent() != null){
-            redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong! Cannot link user to both a company and a student."));
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.user", result);
-            redirectAttributes.addFlashAttribute("user", user);
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong! Cannot link user to both a Company and a Student."));
+            return "redirect:/update/user/" + user.getId();
+        }
+
+        // a student should have student role
+        if(user.getStudent() != null && !user.getRole().getName().equals("STUDENT")){
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong! A Student should have STUDENT role."));
+            return "redirect:/update/user/" + user.getId();
+        }
+
+        // a company should have company role
+        if(user.getCompany() != null && !user.getRole().getName().equals("COMPANY")){
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong! A Company should have COMPANY role."));
             return "redirect:/update/user/" + user.getId();
         }
 
