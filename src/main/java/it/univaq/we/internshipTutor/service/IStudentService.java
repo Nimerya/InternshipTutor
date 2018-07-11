@@ -12,4 +12,6 @@ public interface IStudentService {
 
     <S extends Student> S save(S student);
 
+    void deleteStudentById(Long id);
+
 }

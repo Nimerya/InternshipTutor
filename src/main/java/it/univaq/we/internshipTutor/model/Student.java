@@ -1,6 +1,7 @@
 package it.univaq.we.internshipTutor.model;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Objects;
@@ -29,7 +30,7 @@ public class Student {
     private User user;
 
     @Column(name = "birthday", nullable = false)
-    private Timestamp birthday;
+    private Date birthday;
 
     @Column(name = "matriculation_number", nullable = false, length = 255)
     private String matriculationNumber;
@@ -43,8 +44,8 @@ public class Student {
     @Column(name = "birthplace_state", nullable = false, length = 255)
     private String birthplaceState;
 
-    @Column(name = "residence_adress", nullable = false, length = 255)
-    private String residenceAdress;
+    @Column(name = "residence_address", nullable = false, length = 255)
+    private String residenceAddress;
 
     @Column(name = "residence_city", nullable = false, length = 255)
     private String residenceCity;
@@ -59,7 +60,7 @@ public class Student {
     private String fiscalCode;
 
     @Column(name = "handicap", nullable = false)
-    private byte handicap;
+    private Boolean handicap;
 
     public Student() {}
 
@@ -97,11 +98,11 @@ public class Student {
         this.user = user;
     }
 
-    public Timestamp getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Timestamp birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 
@@ -137,12 +138,12 @@ public class Student {
         this.birthplaceState = birthplaceState;
     }
 
-    public String getResidenceAdress() {
-        return residenceAdress;
+    public String getResidenceAddress() {
+        return residenceAddress;
     }
 
-    public void setResidenceAdress(String residenceAdress) {
-        this.residenceAdress = residenceAdress;
+    public void setResidenceAddress(String residenceAddress) {
+        this.residenceAddress = residenceAddress;
     }
 
     public String getResidenceCity() {
@@ -177,11 +178,11 @@ public class Student {
         this.fiscalCode = fiscalCode;
     }
 
-    public byte getHandicap() {
+    public Boolean getHandicap() {
         return handicap;
     }
 
-    public void setHandicap(byte handicap) {
+    public void setHandicap(Boolean handicap) {
         this.handicap = handicap;
     }
 
