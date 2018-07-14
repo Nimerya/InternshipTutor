@@ -57,7 +57,7 @@
     /*background-color: #f3f3f3;*/
 }
 .table-fixed tbody {
-    height: 600px;
+    /*height: 450px;*/
     overflow-y: auto;
     width: 100%;
 }

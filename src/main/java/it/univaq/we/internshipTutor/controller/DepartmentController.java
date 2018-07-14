@@ -1,9 +1,12 @@
 package it.univaq.we.internshipTutor.controller;
 
+import it.univaq.we.internshipTutor.model.Degree;
 import it.univaq.we.internshipTutor.model.Department;
 import it.univaq.we.internshipTutor.model.Popup;
 import it.univaq.we.internshipTutor.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -104,20 +107,22 @@ public class DepartmentController {
 
 
     @RequestMapping(value={"/create/department"}, method = RequestMethod.GET)
-    public String renderCreate(ModelMap model) {
+    public String renderCreate(ModelMap model, Pageable pageable) {
 
         if(!model.containsAttribute("department")){
             model.addAttribute("department", new Department(UUID.randomUUID()));
         }
-        List<Department> departments = departmentService.findAll();
-        model.addAttribute("departments", departments);
+        Page<Department> departments = departmentService.findAll(pageable);
+        PageWrapper<Department> page = new PageWrapper<>(departments, "/create/department");
+        model.addAttribute("departments", page.getContent());
+        model.addAttribute("page", page);
 
         return "department_create";
     }
 
 
     @RequestMapping(value={"/update/department/{id}"}, method = RequestMethod.GET)
-    public String renderUpdate(ModelMap model, @PathVariable(value = "id") Long id) {
+    public String renderUpdate(ModelMap model, Pageable pageable, @PathVariable(value = "id") Long id) {
 
         Department d = departmentService.findDepartmentById(id);
 
@@ -125,8 +130,10 @@ public class DepartmentController {
             model.addAttribute("department", d);
         }
 
-        List<Department> departments = departmentService.findAll();
-        model.addAttribute("departments", departments);
+        Page<Department> departments = departmentService.findAll(pageable);
+        PageWrapper<Department> page = new PageWrapper<>(departments, "/update/department"+id);
+        model.addAttribute("departments", page.getContent());
+        model.addAttribute("page", page);
 
         return "department_update";
     }

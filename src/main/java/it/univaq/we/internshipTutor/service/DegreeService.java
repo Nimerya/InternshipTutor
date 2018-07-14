@@ -3,6 +3,8 @@ package it.univaq.we.internshipTutor.service;
 import it.univaq.we.internshipTutor.model.Degree;
 import it.univaq.we.internshipTutor.repository.DegreeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
@@ -17,6 +19,11 @@ public class DegreeService implements IDegreeService {
     @Override
     public List<Degree> findAll(){
         return degreeRepository.findAll();
+    }
+
+    @Override
+    public Page<Degree> findAll(Pageable pageable) {
+        return degreeRepository.findAll(pageable);
     }
 
     @Override
