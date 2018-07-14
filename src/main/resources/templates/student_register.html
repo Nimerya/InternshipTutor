@@ -19,7 +19,7 @@
 <div class="codes about">
     <div class="container">
         <div id="forms" class="grid_3 grid_4">
-            <h3 class="w3ls-hdg">Sign up As Student</h3>
+            <h3 class="w3ls-hdg">Sign up as Student</h3>
             <div class="col-md-12">
                 <form method="POST" enctype="multipart/form-data"
                       th:action="@{/register/student}"
@@ -27,35 +27,55 @@
                     <div class="form-group">
                         <div class="col-sm-12 form-header-20"><b>Account</b></div>
                     </div>
+
                     <div class="form-group">
                         <!-- label -->
-                        <label for="email" class="col-sm-2 control-label">Email</label>
+                        <label for="email" class="col-sm-3 control-label">Email</label>
                         <!-- input -->
-                        <div class="col-sm-8">
-                            <input  type="email" th:value="${user.email}" name="email" class="form-control1" id="email"
+                        <div class="col-sm-9">
+                            <input type="email" th:value="${user.email}" name="email" class="form-control1" id="email"
                                    placeholder="Insert email">
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputPassword"  class="col-sm-2 control-label">Password</label>
-                        <div class="col-sm-8">
-                            <input type="password" class="form-control1" th:value="${user.password}" name="password" id="inputPassword" placeholder="Password">
+                        <!-- error box -->
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <div class="alert alert-danger squared my-small-alert"
+                                 role="alert"
+                                 th:if="${#fields.hasErrors('user.email')}"
+                                 th:errors="*{user.email}">
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="repeatPassword" class="col-sm-2 control-label">Repeat Password</label>
-                        <div class="col-sm-8">
-                            <input type="password" class="form-control1" name="repeatPassword" id="repeatPassword" placeholder="Type again Password">
+                        <label for="inputPassword" class="col-sm-3 control-label">Password</label>
+                        <div class="col-sm-9">
+                            <input type="password" class="form-control1" th:value="${user.password}" name="password"
+                                   id="inputPassword" placeholder="Password">
+                        </div>
+                        <!-- error box -->
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <div class="alert alert-danger squared my-small-alert"
+                                 role="alert"
+                                 th:if="${#fields.hasErrors('user.password')}"
+                                 th:errors="*{user.password}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="repeatPassword" class="col-sm-3 control-label">Repeat Password</label>
+                        <div class="col-sm-9">
+                            <input type="password" class="form-control1" name="repeatPassword" id="repeatPassword"
+                                   placeholder="Type again Password">
                         </div>
                     </div>
                     <!-- image -->
                     <div class="form-group">
 
                         <!-- label -->
-                        <label for="imageFile" class="col-sm-2 control-label">Profile Image</label>
+                        <label for="imageFile" class="col-sm-3 control-label">Profile Image</label>
                         <!-- input -->
-                        <div class="col-sm-8">
-                            <input  type="file" class="form-control1 file-upload" name="imageFile" id="imageFile" placeholder="Upload an image">
+                        <div class="col-sm-9">
+                            <input type="file" class="form-control1 file-upload" name="imageFile" id="imageFile"
+                                   placeholder="Upload an image">
                         </div>
 
                         <input type="hidden" th:value="${user.image}" name="image" id="image">
@@ -65,15 +85,33 @@
                         <div class="col-sm-12 form-header-20"><b>Personal Data</b></div>
                     </div>
                     <div class="form-group">
-                        <label for="firstName" class="col-sm-2 control-label">First Name</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control1" th:value="${user.firstName}" name="firstName" id="firstName" placeholder="First Name">
+                        <label for="firstName" class="col-sm-3 control-label">First Name</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control1" th:value="${user.firstName}" name="firstName"
+                                   id="firstName" placeholder="First Name">
+                        </div>
+                        <!-- error box -->
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <div class="alert alert-danger squared my-small-alert"
+                                 role="alert"
+                                 th:if="${#fields.hasErrors('user.firstName')}"
+                                 th:errors="*{user.firstName}">
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="firstName" class="col-sm-2 control-label">Last Name</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control1" id="lastName" th:value="${user.lastName}" name="lastName" placeholder="Last Name">
+                        <label for="firstName" class="col-sm-3 control-label">Last Name</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control1" id="lastName" th:value="${user.lastName}"
+                                   name="lastName" placeholder="Last Name">
+                        </div>
+                        <!-- error box -->
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <div class="alert alert-danger squared my-small-alert"
+                                 role="alert"
+                                 th:if="${#fields.hasErrors('user.lastName')}"
+                                 th:errors="*{user.lastName}">
+                            </div>
                         </div>
                     </div>
 
@@ -81,67 +119,163 @@
                         <div class="col-sm-12 form-header-10">Birth Data</div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Date of Birth</label>
+                        <label class="col-sm-3 control-label">Date of Birth</label>
                         <div class="col-sm-3">
-                            <input type="date" class="form-control1 date-picker-birth" th:value="${student.birthday}" name="birthday"/>
+                            <input type="date" class="form-control1 date-picker-birth" th:value="${student.birthday}"
+                                   name="birthday"/>
                         </div>
-                        <label class="col-sm-2 control-label">State of Birth</label>
+
+                        <label class="col-sm-3 control-label">State of Birth</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control1" th:value="${student.birthplaceState}" name="birthplaceState" placeholder="State in which you are born"/>
+                            <input type="text" class="form-control1" th:value="${student.birthplaceState}"
+                                   name="birthplaceState" placeholder="State in which you are born"/>
+                        </div>
+                        <!-- error box -->
+                        <div class="col-sm-offset-3 col-sm-3">
+                            <div class="alert alert-danger squared my-small-alert"
+                                 role="alert"
+                                 th:if="${#fields.hasErrors('student.birthday')}"
+                                 th:errors="*{student.birthday}">
+                            </div>
+                        </div>
+                        <!-- error box -->
+                        <div class="col-sm-offset-3 col-sm-3">
+                            <div class="alert alert-danger squared my-small-alert"
+                                 role="alert"
+                                 th:if="${#fields.hasErrors('student.birthplaceState')}"
+                                 th:errors="*{student.birthplaceState}">
+                            </div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Province of Birth</label>
+                        <label class="col-sm-3 control-label">Province of Birth</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control1" th:value="${student.birthplaceProvince}" name="birthplaceProvince" placeholder="Province in which you are born"/>
+                            <input type="text" class="form-control1" th:value="${student.birthplaceProvince}"
+                                   name="birthplaceProvince" placeholder="Province in which you are born"/>
                         </div>
-                        <label class="col-sm-2 control-label">City of Birth</label>
+
+
+                        <label class="col-sm-3 control-label">City of Birth</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control1" th:value="${student.birthplaceCity}" name="birthplaceCity" placeholder="City in which you are born"/>
+                            <input type="text" class="form-control1" th:value="${student.birthplaceCity}"
+                                   name="birthplaceCity" placeholder="City in which you are born"/>
+                        </div>
+                        <!-- error box -->
+                        <div class="col-sm-offset-3 col-sm-3">
+                            <div class="alert alert-danger squared my-small-alert"
+                                 role="alert"
+                                 th:if="${#fields.hasErrors('student.birthplaceProvince')}"
+                                 th:errors="*{student.birthplaceProvince}">
+                            </div>
+                        </div>
+                        <!-- error box -->
+                        <div class="col-sm-offset-3 col-sm-3">
+                            <div class="alert alert-danger squared my-small-alert"
+                                 role="alert"
+                                 th:if="${#fields.hasErrors('student.birthplaceCity')}"
+                                 th:errors="*{student.birthplaceCity}">
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-12 form-header-10">Residence Data</div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">State of Residence</label>
+                        <label class="col-sm-3 control-label">State of Residence</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control1" th:value="${student.residenceState}" name="residenceState" placeholder="State of residence"/>
+                            <input type="text" class="form-control1" th:value="${student.residenceState}"
+                                   name="residenceState" placeholder="State of residence"/>
                         </div>
-                        <label class="col-sm-2 control-label">Province of Residence</label>
+
+                        <label class="col-sm-3 control-label">Province of Residence</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control1" th:value="${student.residenceProvince}" name="residenceProvince" placeholder="Province of residence"/>
+                            <input type="text" class="form-control1" th:value="${student.residenceProvince}"
+                                   name="residenceProvince" placeholder="Province of residence"/>
+                        </div>
+                        <!-- error box -->
+                        <div class="col-sm-offset-3 col-sm-3">
+                            <div class="alert alert-danger squared my-small-alert"
+                                 role="alert"
+                                 th:if="${#fields.hasErrors('student.residenceState')}"
+                                 th:errors="*{student.residenceState}">
+                            </div>
+                        </div>
+                        <!-- error box -->
+                        <div class="col-sm-offset-3 col-sm-3">
+                            <div class="alert alert-danger squared my-small-alert"
+                                 role="alert"
+                                 th:if="${#fields.hasErrors('student.residenceProvince')}"
+                                 th:errors="*{student.residenceProvince}">
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">City of Residence</label>
+                        <label class="col-sm-3 control-label">City of Residence</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control1" th:value="${student.residenceCity}" name="residenceCity" placeholder="City of residence"/>
+                            <input type="text" class="form-control1" th:value="${student.residenceCity}"
+                                   name="residenceCity" placeholder="City of residence"/>
                         </div>
-                        <label class="col-sm-2 control-label">Address of Residence</label>
+
+                        <label class="col-sm-3 control-label">Address of Residence</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control1" th:value="${student.residenceAddress}" name="residenceAddress" placeholder="Address of residence"/>
+                            <input type="text" class="form-control1" th:value="${student.residenceAddress}"
+                                   name="residenceAddress" placeholder="Address of residence"/>
+                        </div>
+                        <!-- error box -->
+                        <div class="col-sm-offset-3 col-sm-3">
+                            <div class="alert alert-danger squared my-small-alert"
+                                 role="alert"
+                                 th:if="${#fields.hasErrors('student.residenceCity')}"
+                                 th:errors="*{student.residenceCity}">
+                            </div>
+                        </div>
+                        <!-- error box -->
+                        <div class="col-sm-offset-3 col-sm-3">
+                            <div class="alert alert-danger squared my-small-alert"
+                                 role="alert"
+                                 th:if="${#fields.hasErrors('student.residenceAddress')}"
+                                 th:errors="*{student.residenceAddress}">
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="phoneNumber" class="col-sm-2 control-label">Fiscal Code</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control1" th:value="${student.fiscalCode}" name="fiscalCode" placeholder="Fiscal Code">
+                        <label for="fiscalCode" class="col-sm-3 control-label">Fiscal Code</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control1" th:value="${student.fiscalCode}" id ="fiscalCode" name="fiscalCode"
+                                   placeholder="Fiscal Code">
+                        </div>
+                        <!-- error box -->
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <div class="alert alert-danger squared my-small-alert"
+                                 role="alert"
+                                 th:if="${#fields.hasErrors('student.fiscalCode')}"
+                                 th:errors="*{student.fiscalCode}">
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="phoneNumber" class="col-sm-2 control-label">Phone Number</label>
+                        <label for="phoneNumber" class="col-sm-3 control-label">Phone Number</label>
                         <div class="col-sm-4">
-                            <input type="tel" class="form-control1" id="phoneNumber" th:value="${user.phoneNumber}" name="phoneNumber" placeholder="Phone Number">
+                            <input type="tel" class="form-control1" id="phoneNumber" th:value="${user.phoneNumber}"
+                                   name="phoneNumber" placeholder="Phone Number">
+                        </div>
+                        <!-- error box -->
+                        <div class="col-sm-offset-3 col-sm-4">
+                            <div class="alert alert-danger squared my-small-alert"
+                                 role="alert"
+                                 th:if="${#fields.hasErrors('user.phoneNumber')}"
+                                 th:errors="*{user.phoneNumber}">
+                            </div>
                         </div>
                     </div>
 
                     <!-- checkbox -->
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Option</label>
-                        <div class="col-sm-8">
-                            <div class="checkbox-inline"><label><input type="checkbox" th:value="${student.handicap}" name="handicap"> Handicap</label></div>
+                        <label class="col-sm-3 control-label">Option</label>
+                        <div class="col-sm-9">
+                            <div class="checkbox-inline"><label><input type="checkbox" th:value="${student.handicap}"
+                                                                       name="handicap"> Handicap</label></div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -149,27 +283,47 @@
                     </div>
                     <!-- degrees -->
                     <div class="form-group">
-                        <label for="degree" class="col-sm-2 control-label">Degree</label>
-                        <div class="col-sm-4">
-                            <select name="degree" id="degree" class="form-control1">
-                                <option selected="selected"  value = "">Select your degree</option>
+                        <label for="degree" class="col-sm-3 control-label">Degree</label>
+                        <div class="col-sm-3">
+                            <select name="degree" id="degree" th:value="${student.degree}" class="form-control1">
+                                <option selected="selected" value="">Select your degree</option>
                                 <th:block th:each="degree : ${degrees}">
                                     <option th:value="${degree.getId()}"
                                             th:text="${degree.getName()}"></option>
                                 </th:block>
                             </select>
                         </div>
-                        <label for="matriculation" class="col-sm-1 control-label">Matr.</label>
+
+                        <label for="matriculation" class="col-sm-3 control-label">Matr.</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control1" th:value="${student.matriculationNumber}" name="matriculationNumber" id="matriculation" placeholder="Insert your Matriculation">
+                            <input type="text" class="form-control1" th:value="${student.matriculationNumber}"
+                                   name="matriculationNumber" id="matriculation"
+                                   placeholder="Insert your Matriculation">
+                        </div>
+                        <!-- error box -->
+                        <div class="col-sm-offset-3 col-sm-3">
+                            <div class="alert alert-danger squared my-small-alert"
+                                 role="alert"
+                                 th:if="${#fields.hasErrors('student.degree')}"
+                                 th:errors="*{student.degree}">
+                            </div>
+                        </div>
+                        <!-- error box -->
+                        <div class="col-sm-offset-3 col-sm-3">
+                            <div class="alert alert-danger squared my-small-alert"
+                                 role="alert"
+                                 th:if="${#fields.hasErrors('student.matriculationNumber')}"
+                                 th:errors="*{student.matriculationNumber}">
+                            </div>
                         </div>
 
                     </div>
 
                     <!-- submit -->
-                    <div class="form-group padding-top-30">
-                        <div class="col-sm-offset-2 col-sm-8">
-                            <input type="submit" class="btn btn-info btn-block pull-right squared btn-lg" value="Submit Registration"/>
+                    <div class="form-group padding-top-30 margin-bottom-30">
+                        <div class="col-sm-offset-2 col-sm-9">
+                            <input type="submit" class="btn btn-info btn-block pull-right squared btn-lg"
+                                   value="Submit Registration"/>
                         </div>
                     </div>
                 </form>
