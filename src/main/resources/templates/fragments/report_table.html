@@ -12,8 +12,8 @@
             <thead>
             <tr>
                 <th class="col-xs-1 text-center">#</th>
-                <th class="col-xs-9">Entry</th>
-                <th class="col-xs-2 text-right">Action</th>
+                <th class="col-xs-10">Entry</th>
+                <th class="col-xs-1 text-right">Action</th>
             </tr>
             </thead>
 
@@ -21,9 +21,9 @@
             <tr th:each="item, iterationStatus : ${collection}">
                 <td th:text="${iterationStatus.count + (page.getSize() * (page.getNumber()-1))}" class="col-xs-1 no-border-right text-center">
                 </td>
-                <td th:text="${item.getInfo()}" class="col-xs-9 no-border-right">
+                <td th:text="${item.getInfo()}" class="col-xs-10 no-border-right">
                 </td>
-                <td class="col-xs-2 text-right">
+                <td class="col-xs-1 text-right">
                     <a th:href="@{'/update/'+${nameS}+'/'+${item.getId()}}"
                        class="btn-default-border btn-xs squared">
                         <i class="fa fa-edit"></i>

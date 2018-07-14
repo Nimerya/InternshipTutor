@@ -154,7 +154,7 @@ public class InternshipController {
     }
 
 
-    @RequestMapping(value = {"/report/departments"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/report/internships"}, method = RequestMethod.GET)
     public String renderReport(ModelMap model, Pageable pageable) {
 
         Page<Internship> internships = internshipService.findAll(pageable);

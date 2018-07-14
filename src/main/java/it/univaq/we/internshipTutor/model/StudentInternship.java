@@ -133,6 +133,6 @@ public class StudentInternship {
     //Return info's about sudent internship
     public String getInfo(){
         return this.getStudent().getMatriculationNumber() +" - "+
-                this.getInternship().getTitle() +" _ "+
+                this.getInternship().getTitle() +" - "+
                 this.getInternship().getCompany().getName(); }
 }
