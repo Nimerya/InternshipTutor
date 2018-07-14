@@ -2,6 +2,8 @@ package it.univaq.we.internshipTutor.service;
 
 import it.univaq.we.internshipTutor.repository.InternshipRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import it.univaq.we.internshipTutor.model.Internship;
@@ -14,9 +16,13 @@ public class InternshipService implements IInternshipService {
     @Autowired
     private InternshipRepository internshipRepository;
 
+    @Override
     public List<Internship> findAll() {
         return internshipRepository.findAll();
     }
+
+    @Override
+    public Page<Internship> findAll(Pageable pageable){return internshipRepository.findAll(pageable);}
 
     public Internship findInternshipById(Long id) {
         return internshipRepository.findInternshipById(id);

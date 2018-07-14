@@ -129,4 +129,10 @@ public class StudentInternship {
     public int hashCode() {
         return getUuid().hashCode();
     }
+
+    //Return info's about sudent internship
+    public String getInfo(){
+        return this.getStudent().getMatriculationNumber() +" - "+
+                this.getInternship().getTitle() +" _ "+
+                this.getInternship().getCompany().getName(); }
 }

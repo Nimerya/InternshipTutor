@@ -1,11 +1,14 @@
 package it.univaq.we.internshipTutor.controller;
 
 import it.univaq.we.internshipTutor.model.Department;
+import it.univaq.we.internshipTutor.model.PageWrapper;
 import it.univaq.we.internshipTutor.model.Professor;
 import it.univaq.we.internshipTutor.model.Popup;
 import it.univaq.we.internshipTutor.service.DepartmentService;
 import it.univaq.we.internshipTutor.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -44,7 +47,7 @@ public class ProfessorController {
             professorService.save(professor);
         }catch (Exception e){
             e.printStackTrace();
-            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
             return "redirect:/create/professor";
         }
 
@@ -73,7 +76,7 @@ public class ProfessorController {
             professorService.save(professor);
         }catch (Exception e){
             e.printStackTrace();
-            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
             return "redirect:/update/professor/" + professor.getId();
         }
 
@@ -98,7 +101,7 @@ public class ProfessorController {
             professorService.deleteProfessorById(id);
         }catch (Exception e){
             e.printStackTrace();
-            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_DEL));
             return "redirect:/update/professor/" + id;
         }
 
@@ -109,13 +112,15 @@ public class ProfessorController {
 
 
     @RequestMapping(value={"/create/professor"}, method = RequestMethod.GET)
-    public String renderCreate(ModelMap model) {
+    public String renderCreate(ModelMap model, Pageable pageable) {
 
         if(!model.containsAttribute("professor")){
             model.addAttribute("professor", new Professor(UUID.randomUUID()));
         }
-        List<Professor> professors = professorService.findAll();
-        model.addAttribute("professors", professors);
+        Page<Professor> professors = professorService.findAll(pageable);
+        PageWrapper<Professor> page = new PageWrapper<>(professors, "/create/professor");
+        model.addAttribute("professors", page.getContent());
+        model.addAttribute("page", page);
 
         List<Department> departments = departmentService.findAll();
         model.addAttribute("departments", departments);
@@ -124,7 +129,7 @@ public class ProfessorController {
 
 
     @RequestMapping(value={"/update/professor/{id}"}, method = RequestMethod.GET)
-    public String renderUpdate(ModelMap model, @PathVariable(value = "id") Long id) {
+    public String renderUpdate(ModelMap model, Pageable pageable, @PathVariable(value = "id") Long id) {
 
         Professor p = professorService.findProfessorById(id);
 
@@ -132,8 +137,10 @@ public class ProfessorController {
             model.addAttribute("professor", p);
         }
 
-        List<Professor> professors = professorService.findAll();
-        model.addAttribute("professors", professors);
+        Page<Professor> professors = professorService.findAll(pageable);
+        PageWrapper<Professor> page = new PageWrapper<>(professors, "/update/professor/"+id);
+        model.addAttribute("professors", page.getContent());
+        model.addAttribute("page", page);
 
         List<Department> departments = departmentService.findAll();
         model.addAttribute("departments", departments);

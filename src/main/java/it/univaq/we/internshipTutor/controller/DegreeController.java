@@ -2,10 +2,13 @@ package it.univaq.we.internshipTutor.controller;
 
 import it.univaq.we.internshipTutor.model.Degree;
 import it.univaq.we.internshipTutor.model.Department;
+import it.univaq.we.internshipTutor.model.PageWrapper;
 import it.univaq.we.internshipTutor.model.Popup;
 import it.univaq.we.internshipTutor.service.DegreeService;
 import it.univaq.we.internshipTutor.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -45,7 +48,7 @@ public class DegreeController {
             // else perform the insertion
             degreeService.save(degree);
         }catch (Exception e){
-            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
             return "redirect:/create/degree";
         }
 
@@ -68,8 +71,13 @@ public class DegreeController {
             return "redirect:/update/degree/" + degree.getId();
         }
 
-        // else perform the insertion
-        degreeService.save(degree);
+        try{
+            degreeService.save(degree);
+        }catch (Exception e){
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
+            return "redirect:/update/degree/" + degree.getId();
+        }
 
         // add success message in the model
         redirectAttributes.addFlashAttribute("popup", new Popup());
@@ -88,8 +96,13 @@ public class DegreeController {
             return "redirect:/update/degree/" + id;
         }
 
-        // else perform the remove
-        degreeService.deleteDegreeById(id);
+        try{
+            degreeService.deleteDegreeById(id);
+        }catch (Exception e){
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_DEL));
+            return "redirect:/update/degree/" + id;
+        }
 
         // add success message in the model
         redirectAttributes.addFlashAttribute("popup", new Popup());
@@ -98,14 +111,17 @@ public class DegreeController {
 
 
     @RequestMapping(value={"/create/degree"}, method = RequestMethod.GET)
-    public String renderCreate(ModelMap model) {
+    public String renderCreate(ModelMap model, Pageable pageable) {
 
         if(!model.containsAttribute("degree")){
             model.addAttribute("degree", new Degree(UUID.randomUUID()));
         }
 
-        List<Degree> degrees = degreeService.findAll();
-        model.addAttribute("degrees", degrees);
+        Page<Degree> degrees = degreeService.findAll(pageable);
+        PageWrapper<Degree> page = new PageWrapper<>(degrees, "/create/degree");
+        model.addAttribute("degrees", page.getContent());
+        model.addAttribute("page", page);
+
         List<Department> departments = departmentService.findAll();
         model.addAttribute("departments", departments);
 
@@ -113,7 +129,7 @@ public class DegreeController {
     }
 
     @RequestMapping(value={"/update/degree/{id}"}, method = RequestMethod.GET)
-    public String renderUpdate(ModelMap model, @PathVariable(value = "id") Long id) {
+    public String renderUpdate(ModelMap model, Pageable pageable, @PathVariable(value = "id") Long id) {
 
 
         if(!model.containsAttribute("degree")){
@@ -121,8 +137,10 @@ public class DegreeController {
             model.addAttribute("degree", d);
         }
 
-        List<Degree> degrees = degreeService.findAll();
-        model.addAttribute("degrees", degrees);
+        Page<Degree> degrees = degreeService.findAll(pageable);
+        PageWrapper<Degree> page = new PageWrapper<>(degrees, "/update/degree/"+id);
+        model.addAttribute("degrees", page.getContent());
+        model.addAttribute("page", page);
 
         List<Department> departments = departmentService.findAll();
         model.addAttribute("departments", departments);

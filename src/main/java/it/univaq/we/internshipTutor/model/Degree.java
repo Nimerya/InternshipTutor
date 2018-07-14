@@ -102,4 +102,7 @@ public class Degree {
     public int hashCode() {
         return getUuid().hashCode();
     }
+
+    //Return info's about degree
+    public String getInfo(){ return this.getName(); }
 }

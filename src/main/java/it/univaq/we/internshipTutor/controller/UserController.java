@@ -3,6 +3,8 @@ package it.univaq.we.internshipTutor.controller;
 import it.univaq.we.internshipTutor.model.*;
 import it.univaq.we.internshipTutor.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -81,7 +83,8 @@ public class UserController {
         try{
             user.setImage(fileUploadService.uploadImage(imageFile, user.getFirstName()+"_"+user.getLastName()));
         }catch (Exception e){
-            redirectAttributes.addFlashAttribute("popup", new Popup("warning", e.getMessage()));
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong! Check the image you have uploaded"));
             return "redirect:/create/user";
         }
 
@@ -90,7 +93,7 @@ public class UserController {
             userService.save(user);
         }catch (Exception e){
             e.printStackTrace();
-            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
             return "redirect:/create/user";
         }
 
@@ -152,7 +155,7 @@ public class UserController {
             userService.save(user);
         }catch (Exception e){
             e.printStackTrace();
-            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
             return "redirect:/update/user/" + user.getId();
         }
 
@@ -178,7 +181,7 @@ public class UserController {
             userService.deleteUserById(id);
         }catch (Exception e){
             e.printStackTrace();
-            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_DEL));
             return "redirect:/create/user";
         }
 
@@ -189,14 +192,16 @@ public class UserController {
 
 
     @RequestMapping(value = {"/create/user"}, method = RequestMethod.GET)
-    public String renderCreate(ModelMap model) {
+    public String renderCreate(ModelMap model, Pageable pageable) {
 
         if (!model.containsAttribute("user")) {
             model.addAttribute("user", new User(UUID.randomUUID()));
         }
 
-        List<User> users = userService.findAll();
-        model.addAttribute("users", users);
+        Page<User> users = userService.findAll(pageable);
+        PageWrapper<User> page = new PageWrapper<>(users, "/create/user");
+        model.addAttribute("users", page.getContent());
+        model.addAttribute("page", page);
 
         List<Company> companies = companyService.findAll();
         model.addAttribute("companies", companies);
@@ -211,7 +216,7 @@ public class UserController {
     }
 
     @RequestMapping(value = {"/update/user/{id}"}, method = RequestMethod.GET)
-    public String renderUpdate(ModelMap model, @PathVariable(value = "id") Long id) {
+    public String renderUpdate(ModelMap model, Pageable pageable, @PathVariable(value = "id") Long id) {
 
 
         if (!model.containsAttribute("user")) {
@@ -219,8 +224,10 @@ public class UserController {
             model.addAttribute("user", u);
         }
 
-        List<User> users = userService.findAll();
-        model.addAttribute("users", users);
+        Page<User> users = userService.findAll(pageable);
+        PageWrapper<User> page = new PageWrapper<>(users, "/update/user/"+id);
+        model.addAttribute("users", page.getContent());
+        model.addAttribute("page", page);
 
         List<Company> companies = companyService.findAll();
         model.addAttribute("companies", companies);
