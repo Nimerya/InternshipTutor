@@ -241,4 +241,18 @@ public class UserController {
         return "user_update";
     }
 
+
+    @RequestMapping(value = {"/report/users"}, method = RequestMethod.GET)
+    public String renderReport(ModelMap model, Pageable pageable) {
+
+        Page<User> users = userService.findAll(pageable);
+        PageWrapper<User> page = new PageWrapper<>(users, "/report/users");
+        model.addAttribute("collection", page.getContent());
+        model.addAttribute("page", page);
+        model.addAttribute("nameS", "user");
+        model.addAttribute("nameP", "Users");
+
+        return "report";
+    }
+
 }

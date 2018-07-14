@@ -163,4 +163,19 @@ public class StudentController {
     }
 
 
+    @RequestMapping(value = {"/report/students"}, method = RequestMethod.GET)
+    public String renderReport(ModelMap model, Pageable pageable) {
+
+        Page<Student> students = studentService.findAll(pageable);
+        PageWrapper<Student> page = new PageWrapper<>(students, "/report/students");
+        model.addAttribute("collection", page.getContent());
+        model.addAttribute("page", page);
+        model.addAttribute("nameS", "student");
+        model.addAttribute("nameP", "Students");
+
+        return "report";
+    }
+
+
+
 }
