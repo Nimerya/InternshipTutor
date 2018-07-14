@@ -31,7 +31,6 @@ public class Student {
     private List<StudentInternship> studentInternships;
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "student")
-    @NotNull
     private User user;
 
     @Column(name = "birthday", nullable = false)
