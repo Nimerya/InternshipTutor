@@ -153,4 +153,18 @@ public class InternshipController {
         return "internship_update";
     }
 
+
+    @RequestMapping(value = {"/report/departments"}, method = RequestMethod.GET)
+    public String renderReport(ModelMap model, Pageable pageable) {
+
+        Page<Internship> internships = internshipService.findAll(pageable);
+        PageWrapper<Internship> page = new PageWrapper<>(internships, "/report/internships");
+        model.addAttribute("collection", page.getContent());
+        model.addAttribute("page", page);
+        model.addAttribute("nameS", "internship");
+        model.addAttribute("nameP", "Internships");
+
+        return "report";
+    }
+
 }
