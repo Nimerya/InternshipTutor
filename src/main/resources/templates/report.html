@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${nameP+' list'}"></title>
+    <!-- head -->
+    <meta th:replace="fragments/head :: head">
+    <!-- head -->
+    <!-- head_scripts -->
+    <meta th:replace="fragments/head_scripts :: head_scripts">
+    <!-- head_scripts -->
+</head>
+<body>
+
+
+
+<!-- header -->
+<div th:replace="fragments/header :: header"></div>
+<!-- header -->
+
+<div class="codes about">
+    <div class="container">
+        <div id="forms" class="grid_3 grid_4">
+            <div class="col-md-12">
+                <!-- report table-->
+                <th:block th:replace="fragments/report_table :: report_table(${page}, ${collection}, ${nameS}, ${nameP})">
+                    will be replaced
+                </th:block>
+
+                <!-- pagination -->
+                <th:block th:if="${!collection.isEmpty()}">
+                    <th:block th:replace="fragments/pagination_bar :: pagination_bar(${page})">
+                        will be replaced
+                    </th:block>
+                </th:block>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<!-- footer -->
+<div th:replace="fragments/footer"></div>
+<!-- footer -->
+<!-- footer_scripts -->
+<div th:replace="fragments/footer_scripts"></div>
+<!-- footer_scripts -->
+
+</body>
+</html>

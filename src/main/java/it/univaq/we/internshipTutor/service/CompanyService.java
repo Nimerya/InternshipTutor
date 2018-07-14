@@ -1,7 +1,9 @@
 package it.univaq.we.internshipTutor.service;
 
 import it.univaq.we.internshipTutor.model.Company;
+import it.univaq.we.internshipTutor.model.User;
 import it.univaq.we.internshipTutor.repository.CompanyRepository;
+import it.univaq.we.internshipTutor.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +19,9 @@ public class CompanyService implements ICompanyService {
     @Autowired
     private CompanyRepository companyRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
     public List<Company> findAll() { return companyRepository.findAll();}
 
@@ -29,6 +34,13 @@ public class CompanyService implements ICompanyService {
     @Override
     public <S extends Company>S save(S company){
         return companyRepository.save(company);
+    }
+
+    @Override
+    public void registerCompany(Company company, User user){
+        companyRepository.save(company);
+        user.setCompany(company);
+        userRepository.save(user);
     }
 
     @Override

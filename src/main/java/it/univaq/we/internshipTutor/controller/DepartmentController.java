@@ -137,4 +137,17 @@ public class DepartmentController {
         return "department_update";
     }
 
+    @RequestMapping(value = {"/report/departments"}, method = RequestMethod.GET)
+    public String renderReport(ModelMap model, Pageable pageable) {
+
+        Page<Department> departments = departmentService.findAll(pageable);
+        PageWrapper<Department> page = new PageWrapper<>(departments, "/report/departments");
+        model.addAttribute("collection", page.getContent());
+        model.addAttribute("page", page);
+        model.addAttribute("nameS", "department");
+        model.addAttribute("nameP", "Departments");
+
+        return "report";
+    }
+
 }

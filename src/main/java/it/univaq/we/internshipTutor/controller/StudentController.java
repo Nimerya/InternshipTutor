@@ -49,11 +49,6 @@ public class StudentController {
             // redirect to the form displaying the errors
             // add error message in the model as flash attribute
 
-            List<FieldError> errors = result.getFieldErrors();
-            for (FieldError error : errors ) {
-                System.out.println (error.getObjectName() + " - " + error.getDefaultMessage());
-            }
-
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.student", result);
             redirectAttributes.addFlashAttribute("student", student);
@@ -166,6 +161,21 @@ public class StudentController {
 
         return "student_update";
     }
+
+
+    @RequestMapping(value = {"/report/students"}, method = RequestMethod.GET)
+    public String renderReport(ModelMap model, Pageable pageable) {
+
+        Page<Student> students = studentService.findAll(pageable);
+        PageWrapper<Student> page = new PageWrapper<>(students, "/report/students");
+        model.addAttribute("collection", page.getContent());
+        model.addAttribute("page", page);
+        model.addAttribute("nameS", "student");
+        model.addAttribute("nameP", "Students");
+
+        return "report";
+    }
+
 
 
 }

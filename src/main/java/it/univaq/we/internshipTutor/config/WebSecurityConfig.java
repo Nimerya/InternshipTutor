@@ -22,7 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-
+    /*
     @Autowired
     private DataSource dataSource;
 
@@ -41,7 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authoritiesByUsernameQuery(rolesQuery)
                 .dataSource(dataSource)
                 .passwordEncoder(bCryptPasswordEncoder);
-    }
+    }*/
 
 
     // allow semicolons in url
@@ -54,15 +54,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+        /*http
                 .authorizeRequests()
-                .antMatchers("/", "/index", "/error").permitAll()
+                .antMatchers("/", "/index", "/error", "/register/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                /*.authorizeRequests()
+                .authorizeRequests()
                     .antMatchers("/create/**")
                     .hasRole("ADMIN")
-                    .and()*/
+                    .and()
                 .formLogin()
                 .loginPage("/login")
                 .permitAll()
@@ -71,7 +71,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .exceptionHandling().accessDeniedPage("/error");
-    }
+    */}
 
     @Override
     public void configure(WebSecurity web) {

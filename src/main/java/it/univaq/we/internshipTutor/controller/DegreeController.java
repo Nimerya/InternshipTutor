@@ -148,4 +148,17 @@ public class DegreeController {
         return "degree_update";
     }
 
+    @RequestMapping(value = {"/report/degrees"}, method = RequestMethod.GET)
+    public String renderReport(ModelMap model, Pageable pageable) {
+
+        Page<Degree> degrees = degreeService.findAll(pageable);
+        PageWrapper<Degree> page = new PageWrapper<>(degrees, "/report/degrees");
+        model.addAttribute("collection", page.getContent());
+        model.addAttribute("page", page);
+        model.addAttribute("nameS", "degree");
+        model.addAttribute("nameP", "Degrees");
+
+        return "report";
+    }
+
 }

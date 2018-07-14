@@ -145,4 +145,18 @@ public class CompanyController {
         return "company_update";
     }
 
+
+    @RequestMapping(value = {"/report/companies"}, method = RequestMethod.GET)
+    public String renderReport(ModelMap model, Pageable pageable) {
+
+        Page<Company> companies = companyService.findAll(pageable);
+        PageWrapper<Company> page = new PageWrapper<>(companies, "/report/companies");
+        model.addAttribute("collection", page.getContent());
+        model.addAttribute("page", page);
+        model.addAttribute("nameS", "company");
+        model.addAttribute("nameP", "Companies");
+
+        return "report";
+    }
+
 }
