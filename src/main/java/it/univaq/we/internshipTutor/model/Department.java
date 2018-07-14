@@ -108,4 +108,7 @@ public class Department {
     public int hashCode() {
         return getUuid().hashCode();
     }
+
+    //Return info's about department
+    public String getInfo(){ return this.getName(); }
 }

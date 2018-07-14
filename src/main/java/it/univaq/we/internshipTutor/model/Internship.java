@@ -273,4 +273,7 @@ public class Internship {
     public int hashCode() {
         return getUuid().hashCode();
     }
+
+    //Return info's about internship
+    public String getInfo(){ return this.getCompany().getName() + " - "+ this.getTitle(); }
 }

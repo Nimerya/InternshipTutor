@@ -2,6 +2,8 @@ package it.univaq.we.internshipTutor.service;
 
 import it.univaq.we.internshipTutor.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import it.univaq.we.internshipTutor.model.User;
 
@@ -23,9 +25,10 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User findUserById(Long id){
-        return userRepository.findUserById(id);
-    }
+    public Page<User> findAll(Pageable pageable){return userRepository.findAll(pageable);}
+
+    @Override
+    public User findUserById(Long id){ return userRepository.findUserById(id); }
 
     @Override
     public <S extends User>S save(S user){

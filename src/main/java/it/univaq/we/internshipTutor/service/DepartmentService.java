@@ -3,6 +3,8 @@ package it.univaq.we.internshipTutor.service;
 import it.univaq.we.internshipTutor.model.Department;
 import it.univaq.we.internshipTutor.repository.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
@@ -18,6 +20,9 @@ public class DepartmentService implements IDepartmentService{
         public List<Department> findAll(){
             return departmentRepository.findAll();
         }
+
+        @Override
+        public Page<Department> findAll(Pageable pageable){return departmentRepository.findAll(pageable);}
 
         @Override
         public Department findDepartmentById(Long id){

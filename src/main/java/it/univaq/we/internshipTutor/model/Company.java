@@ -158,4 +158,7 @@ public class Company implements java.io.Serializable {
     public int hashCode() {
         return getUuid().hashCode();
     }
+
+    //Return info's about degree
+    public String getInfo(){ return this.getName(); }
 }

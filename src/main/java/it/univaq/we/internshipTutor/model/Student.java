@@ -219,4 +219,7 @@ public class Student {
     public int hashCode() {
         return getUuid().hashCode();
     }
+
+    //Return info's about student
+    public String getInfo(){ return this.getMatriculationNumber(); }
 }
