@@ -113,4 +113,7 @@ public class Professor {
     public int hashCode() {
         return getUuid().hashCode();
     }
+
+    //Return info's about professor
+    public String getInfo(){ return this.getFirstName() + " "+ this.getLastName()+" - "+this.getDepartment().getName(); }
 }

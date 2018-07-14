@@ -161,4 +161,7 @@ public class User {
     public int hashCode() {
         return getUuid().hashCode();
     }
+
+    //Return info's about user
+    public String getInfo(){ return this.getEmail(); }
 }
