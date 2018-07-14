@@ -52,27 +52,60 @@
                             <li class="home-icon"><a th:href="@{/}"><span class="glyphicon glyphicon-home"
                                                                                 aria-hidden="true"></span></a></li>
                             <li><a th:href="@{/}" class="active">Home</a></li>
-                            <li><a href="../about.html">About</a></li>
-                            <li><a href="#news" class="scroll">News</a></li>
-                            <li><a href="../gallery.html">Gallery</a></li>
-                            <li><a href="#" class="dropdown-toggle hvr-bounce-to-bottom" data-toggle="dropdown"
-                                   role="button" aria-haspopup="true" aria-expanded="false">Pages <span
-                                    class="caret"></span></a>
+
+                            <!-- TODO Student/Anonymous only -->
+                            <li><a href="">Affiliated companies</a></li>
+
+                            <!-- TODO parametric student/company not visible to anonymous-->
+                            <li><a th:href="@{/dashboard/admin}" href="">Dashboard </a></li>
+
+                            <!-- TODO Admin only -->
+                            <li>
+                                <a href="#" class="dropdown-toggle hvr-bounce-to-bottom"
+                                   data-toggle="dropdown" role="button" aria-haspopup="true"
+                                   aria-expanded="true">Actions
+                                    <span class="caret"></span>
+                                </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="hvr-bounce-to-bottom" href="../icons.html">Web Icons</a></li>
                                     <li class="dropdown-submenu">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown-submenu" role="button"
-                                           aria-haspopup="true" aria-expanded="false">Short Codes <span
-                                                class="caret"></span></a>
+                                        <a href="#" class="dropdown-toggle"
+                                           data-toggle="dropdown-submenu"
+                                           role="button" aria-haspopup="true"
+                                           aria-expanded="false">Companies
+                                            <span class="caret"></span>
+                                        </a>
                                         <ul class="dropdown-menu">
-                                            <li><a tabindex="-1" href="../codes.html">Navbar</a></li>
-                                            <li><a href="../codes.html">Tabs</a></li>
-                                            <li><a href="../codes.html">Forms</a></li>
+                                            <li><a th:href="@{/create/company}" href="">Create</a></li>
+                                            <li><a th:href="@{/report/companies}" href="">Report</a></li>
                                         </ul>
                                     </li>
                                 </ul>
                             </li>
-                            <li><a href="../contact.html">Contact</a></li>
+
+                            <!-- TODO Student only -->
+                            <th:block th:if="1 == 0">
+                                <li>
+                                    <a href="#"
+                                       class="dropdown-toggle hvr-bounce-to-bottom"
+                                       data-toggle="dropdown"
+                                       role="button" aria-haspopup="true" aria-expanded="false">Internships
+                                        <span class="caret"></span>
+                                    </a>
+
+                                    <ul class="dropdown-menu">
+                                        <li><a class="hvr-bounce-to-bottom" href="#">Completed </a></li>
+                                        <li><a class="hvr-bounce-to-bottom" href="#">Pending </a></li>
+                                    </ul>
+                                </li>
+                            </th:block>
+
+                            <!-- TODO Company only -->
+                            <th:block th:if="1 == 0">
+                                <li><a href="">Published offers</a></li>
+                                <li><a href="">Publish an offer</a></li>
+                            </th:block>
+
+
                             <li class="login w3">
                                 <div id="loginContainer"><a href="#" id="loginButton"><span>Login</span></a>
                                     <div id="loginBox">
