@@ -105,7 +105,7 @@ public class InternshipController {
             internshipService.deleteInternshipById(id);
         }catch (Exception e){
             e.printStackTrace();
-            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_DEL));
             return "redirect:/update/internship/" + id;
         }
 

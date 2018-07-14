@@ -90,5 +90,13 @@
     border-right: 0!important;
 }
 
+.pagination > li:first-child > a, .pagination > li:first-child > span{
+    border-radius: 0!important;
+}
+
+.pagination > li:last-child > a, .pagination > li:last-child > span {
+    border-radius: 0!important;
+}
+
 
 

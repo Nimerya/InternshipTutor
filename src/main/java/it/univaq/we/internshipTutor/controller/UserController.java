@@ -181,7 +181,7 @@ public class UserController {
             userService.deleteUserById(id);
         }catch (Exception e){
             e.printStackTrace();
-            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_DEL));
             return "redirect:/create/user";
         }
 
@@ -198,9 +198,9 @@ public class UserController {
             model.addAttribute("user", new User(UUID.randomUUID()));
         }
 
-        Page<Student> students = studentService.findAll(pageable);
-        PageWrapper<Student> page = new PageWrapper<>(students, "/create/student");
-        model.addAttribute("students", page.getContent());
+        Page<User> users = userService.findAll(pageable);
+        PageWrapper<User> page = new PageWrapper<>(users, "/create/user");
+        model.addAttribute("users", page.getContent());
         model.addAttribute("page", page);
 
         List<Company> companies = companyService.findAll();
@@ -216,7 +216,7 @@ public class UserController {
     }
 
     @RequestMapping(value = {"/update/user/{id}"}, method = RequestMethod.GET)
-    public String renderUpdate(ModelMap model, Pageable pageable @PathVariable(value = "id") Long id) {
+    public String renderUpdate(ModelMap model, Pageable pageable, @PathVariable(value = "id") Long id) {
 
 
         if (!model.containsAttribute("user")) {
@@ -224,9 +224,9 @@ public class UserController {
             model.addAttribute("user", u);
         }
 
-        Page<Student> students = studentService.findAll(pageable);
-        PageWrapper<Student> page = new PageWrapper<>(students, "/update/student/"+id);
-        model.addAttribute("students", page.getContent());
+        Page<User> users = userService.findAll(pageable);
+        PageWrapper<User> page = new PageWrapper<>(users, "/update/user/"+id);
+        model.addAttribute("users", page.getContent());
         model.addAttribute("page", page);
 
         List<Company> companies = companyService.findAll();

@@ -10,7 +10,7 @@
             <div class="">
                 <ul class="pagination">
                     <li th:class="${page.firstPage}?'disabled':''">
-                        <span th:if='${page.firstPage}' class="squared">← First</span>
+                        <span th:if='${page.firstPage}' >← First</span>
                         <a th:if='${not page.firstPage}' th:href='@{${page.url}(page=0,size=${page.size})}'>←
                             First</a>
                     </li>
@@ -33,7 +33,7 @@
                            title='Go to next page'>»</a>
                     </li>
                     <li th:class="${page.lastPage}? 'disabled' : ''">
-                        <span th:if='${page.lastPage}' class="squared">Last →</span>
+                        <span th:if='${page.lastPage}'>Last →</span>
                         <a th:if='${not page.lastPage}'
                            th:href='@{${page.url}(page=${page.totalPages - 1},size=${page.size})}'>Last
                             →</a>

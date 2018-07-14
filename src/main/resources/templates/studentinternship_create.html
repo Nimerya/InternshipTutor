@@ -142,8 +142,10 @@
                 </th:block>
 
                 <!-- pagination -->
-                <th:block th:replace="fragments/pagination_bar :: pagination_bar(${page})">
-                    will be replaced
+                <th:block th:if="${!studentinternships.isEmpty()}">
+                    <th:block th:replace="fragments/pagination_bar :: pagination_bar(${page})">
+                        will be replaced
+                    </th:block>
                 </th:block>
             </div>
         </div>

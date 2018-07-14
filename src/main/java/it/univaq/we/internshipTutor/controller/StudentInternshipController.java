@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static it.univaq.we.internshipTutor.model.Popup.WAR_MSG_EN;
+import static it.univaq.we.internshipTutor.model.Popup.WAR_MSG_EN_DEL;
 import static it.univaq.we.internshipTutor.model.Popup.WAR_MSG_EN_SAVE;
 
 @Controller
@@ -111,7 +112,7 @@ public class StudentInternshipController {
             studentinternshipService.deleteStudentInternshipById(id);
         }catch (Exception e){
             e.printStackTrace();
-            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_DEL));
             return "redirect:/update/studentinternship/" + id;
         }
 

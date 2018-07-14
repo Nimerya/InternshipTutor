@@ -41,7 +41,7 @@ public class DepartmentController {
             departmentService.save(department);
         }catch (Exception e){
             e.printStackTrace();
-            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
             return "redirect:/create/department";
         }
 
@@ -70,7 +70,7 @@ public class DepartmentController {
             departmentService.save(department);
         }catch (Exception e){
             e.printStackTrace();
-            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
             return "redirect:/update/department/" + department.getId();
         }
 
@@ -87,7 +87,7 @@ public class DepartmentController {
             // if there are errors during the binding (e.g. NotNull, Min, etc.)
             // redirect to the form displaying the errors
             // add error message in the model
-            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_DEL));
             return "redirect:/update/department/" + id;
         }
 
