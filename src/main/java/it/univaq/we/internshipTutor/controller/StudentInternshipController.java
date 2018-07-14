@@ -6,6 +6,8 @@ import it.univaq.we.internshipTutor.service.ProfessorService;
 import it.univaq.we.internshipTutor.service.StudentInternshipService;
 import it.univaq.we.internshipTutor.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -20,6 +22,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static it.univaq.we.internshipTutor.model.Popup.WAR_MSG_EN;
+import static it.univaq.we.internshipTutor.model.Popup.WAR_MSG_EN_SAVE;
 
 @Controller
 public class StudentInternshipController {
@@ -53,7 +56,8 @@ public class StudentInternshipController {
             // else perform the insertion
             studentinternshipService.save(studentinternship);
         }catch (Exception e){
-            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
             return "redirect:/create/studentinternship";
         }
 
@@ -76,8 +80,14 @@ public class StudentInternshipController {
             return "redirect:/update/studentinternship/" + studentinternship.getId();
         }
 
-        // else perform the insertion
-        studentinternshipService.save(studentinternship);
+        try{
+            // else perform the insertion
+            studentinternshipService.save(studentinternship);
+        }catch (Exception e){
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
+            return "redirect:/update/studentinternship/" + studentinternship.getId();
+        }
 
         // add success message in the model
         redirectAttributes.addFlashAttribute("popup", new Popup());
@@ -96,8 +106,14 @@ public class StudentInternshipController {
             return "redirect:/update/studentinternship/" + id;
         }
 
-        // else perform the remove
-        studentinternshipService.deleteStudentInternshipById(id);
+        try{
+            // else perform the insertion
+            studentinternshipService.deleteStudentInternshipById(id);
+        }catch (Exception e){
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
+            return "redirect:/update/studentinternship/" + id;
+        }
 
         // add success message in the model
         redirectAttributes.addFlashAttribute("popup", new Popup());
@@ -106,14 +122,16 @@ public class StudentInternshipController {
 
 
     @RequestMapping(value={"/create/studentinternship"}, method = RequestMethod.GET)
-    public String renderCreate(ModelMap model) {
+    public String renderCreate(ModelMap model, Pageable pageable) {
 
         if(!model.containsAttribute("studentinternship")){
             model.addAttribute("studentinternship", new StudentInternship(UUID.randomUUID()));
         }
 
-        List<StudentInternship> studentinternships = studentinternshipService.findAll();
-        model.addAttribute("studentinternships", studentinternships);
+        Page<StudentInternship> studentinternships = studentinternshipService.findAll(pageable);
+        PageWrapper<StudentInternship> page = new PageWrapper<>(studentinternships, "/create/studentinternship");
+        model.addAttribute("studentinternships", page.getContent());
+        model.addAttribute("page", page);
 
         List<Professor> professors = professorService.findAll();
         model.addAttribute("professors", professors);
@@ -128,7 +146,7 @@ public class StudentInternshipController {
     }
 
     @RequestMapping(value={"/update/studentinternship/{id}"}, method = RequestMethod.GET)
-    public String renderUpdate(ModelMap model, @PathVariable(value = "id") Long id) {
+    public String renderUpdate(ModelMap model, Pageable pageable, @PathVariable(value = "id") Long id) {
 
 
         if(!model.containsAttribute("studentinternship")){
@@ -136,8 +154,10 @@ public class StudentInternshipController {
             model.addAttribute("studentinternship", d);
         }
 
-        List<StudentInternship> studentinternships = studentinternshipService.findAll();
-        model.addAttribute("studentinternships", studentinternships);
+        Page<StudentInternship> studentinternships = studentinternshipService.findAll(pageable);
+        PageWrapper<StudentInternship> page = new PageWrapper<>(studentinternships, "/update/studentinternship/"+id);
+        model.addAttribute("studentinternships", page.getContent());
+        model.addAttribute("page", page);
 
         List<Professor> professors = professorService.findAll();
         model.addAttribute("professors", professors);

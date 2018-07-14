@@ -1,12 +1,15 @@
 package it.univaq.we.internshipTutor.controller;
 
 
+import it.univaq.we.internshipTutor.model.PageWrapper;
 import it.univaq.we.internshipTutor.model.User;
 import it.univaq.we.internshipTutor.model.Company;
 import it.univaq.we.internshipTutor.model.Popup;
 import it.univaq.we.internshipTutor.service.CompanyService;
 import it.univaq.we.internshipTutor.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -46,7 +49,7 @@ public class CompanyController {
             companyService.save(company);
         }catch (Exception e){
             e.printStackTrace();
-            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
             return "redirect:/create/company";
         }
 
@@ -70,8 +73,13 @@ public class CompanyController {
             return "redirect:/update/company/" + company.getId();
         }
 
-        // add success message in the model
-        redirectAttributes.addFlashAttribute("popup", new Popup());
+        try{
+            companyService.save(company);
+        }catch (Exception e){
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
+            return "redirect:/update/company/" + company.getId();
+        }
 
         return "redirect:/update/company/" + company.getId();
     }
@@ -92,7 +100,7 @@ public class CompanyController {
             companyService.deleteCompanyById(id);
         }catch (Exception e){
             e.printStackTrace();
-            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
             return "redirect:/create/company";
         }
 
@@ -103,31 +111,32 @@ public class CompanyController {
 
 
     @RequestMapping(value = {"/create/company"}, method = RequestMethod.GET)
-    public String renderCreate(ModelMap model) {
+    public String renderCreate(ModelMap model, Pageable pageable) {
 
         if (!model.containsAttribute("company")) {
             model.addAttribute("company", new Company(UUID.randomUUID()));
         }
 
-        /*List<User> users = userService.findAll();
-        model.addAttribute("users", users);*/
-
-        List<Company> companies = companyService.findAll();
-        model.addAttribute("companies", companies);
+        Page<Company> companies = companyService.findAll(pageable);
+        PageWrapper<Company> page = new PageWrapper<>(companies, "/create/company");
+        model.addAttribute("companies", page.getContent());
+        model.addAttribute("page", page);
 
         return "company_create";
     }
 
     @RequestMapping(value = {"/update/company/{id}"}, method = RequestMethod.GET)
-    public String renderUpdate(ModelMap model, @PathVariable(value = "id") Long id) {
+    public String renderUpdate(ModelMap model, Pageable pageable, @PathVariable(value = "id") Long id) {
 
 
         if (!model.containsAttribute("company")) {
             Company c = companyService.findCompanyById(id);
             model.addAttribute("company", c);
         }
-        List<Company> companies = companyService.findAll();
-        model.addAttribute("companies", companies);
+        Page<Company> companies = companyService.findAll(pageable);
+        PageWrapper<Company> page = new PageWrapper<>(companies, "/update/company/"+id);
+        model.addAttribute("companies", page.getContent());
+        model.addAttribute("page", page);
 
         /*List<User> users = userService.findAll();
         model.addAttribute("users", users);*/

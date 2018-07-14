@@ -18,9 +18,12 @@ public class Popup {
 
     public static final String WAR_MSG_IT = "Qualcosa è andato storto!";
     public static final String WAR_MSG_EN = "Something went wrong!";
+    public static final String WAR_MSG_EN_SAVE = "Something went wrong while aplying your changes, one or more of the fields could be duplicated.";
+
 
     public static final String SUCC_MSG_IT = "Operazione eseguita con successo!";
     public static final String SUCC_MSG_EN = "Operation completed successfully!";
+
 
 
     public Popup(){

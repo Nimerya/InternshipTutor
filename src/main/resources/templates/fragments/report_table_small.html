@@ -5,10 +5,9 @@
     <title>Title</title>
 </head>
 <body>
-<th:block th:fragment="report_table_small(page, entity, nameS, nameP)">
-    <h3 class="w3ls-hdg" th:text="${nameP + ' List'}">Degrees List</h3>
-    <div th:if="${!entity.isEmpty()}">
-        <!--<table class="table-hover table table-bordered squared table-fixed">-->
+<th:block th:fragment="report_table_small(page, collection, nameS, nameP)">
+    <h3 class="w3ls-hdg" th:text="${nameP + ' List'}">List</h3>
+    <div th:if="${!collection.isEmpty()}">
         <table class="table table-fixed table-bordered squared">
             <thead>
             <tr>
@@ -19,19 +18,17 @@
             </thead>
 
             <tbody>
-            <tr th:each="item, iterationStatus : ${entity}">
-                <td th:text="${iterationStatus.count + (page.getSize() * (page.getNumber()-1))}" class="col-xs-1">
+            <tr th:each="item, iterationStatus : ${collection}">
+                <td th:text="${iterationStatus.count + (page.getSize() * (page.getNumber()-1))}" class="col-xs-1 no-border-right">
                 </td>
-                <td th:text="${item.getName()}" class="col-xs-8">
+                <td th:text="${item.getInfo()}" class="col-xs-8 no-border-right">
                 </td>
                 <td class="col-xs-3 text-right">
                     <a th:href="@{'/update/'+nameS+'/'+${item.getId()}}"
                        class="btn-default-border btn-xs squared">
-                        <i class="fa fa-edit">
-                        </i>
+                        <i class="fa fa-edit"></i>
                         Edit
                     </a>
-
                 </td>
             </tr>
 
@@ -39,7 +36,7 @@
         </table>
 
     </div>
-    <div class="well" th:unless="${!entity.isEmpty()}" th:text="${'There are no '+nameP+' yet!'}">
+    <div class="well" th:unless="${!collection.isEmpty()}" th:text="${'There are no '+nameP+' yet!'}">
         Empty report message
     </div>
 </th:block>

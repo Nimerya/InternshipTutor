@@ -3,10 +3,13 @@ package it.univaq.we.internshipTutor.controller;
 
 import it.univaq.we.internshipTutor.model.Internship;
 import it.univaq.we.internshipTutor.model.Company;
+import it.univaq.we.internshipTutor.model.PageWrapper;
 import it.univaq.we.internshipTutor.model.Popup;
 import it.univaq.we.internshipTutor.service.CompanyService;
 import it.univaq.we.internshipTutor.service.InternshipService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -46,7 +49,7 @@ public class InternshipController {
             internshipService.save(internship);
         }catch (Exception e){
             e.printStackTrace();
-            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
             return "redirect:/create/internship";
         }
 
@@ -76,7 +79,7 @@ public class InternshipController {
             internshipService.save(internship);
         }catch (Exception e){
             e.printStackTrace();
-            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
             return "redirect:/update/internship/" + internship.getId();
         }
 
@@ -102,7 +105,7 @@ public class InternshipController {
             internshipService.deleteInternshipById(id);
         }catch (Exception e){
             e.printStackTrace();
-            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
             return "redirect:/update/internship/" + id;
         }
 
@@ -113,13 +116,16 @@ public class InternshipController {
 
 
     @RequestMapping(value={"/create/internship"}, method = RequestMethod.GET)
-    public String renderCreate(ModelMap model) {
+    public String renderCreate(ModelMap model, Pageable pageable) {
 
         if(!model.containsAttribute("internship")){
             model.addAttribute("internship", new Internship(UUID.randomUUID()));
         }
-        List<Internship> internships = internshipService.findAll();
-        model.addAttribute("internships", internships);
+        Page<Internship> internships = internshipService.findAll(pageable);
+        PageWrapper<Internship> page = new PageWrapper<>(internships, "/create/internship");
+        model.addAttribute("internships", page.getContent());
+        model.addAttribute("page", page);
+
         List<Company> companies = companyService.findAll();
         model.addAttribute("companies", companies);
 
@@ -128,7 +134,7 @@ public class InternshipController {
 
 
     @RequestMapping(value={"/update/internship/{id}"}, method = RequestMethod.GET)
-    public String renderUpdate(ModelMap model, @PathVariable(value = "id") Long id) {
+    public String renderUpdate(ModelMap model, Pageable pageable, @PathVariable(value = "id") Long id) {
 
         Internship i = internshipService.findInternshipById(id);
 
@@ -136,8 +142,11 @@ public class InternshipController {
             model.addAttribute("internship", i);
         }
 
-        List<Internship> internships = internshipService.findAll();
-        model.addAttribute("internships", internships);
+        Page<Internship> internships = internshipService.findAll(pageable);
+        PageWrapper<Internship> page = new PageWrapper<>(internships, "/update/internship/"+id);
+        model.addAttribute("internships", page.getContent());
+        model.addAttribute("page", page);
+
         List<Company> companies = companyService.findAll();
         model.addAttribute("companies", companies);
 

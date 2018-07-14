@@ -2,6 +2,7 @@ package it.univaq.we.internshipTutor.controller;
 
 import it.univaq.we.internshipTutor.model.Degree;
 import it.univaq.we.internshipTutor.model.Department;
+import it.univaq.we.internshipTutor.model.PageWrapper;
 import it.univaq.we.internshipTutor.model.Popup;
 import it.univaq.we.internshipTutor.service.DegreeService;
 import it.univaq.we.internshipTutor.service.DepartmentService;
@@ -47,7 +48,7 @@ public class DegreeController {
             // else perform the insertion
             degreeService.save(degree);
         }catch (Exception e){
-            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
             return "redirect:/create/degree";
         }
 
@@ -70,8 +71,13 @@ public class DegreeController {
             return "redirect:/update/degree/" + degree.getId();
         }
 
-        // else perform the insertion
-        degreeService.save(degree);
+        try{
+            degreeService.save(degree);
+        }catch (Exception e){
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
+            return "redirect:/update/degree/" + degree.getId();
+        }
 
         // add success message in the model
         redirectAttributes.addFlashAttribute("popup", new Popup());
@@ -90,8 +96,13 @@ public class DegreeController {
             return "redirect:/update/degree/" + id;
         }
 
-        // else perform the remove
-        degreeService.deleteDegreeById(id);
+        try{
+            degreeService.deleteDegreeById(id);
+        }catch (Exception e){
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
+            return "redirect:/update/degree/" + id;
+        }
 
         // add success message in the model
         redirectAttributes.addFlashAttribute("popup", new Popup());

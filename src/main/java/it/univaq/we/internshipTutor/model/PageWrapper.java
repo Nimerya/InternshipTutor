@@ -1,4 +1,4 @@
-package it.univaq.we.internshipTutor.controller;
+package it.univaq.we.internshipTutor.model;
 
 import org.springframework.data.domain.Page;
 

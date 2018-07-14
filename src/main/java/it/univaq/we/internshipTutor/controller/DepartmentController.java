@@ -1,7 +1,7 @@
 package it.univaq.we.internshipTutor.controller;
 
-import it.univaq.we.internshipTutor.model.Degree;
 import it.univaq.we.internshipTutor.model.Department;
+import it.univaq.we.internshipTutor.model.PageWrapper;
 import it.univaq.we.internshipTutor.model.Popup;
 import it.univaq.we.internshipTutor.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import static it.univaq.we.internshipTutor.model.Popup.*;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -131,7 +130,7 @@ public class DepartmentController {
         }
 
         Page<Department> departments = departmentService.findAll(pageable);
-        PageWrapper<Department> page = new PageWrapper<>(departments, "/update/department"+id);
+        PageWrapper<Department> page = new PageWrapper<>(departments, "/update/department/"+id);
         model.addAttribute("departments", page.getContent());
         model.addAttribute("page", page);
 
