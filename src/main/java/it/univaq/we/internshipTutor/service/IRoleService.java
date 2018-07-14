@@ -10,6 +10,8 @@ public interface IRoleService {
 
     Role findRoleById(Long id);
 
+    Role findRoleByName(String name);
+
     <S extends Role> S save(S role);
 
     void deleteRoleById(Long id);

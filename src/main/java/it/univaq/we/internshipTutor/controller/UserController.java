@@ -81,8 +81,7 @@ public class UserController {
         try{
             user.setImage(fileUploadService.uploadImage(imageFile, user.getFirstName()+"_"+user.getLastName()));
         }catch (Exception e){
-            e.printStackTrace();
-            redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong!\\nCheck the image you have uploaded"));
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", e.getMessage()));
             return "redirect:/create/user";
         }
 

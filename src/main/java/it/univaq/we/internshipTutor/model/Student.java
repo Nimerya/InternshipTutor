@@ -1,5 +1,7 @@
 package it.univaq.we.internshipTutor.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.sql.Date;
 import javax.validation.constraints.Min;

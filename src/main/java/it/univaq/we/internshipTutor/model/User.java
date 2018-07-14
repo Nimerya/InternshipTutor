@@ -30,7 +30,6 @@ public class User {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id", nullable = false)
-    @NotNull
     private Role role;
 
     @Column(name = "email", nullable = false, length = 255)

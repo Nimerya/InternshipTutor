@@ -38,7 +38,7 @@ public class FileUploadService implements IFileUploadService {
 
                 return savedImage.getName();
             } else {
-                throw new Exception("uploaded file is not an image");
+                throw new Exception("Uploaded file is not an image");
             }
         } else {
             return "default.jpg";

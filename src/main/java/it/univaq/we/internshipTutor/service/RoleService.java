@@ -20,8 +20,11 @@ public class RoleService implements IRoleService{
     }
 
     @Override
-    public Role findRoleById(Long id){
-        return roleRepository.findRoleById(id);
+    public Role findRoleById(Long id){  return roleRepository.findRoleById(id); }
+
+    @Override
+    public Role findRoleByName(String name){
+        return roleRepository.findRoleByName(name);
     }
 
     @Override
