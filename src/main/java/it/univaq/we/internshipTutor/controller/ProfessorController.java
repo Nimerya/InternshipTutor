@@ -149,4 +149,18 @@ public class ProfessorController {
     }
 
 
+    @RequestMapping(value = {"/report/professors"}, method = RequestMethod.GET)
+    public String renderReport(ModelMap model, Pageable pageable) {
+
+        Page<Professor> professors = professorService.findAll(pageable);
+        PageWrapper<Professor> page = new PageWrapper<>(professors, "/report/professors");
+        model.addAttribute("collection", page.getContent());
+        model.addAttribute("page", page);
+        model.addAttribute("nameS", "professor");
+        model.addAttribute("nameP", "Professors");
+
+        return "report";
+    }
+
+
 }
