@@ -41,6 +41,15 @@
                                         </th:block>
                                     </select>
                                 </div>
+
+                                <!-- error box -->
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <div class="alert alert-danger squared my-small-alert"
+                                         role="alert"
+                                         th:if="${#fields.hasErrors('role')}"
+                                         th:errors="*{role}">
+                                    </div>
+                                </div>
                             </div>
 
                             <!-- students -->
@@ -51,7 +60,7 @@
                                         <option selected="selected" value = "">-</option>
                                         <th:block th:each="student : ${students}">
                                             <option th:value="${student.getId()}"
-                                                    th:text="${student.getMatriculationNumber()}"></option>
+                                                    th:text="${student.getInfo()}"></option>
                                         </th:block>
                                     </select>
                                 </div>
@@ -65,7 +74,7 @@
                                         <option selected="selected"  value = "">-</option>
                                         <th:block th:each="company : ${companies}">
                                             <option th:value="${company.getId()}"
-                                                    th:text="${company.getName()}"></option>
+                                                    th:text="${company.getInfo()}"></option>
                                         </th:block>
                                     </select>
                                 </div>
@@ -79,7 +88,7 @@
                                 <label for="email" class="col-sm-3 control-label">Email</label>
                                 <!-- input -->
                                 <div class="col-sm-9">
-                                    <input th:field="*{email}" type="email" class="form-control1" id="email"
+                                    <input th:field="*{email}" type="email" required="required" class="form-control1" id="email"
                                            placeholder="Insert email">
                                 </div>
 
@@ -102,7 +111,7 @@
                                 <label for="password" class="col-sm-3 control-label">Password</label>
                                 <!-- input -->
                                 <div class="col-sm-9">
-                                    <input th:field="*{password}" type="password" class="form-control1" id="password"
+                                    <input th:field="*{password}" type="password" required="required" class="form-control1" id="password"
                                            placeholder="Insert password">
                                 </div>
 
@@ -126,7 +135,7 @@
                                 <label for="firstName" class="col-sm-3 control-label">First Name</label>
                                 <!-- input -->
                                 <div class="col-sm-9">
-                                    <input th:field="*{firstName}" type="text" class="form-control1" id="firstName"
+                                    <input th:field="*{firstName}" type="text" required="required" class="form-control1" id="firstName"
                                            placeholder="Insert First Name">
                                 </div>
 
@@ -150,7 +159,7 @@
                                 <label for="lastName" class="col-sm-3 control-label">Last Name</label>
                                 <!-- input -->
                                 <div class="col-sm-9">
-                                    <input th:field="*{lastName}" type="text" class="form-control1" id="lastName"
+                                    <input th:field="*{lastName}" type="text" required="required" class="form-control1" id="lastName"
                                            placeholder="Insert Last Name">
                                 </div>
 
@@ -173,7 +182,7 @@
                                 <label for="lastName" class="col-sm-3 control-label">Phone Number</label>
                                 <!-- input -->
                                 <div class="col-sm-9">
-                                    <input th:field="*{phoneNumber}" type="tel" class="form-control1" id="phoneNumber"
+                                    <input th:field="*{phoneNumber}" type="tel" required="required" class="form-control1" id="phoneNumber"
                                            placeholder="Insert Phone Number">
                                 </div>
 

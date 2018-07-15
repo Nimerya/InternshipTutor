@@ -22,21 +22,21 @@ public class StudentInternship {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", nullable = false)
-    @NotNull
+    @NotNull(message = "this field is mandatory")
     private Student student;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "internship_id", nullable = false)
-    @NotNull
+    @NotNull(message = "this field is mandatory")
     private Internship internship;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "professor_id", nullable = false)
-    @NotNull
+    @NotNull(message = "this field is mandatory")
     private Professor professor;
 
     @Column(name = "cfu", nullable = false)
-    @NotNull
+    @NotNull(message = "this field is mandatory")
     @Min(1)
     private Integer cfu;
 
@@ -127,6 +127,9 @@ public class StudentInternship {
 
     @Override
     public int hashCode() {
+        if (this.getUuid() == null){
+            this.setUuid(UUID.randomUUID());
+        }
         return getUuid().hashCode();
     }
 

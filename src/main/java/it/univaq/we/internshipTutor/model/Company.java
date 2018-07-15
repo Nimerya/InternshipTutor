@@ -156,6 +156,9 @@ public class Company implements java.io.Serializable {
     // lose our entity in hash-based Sets.
     @Override
     public int hashCode() {
+        if (this.getUuid() == null){
+            this.setUuid(UUID.randomUUID());
+        }
         return getUuid().hashCode();
     }
 

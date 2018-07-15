@@ -33,7 +33,7 @@
                                 <label for="firstName" class="col-sm-3 control-label">First Name</label>
                                 <!-- input -->
                                 <div class="col-sm-9">
-                                    <input th:field="*{firstName}" type="text" class="form-control1" id="firstName"
+                                    <input th:field="*{firstName}" required="required" type="text" class="form-control1" id="firstName"
                                            placeholder="Insert professor first name">
                                 </div>
 
@@ -61,7 +61,7 @@
                                 <label for="lastName" class="col-sm-3 control-label">Last Name</label>
                                 <!-- input -->
                                 <div class="col-sm-9">
-                                    <input th:field="*{lastName}" type="text" class="form-control1" id="lastName"
+                                    <input th:field="*{lastName}" required="required" type="text" class="form-control1" id="lastName"
                                            placeholder="Insert professor last name">
                                 </div>
 
@@ -90,7 +90,7 @@
                                 <label for="email" class="col-sm-3 control-label">Email</label>
                                 <!-- input -->
                                 <div class="col-sm-9">
-                                    <input th:field="*{email}" type="email" class="form-control1" id="email"
+                                    <input th:field="*{email}" type="email" required="required" class="form-control1" id="email"
                                            placeholder="Insert professor email">
                                 </div>
 
@@ -122,6 +122,15 @@
                                                     th:text="${department.getName()}"></option>
                                         </th:block>
                                     </select>
+                                </div>
+
+                                <!-- error box -->
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <div class="alert alert-danger squared my-small-alert"
+                                         role="alert"
+                                         th:if="${#fields.hasErrors('department')}"
+                                         th:errors="*{department}">
+                                    </div>
                                 </div>
                             </div>
 

@@ -38,6 +38,15 @@
                                         </th:block>
                                     </select>
                                 </div>
+
+                                <!-- error box -->
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <div class="alert alert-danger squared my-small-alert"
+                                         role="alert"
+                                         th:if="${#fields.hasErrors('student')}"
+                                         th:errors="*{student}">
+                                    </div>
+                                </div>
                             </div>
 
                             <!-- internship -->
@@ -50,6 +59,15 @@
                                             <option th:value="${internship.getId()}" th:text="${internship.getTitle() +' - '+internship.getCompany().getName()}" th:selected="(${internship.getId()} == *{internship.getId()})"></option>
                                         </th:block>
                                     </select>
+                                </div>
+
+                                <!-- error box -->
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <div class="alert alert-danger squared my-small-alert"
+                                         role="alert"
+                                         th:if="${#fields.hasErrors('internship')}"
+                                         th:errors="*{internship}">
+                                    </div>
                                 </div>
                             </div>
 
@@ -64,6 +82,15 @@
                                         </th:block>
                                     </select>
                                 </div>
+
+                                <!-- error box -->
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <div class="alert alert-danger squared my-small-alert"
+                                         role="alert"
+                                         th:if="${#fields.hasErrors('professor')}"
+                                         th:errors="*{professor}">
+                                    </div>
+                                </div>
                             </div>
 
                             <!-- cfu -->
@@ -74,7 +101,7 @@
                                 <label for="cfu" class="col-sm-3 control-label">CFU</label>
                                 <!-- input -->
                                 <div class="col-sm-9">
-                                    <input th:field="*{cfu}" type="number" min="1" class="form-control1" id="cfu"
+                                    <input th:field="*{cfu}" type="number" required="required" min="1" class="form-control1" id="cfu"
                                            placeholder="Insert number of CFU">
                                 </div>
 

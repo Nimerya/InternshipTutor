@@ -3,13 +3,10 @@ package it.univaq.we.internshipTutor.model;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.sql.Date;
-import javax.validation.constraints.Min;
+import java.util.Date;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -26,7 +23,7 @@ public class Student {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "degree_id", nullable = false)
-    @NotNull
+    @NotNull(message = "this field is mandatory")
     private Degree degree;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "student")
@@ -36,6 +33,9 @@ public class Student {
     private User user;
 
     @Column(name = "birthday", nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
+    @NotNull(message = "this field is mandatory")
     private Date birthday;
 
     @Column(name = "matriculation_number", nullable = false, length = 255)
@@ -219,6 +219,9 @@ public class Student {
 
     @Override
     public int hashCode() {
+        if (this.getUuid() == null){
+            this.setUuid(UUID.randomUUID());
+        }
         return getUuid().hashCode();
     }
 

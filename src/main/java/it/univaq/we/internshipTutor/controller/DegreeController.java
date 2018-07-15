@@ -101,6 +101,7 @@ public class DegreeController {
         }catch (Exception e){
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_DEL));
+            redirectAttributes.addFlashAttribute("company", degreeService.findDegreeById(id));
             return "redirect:/update/degree/" + id;
         }
 

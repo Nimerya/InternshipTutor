@@ -32,7 +32,7 @@
                         <label for="email" class="col-sm-3 control-label">Email</label>
                         <!-- input -->
                         <div class="col-sm-9">
-                            <input type="email" th:value="${user.email}" name="email" class="form-control1" id="email"
+                            <input type="email" th:value="${user.email}" required="required" name="email" class="form-control1" id="email"
                                    placeholder="Insert email">
                         </div>
                         <!-- error box -->
@@ -47,7 +47,7 @@
                     <div class="form-group">
                         <label for="inputPassword" class="col-sm-3 control-label">Password</label>
                         <div class="col-sm-9">
-                            <input type="password" class="form-control1" th:value="${user.password}" name="password"
+                            <input type="password" class="form-control1" required="required" th:value="${user.password}" name="password"
                                    id="inputPassword" placeholder="Password">
                         </div>
                         <!-- error box -->
@@ -62,7 +62,7 @@
                     <div class="form-group">
                         <label for="repeatPassword" class="col-sm-3 control-label">Repeat Password</label>
                         <div class="col-sm-9">
-                            <input type="password" class="form-control1" name="repeatPassword" id="repeatPassword"
+                            <input type="password" class="form-control1" required="required" name="repeatPassword" id="repeatPassword"
                                    placeholder="Type again Password">
                         </div>
                     </div>
@@ -87,7 +87,7 @@
                     <div class="form-group">
                         <label for="firstName" class="col-sm-3 control-label">First Name</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control1" th:value="${user.firstName}" name="firstName"
+                            <input type="text" class="form-control1" th:value="${user.firstName}" required="required" name="firstName"
                                    id="firstName" placeholder="First Name">
                         </div>
                         <!-- error box -->
@@ -102,7 +102,7 @@
                     <div class="form-group">
                         <label for="firstName" class="col-sm-3 control-label">Last Name</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control1" id="lastName" th:value="${user.lastName}"
+                            <input type="text" class="form-control1" id="lastName" required="required" th:value="${user.lastName}"
                                    name="lastName" placeholder="Last Name">
                         </div>
                         <!-- error box -->
@@ -121,7 +121,7 @@
                     <div class="form-group">
                         <label for="name" class="col-sm-3 control-label">Name</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control1" th:value="${company.name}" name="name" id="name"
+                            <input type="text" class="form-control1" th:value="${company.name}" required="required" name="name" id="name"
                                    placeholder="Company name">
                         </div>
                         <!-- error box -->
@@ -136,7 +136,7 @@
                     <div class="form-group">
                         <label for="address" class="col-sm-3 control-label">Address</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control1" id="address" th:value="${company.address}"
+                            <input type="text" class="form-control1" id="address" required="required" th:value="${company.address}"
                                    name="address" placeholder="Company address">
                         </div>
                         <!-- error box -->
@@ -151,7 +151,7 @@
                     <div class="form-group">
                         <label for="phoneNumber" class="col-sm-3 control-label">Phone Number</label>
                         <div class="col-sm-9">
-                            <input type="tel" class="form-control1" id="phoneNumber" th:value="${user.phoneNumber}"
+                            <input type="tel" class="form-control1" id="phoneNumber" required="required" th:value="${user.phoneNumber}"
                                    name="phoneNumber" placeholder="Phone Number">
                         </div>
                         <!-- error box -->
@@ -167,7 +167,7 @@
                     <div class="form-group">
                         <label for="fiscalCode" class="col-sm-3 control-label">Fiscal Code</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control1" th:value="${company.fiscalCode}" name="fiscalCode"
+                            <input type="text" class="form-control1" th:value="${company.fiscalCode}" required="required" name="fiscalCode"
                                    id="fiscalCode" placeholder="Fiscal Code">
                         </div>
                         <!-- error box -->
@@ -183,7 +183,7 @@
                     <div class="form-group">
                         <label for="vatNumber" class="col-sm-3 control-label">VAT Number</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control1" th:value="${company.vatNumber}" name="vatNumber"
+                            <input type="text" class="form-control1" th:value="${company.vatNumber}" required="required" name="vatNumber"
                                    id="vatNumber" placeholder="Company VAT number">
                         </div>
                         <!-- error box -->
@@ -199,7 +199,7 @@
                     <div class="form-group">
                         <label for="attorney" class="col-sm-3 control-label">Attorney</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control1" th:value="${company.attorney}" name="attorney"
+                            <input type="text" class="form-control1" th:value="${company.attorney}" required="required" name="attorney"
                                    id="attorney" placeholder="Attorney">
                         </div>
                         <!-- error box -->
@@ -216,7 +216,7 @@
                         <label for="jurisdiction" class="col-sm-3 control-label">Jurisdiction</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control1" th:value="${company.jurisdiction}"
-                                   name="jurisdiction" id="jurisdiction" placeholder="Jurisdiction">
+                                   name="jurisdiction" id="jurisdiction" required="required" placeholder="Jurisdiction">
                         </div>
                         <!-- error box -->
                         <div class="col-sm-offset-3 col-sm-9">

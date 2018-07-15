@@ -106,6 +106,7 @@ public class InternshipController {
         }catch (Exception e){
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_DEL));
+            redirectAttributes.addFlashAttribute("internship", internshipService.findInternshipById(id));
             return "redirect:/update/internship/" + id;
         }
 

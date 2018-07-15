@@ -33,7 +33,7 @@
                         <label for="email" class="col-sm-3 control-label">Email</label>
                         <!-- input -->
                         <div class="col-sm-9">
-                            <input type="email" th:value="${user.email}" name="email" class="form-control1" id="email"
+                            <input type="email" th:value="${user.email}" name="email" required="required" class="form-control1" id="email"
                                    placeholder="Insert email">
                         </div>
                         <!-- error box -->
@@ -48,7 +48,7 @@
                     <div class="form-group">
                         <label for="inputPassword" class="col-sm-3 control-label">Password</label>
                         <div class="col-sm-9">
-                            <input type="password" class="form-control1" th:value="${user.password}" name="password"
+                            <input type="password" class="form-control1" required="required" th:value="${user.password}" name="password"
                                    id="inputPassword" placeholder="Password">
                         </div>
                         <!-- error box -->
@@ -63,7 +63,7 @@
                     <div class="form-group">
                         <label for="repeatPassword" class="col-sm-3 control-label">Repeat Password</label>
                         <div class="col-sm-9">
-                            <input type="password" class="form-control1" name="repeatPassword" id="repeatPassword"
+                            <input type="password" class="form-control1" required="required" name="repeatPassword" id="repeatPassword"
                                    placeholder="Type again Password">
                         </div>
                     </div>
@@ -87,7 +87,7 @@
                     <div class="form-group">
                         <label for="firstName" class="col-sm-3 control-label">First Name</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control1" th:value="${user.firstName}" name="firstName"
+                            <input type="text" class="form-control1" required="required" th:value="${user.firstName}" name="firstName"
                                    id="firstName" placeholder="First Name">
                         </div>
                         <!-- error box -->
@@ -102,7 +102,7 @@
                     <div class="form-group">
                         <label for="firstName" class="col-sm-3 control-label">Last Name</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control1" id="lastName" th:value="${user.lastName}"
+                            <input type="text" class="form-control1" required="required" id="lastName" th:value="${user.lastName}"
                                    name="lastName" placeholder="Last Name">
                         </div>
                         <!-- error box -->
@@ -121,13 +121,15 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label">Date of Birth</label>
                         <div class="col-sm-3">
-                            <input type="date" class="form-control1 date-picker-birth" th:value="${student.birthday}"
+                            <input type="date" class="form-control1" required="required" th:value="${student.birthday}"
+                                   pattern="(0[1-9]|1[0-9]|2[0-9]|3[01])/(0[1-9]|1[012])/[0-9]{4}"
+                                   placeholder="dd/mm/yyyy"
                                    name="birthday"/>
                         </div>
 
                         <label class="col-sm-3 control-label">State of Birth</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control1" th:value="${student.birthplaceState}"
+                            <input type="text" class="form-control1" required="required" th:value="${student.birthplaceState}"
                                    name="birthplaceState" placeholder="State in which you are born"/>
                         </div>
                         <!-- error box -->
@@ -151,14 +153,14 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label">Province of Birth</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control1" th:value="${student.birthplaceProvince}"
+                            <input type="text" class="form-control1" required="required" th:value="${student.birthplaceProvince}"
                                    name="birthplaceProvince" placeholder="Province in which you are born"/>
                         </div>
 
 
                         <label class="col-sm-3 control-label">City of Birth</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control1" th:value="${student.birthplaceCity}"
+                            <input type="text" class="form-control1" required="required" th:value="${student.birthplaceCity}"
                                    name="birthplaceCity" placeholder="City in which you are born"/>
                         </div>
                         <!-- error box -->
@@ -184,13 +186,13 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label">State of Residence</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control1" th:value="${student.residenceState}"
+                            <input type="text" class="form-control1" required="required" th:value="${student.residenceState}"
                                    name="residenceState" placeholder="State of residence"/>
                         </div>
 
                         <label class="col-sm-3 control-label">Province of Residence</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control1" th:value="${student.residenceProvince}"
+                            <input type="text" class="form-control1" required="required" th:value="${student.residenceProvince}"
                                    name="residenceProvince" placeholder="Province of residence"/>
                         </div>
                         <!-- error box -->
@@ -213,13 +215,13 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label">City of Residence</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control1" th:value="${student.residenceCity}"
+                            <input type="text" class="form-control1" required="required" th:value="${student.residenceCity}"
                                    name="residenceCity" placeholder="City of residence"/>
                         </div>
 
                         <label class="col-sm-3 control-label">Address of Residence</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control1" th:value="${student.residenceAddress}"
+                            <input type="text" class="form-control1" required="required" th:value="${student.residenceAddress}"
                                    name="residenceAddress" placeholder="Address of residence"/>
                         </div>
                         <!-- error box -->
@@ -242,7 +244,7 @@
                     <div class="form-group">
                         <label for="fiscalCode" class="col-sm-3 control-label">Fiscal Code</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control1" th:value="${student.fiscalCode}" id ="fiscalCode" name="fiscalCode"
+                            <input type="text" class="form-control1" required="required" th:value="${student.fiscalCode}" id ="fiscalCode" name="fiscalCode"
                                    placeholder="Fiscal Code">
                         </div>
                         <!-- error box -->
@@ -257,7 +259,7 @@
                     <div class="form-group">
                         <label for="phoneNumber" class="col-sm-3 control-label">Phone Number</label>
                         <div class="col-sm-4">
-                            <input type="tel" class="form-control1" id="phoneNumber" th:value="${user.phoneNumber}"
+                            <input type="tel" class="form-control1" required="required" id="phoneNumber" th:value="${user.phoneNumber}"
                                    name="phoneNumber" placeholder="Phone Number">
                         </div>
                         <!-- error box -->
@@ -296,7 +298,7 @@
 
                         <label for="matriculation" class="col-sm-3 control-label">Matr.</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control1" th:value="${student.matriculationNumber}"
+                            <input type="text" class="form-control1" required="required" th:value="${student.matriculationNumber}"
                                    name="matriculationNumber" id="matriculation"
                                    placeholder="Insert your Matriculation">
                         </div>

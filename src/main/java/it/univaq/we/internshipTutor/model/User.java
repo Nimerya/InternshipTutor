@@ -158,6 +158,9 @@ public class User {
 
     @Override
     public int hashCode() {
+        if (this.getUuid() == null){
+            this.setUuid(UUID.randomUUID());
+        }
         return getUuid().hashCode();
     }
 

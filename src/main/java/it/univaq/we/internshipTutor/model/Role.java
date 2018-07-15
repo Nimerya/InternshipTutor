@@ -57,6 +57,9 @@ public class Role {
 
     @Override
     public int hashCode() {
+        if (this.getUuid() == null){
+            this.setUuid(UUID.randomUUID());
+        }
         return getUuid().hashCode();
     }
 }

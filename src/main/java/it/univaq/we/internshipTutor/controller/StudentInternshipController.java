@@ -108,11 +108,11 @@ public class StudentInternshipController {
         }
 
         try{
-            // else perform the insertion
             studentinternshipService.deleteStudentInternshipById(id);
         }catch (Exception e){
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_DEL));
+            redirectAttributes.addFlashAttribute("studentinternship", studentinternshipService.findStudentInternshipById(id));
             return "redirect:/update/studentinternship/" + id;
         }
 

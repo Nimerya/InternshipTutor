@@ -182,7 +182,8 @@ public class UserController {
         }catch (Exception e){
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_DEL));
-            return "redirect:/create/user";
+            redirectAttributes.addFlashAttribute("user", userService.findUserById(id));
+            return "redirect:/update/user/" + id;
         }
 
         // add success message in the model

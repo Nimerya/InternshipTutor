@@ -115,6 +115,7 @@ public class StudentController {
         }catch (Exception e){
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_DEL));
+            redirectAttributes.addFlashAttribute("student", studentService.findStudentById(id));
             return "redirect:/update/student/" + id;
         }
 

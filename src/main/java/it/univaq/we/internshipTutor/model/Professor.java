@@ -21,7 +21,7 @@ public class Professor {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id", nullable = false)
-    @NotNull
+    @NotNull(message = "this field is mandatory")
     private Department department;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "professor")
@@ -111,6 +111,9 @@ public class Professor {
 
     @Override
     public int hashCode() {
+        if (this.getUuid() == null){
+            this.setUuid(UUID.randomUUID());
+        }
         return getUuid().hashCode();
     }
 

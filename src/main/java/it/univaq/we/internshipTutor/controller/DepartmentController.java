@@ -95,7 +95,8 @@ public class DepartmentController {
             departmentService.deleteDepartmentById(id);
         }catch (Exception e){
             e.printStackTrace();
-            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_DEL));
+            redirectAttributes.addFlashAttribute("department", departmentService.findDepartmentById(id));
             return "redirect:/update/department/" + id;
         }
 

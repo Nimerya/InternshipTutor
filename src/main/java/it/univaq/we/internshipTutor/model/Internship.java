@@ -21,9 +21,9 @@ public class Internship {
     @Transient
     private UUID uuid;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "company_id", nullable = false)
-    @NotNull
+    @NotNull(message = "this field is mandatory")
     private Company company;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "internship")
@@ -271,6 +271,9 @@ public class Internship {
 
     @Override
     public int hashCode() {
+        if (this.getUuid() == null){
+            this.setUuid(UUID.randomUUID());
+        }
         return getUuid().hashCode();
     }
 

@@ -31,12 +31,21 @@
                                 <label for="company" class="col-sm-3 control-label">Company</label>
                                 <div class="col-sm-9">
                                     <select name="company" id="company" class="form-control1">
-                                        <option selected="selected">-</option>
+                                        <option selected="selected" value="">-</option>
                                         <th:block th:each="company : ${companies}">
                                             <option th:value="${company.getId()}"
                                                     th:text="${company.getName()}"></option>
                                         </th:block>
                                     </select>
+                                </div>
+
+                                <!-- error box -->
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <div class="alert alert-danger squared my-small-alert"
+                                         role="alert"
+                                         th:if="${#fields.hasErrors('company')}"
+                                         th:errors="*{company}">
+                                    </div>
                                 </div>
                             </div>
 
@@ -48,7 +57,7 @@
                                 <label for="title" class="col-sm-3 control-label">Title</label>
                                 <!-- input -->
                                 <div class="col-sm-9">
-                                    <input th:field="*{title}" type="text" class="form-control1" id="title"
+                                    <input th:field="*{title}" type="text" required="required" class="form-control1" id="title"
                                            placeholder="Insert internship title">
                                 </div>
 
@@ -76,7 +85,7 @@
                                 <label for="address" class="col-sm-3 control-label">Address</label>
                                 <!-- input -->
                                 <div class="col-sm-9">
-                                    <input th:field="*{address}" type="text" class="form-control1" id="address"
+                                    <input th:field="*{address}" type="text" required="required" class="form-control1" id="address"
                                            placeholder="Insert internship address">
                                 </div>
 
@@ -104,7 +113,7 @@
                                 <label for="city" class="col-sm-3 control-label">City</label>
                                 <!-- input -->
                                 <div class="col-sm-9">
-                                    <input th:field="*{city}" type="text" class="form-control1" id="city"
+                                    <input th:field="*{city}" type="text" required="required" class="form-control1" id="city"
                                            placeholder="Insert internship city">
                                 </div>
 
@@ -132,7 +141,7 @@
                                 <label for="province" class="col-sm-3 control-label">Province</label>
                                 <!-- input -->
                                 <div class="col-sm-9">
-                                    <input th:field="*{province}" type="text" class="form-control1" id="province"
+                                    <input th:field="*{province}" type="text" required="required" class="form-control1" id="province"
                                            placeholder="Insert internship province">
                                 </div>
 
@@ -160,7 +169,7 @@
                                 <label for="state" class="col-sm-3 control-label">State</label>
                                 <!-- input -->
                                 <div class="col-sm-9">
-                                    <input th:field="*{state}" type="text" class="form-control1" id="state"
+                                    <input th:field="*{state}" type="text" required="required" class="form-control1" id="state"
                                            placeholder="Insert internship state">
                                 </div>
 
@@ -188,14 +197,10 @@
                                 <label for="schedule" class="col-sm-3 control-label">Schedule</label>
                                 <!-- input -->
                                 <div class="col-sm-9">
-                                    <input th:field="*{schedule}" type="text" class="form-control1" id="schedule"
-                                           placeholder="Insert internship schedule">
+                                    <textarea rows="3" th:field="*{schedule}" class="form-control1 textarea-long" id="schedule" placeholder="Insert internship schedule">
+                                    </textarea>
                                 </div>
 
-                                <!-- help text
-                                <div class="col-sm-2">
-                                    <p class="help-block"></p>
-                                </div> -->
 
                                 <!-- error box -->
                                 <div class="col-sm-offset-3 col-sm-9">
@@ -216,7 +221,7 @@
                                 <label for="length" class="col-sm-3 control-label">Length</label>
                                 <!-- input -->
                                 <div class="col-sm-9">
-                                    <input th:field="*{length}" type="number" min="1" max="24" class="form-control1" id="length"
+                                    <input th:field="*{length}" type="number" min="1" max="24" required="required" class="form-control1" id="length"
                                            placeholder="Insert internship length">
                                 </div>
 

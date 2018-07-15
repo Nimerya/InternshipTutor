@@ -101,7 +101,8 @@ public class CompanyController {
         }catch (Exception e){
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_DEL));
-            return "redirect:/create/company";
+            redirectAttributes.addFlashAttribute("company", companyService.findCompanyById(id));
+            return "redirect:/update/company/" + id;
         }
 
         // add success message in the model

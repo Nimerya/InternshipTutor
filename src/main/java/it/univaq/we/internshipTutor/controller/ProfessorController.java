@@ -102,6 +102,7 @@ public class ProfessorController {
         }catch (Exception e){
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_DEL));
+            redirectAttributes.addFlashAttribute("professor", professorService.findProfessorById(id));
             return "redirect:/update/professor/" + id;
         }
 
