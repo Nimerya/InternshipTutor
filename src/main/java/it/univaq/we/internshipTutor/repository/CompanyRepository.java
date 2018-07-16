@@ -38,26 +38,26 @@ public interface CompanyRepository extends JpaRepository<Company, Long>{
 
 
 
-    @Query(value = "SELECT AVG(si.review) as media, c.id as id, c.name as name" +
-            "FROM student_internship si" +
-            "LEFT JOIN internship i" +
-            "ON si.internship_id=i.id" +
-            "LEFT JOIN company c" +
-            "ON i.company_id=c.id" +
-            "GROUP BY c.id" +
-            "ORDER BY media DESC" +
-            "LIMIT ?1", nativeQuery = true)
+    @Query(value =  "SELECT AVG(si.review) as average, c.id as id, c.name as name " +
+                    "FROM student_internship si " +
+                    "LEFT JOIN internship i " +
+                    "ON si.internship_id=i.id " +
+                    "LEFT JOIN company c " +
+                    "ON i.company_id=c.id " +
+                    "GROUP BY c.id " +
+                    "ORDER BY average DESC " +
+                    "LIMIT ?1", nativeQuery = true)
     List<IBestCompanyProjection> bestCompanies(int limit);
 
-    @Query(value = "SELECT AVG(si.review) as media, c.id as id, c.name as name" +
-            "FROM student_internship si" +
-            "LEFT JOIN internship i" +
-            "ON si.internship_id=i.id" +
-            "LEFT JOIN company c" +
-            "ON i.company_id=c.id" +
-            "GROUP BY c.id" +
-            "ORDER BY media ASC" +
-            "LIMIT ?1", nativeQuery = true)
+    @Query(value =  "SELECT AVG(si.review) as average, c.id as id, c.name as name " +
+                    "FROM student_internship si " +
+                    "LEFT JOIN internship i " +
+                    "ON si.internship_id=i.id " +
+                    "LEFT JOIN company c " +
+                    "ON i.company_id=c.id " +
+                    "GROUP BY c.id " +
+                    "ORDER BY average ASC " +
+                    "LIMIT ?1", nativeQuery = true)
     List<IWorstCompanyProjection> worstCompanies(int limit);
 
 }

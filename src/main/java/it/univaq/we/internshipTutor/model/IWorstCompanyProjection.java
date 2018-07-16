@@ -4,7 +4,7 @@ public interface IWorstCompanyProjection {
 
     Long getId();
 
-    Integer getMedia();
+    Double getAverage();
 
-    String getNAme();
+    String getName();
 }

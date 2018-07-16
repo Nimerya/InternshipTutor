@@ -1,9 +1,6 @@
 package it.univaq.we.internshipTutor.controller;
 
-import it.univaq.we.internshipTutor.model.Company;
-import it.univaq.we.internshipTutor.model.IProfessorInternshipCountProjection;
-import it.univaq.we.internshipTutor.model.Student;
-import it.univaq.we.internshipTutor.model.User;
+import it.univaq.we.internshipTutor.model.*;
 import it.univaq.we.internshipTutor.service.CompanyService;
 import it.univaq.we.internshipTutor.service.ProfessorService;
 import it.univaq.we.internshipTutor.service.StudentService;
@@ -52,6 +49,15 @@ public class DashboardController {
 
         List<IProfessorInternshipCountProjection> mostRequestedProfessors = professorService.mostRequestedProfessors(10);
         model.addAttribute("mostRequestedProfessors", mostRequestedProfessors);
+
+        List<ICompanyStudentInternshipCountProjection> companiesWithMostStudents = companyService.companiesWithMostStudents(10);
+        model.addAttribute("companiesWithMostStudents", companiesWithMostStudents);
+
+        List<IBestCompanyProjection> bestCompanies = companyService.bestCompanies(10);
+        model.addAttribute("bestCompanies", bestCompanies);
+
+        List<IWorstCompanyProjection> worstCompanies = companyService.worstCompanies(10);
+        model.addAttribute("worstCompanies", worstCompanies);
 
         return "dashboard_admin";
     }
