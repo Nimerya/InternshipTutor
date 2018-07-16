@@ -20,6 +20,9 @@ public class Company implements java.io.Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "company")
     private List<Internship> internships;
 
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "company")
+    private User user;
+
     @Column(name = "name", nullable = false, length = 255)
     @NotEmpty
     private String name;

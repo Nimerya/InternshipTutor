@@ -21,7 +21,7 @@ public class Student {
     @Transient
     private UUID uuid;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "degree_id", nullable = false)
     @NotNull(message = "this field is mandatory")
     private Degree degree;
@@ -29,7 +29,7 @@ public class Student {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "student")
     private List<StudentInternship> studentInternships;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "student")
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "student")
     private User user;
 
     @Column(name = "birthday", nullable = false)

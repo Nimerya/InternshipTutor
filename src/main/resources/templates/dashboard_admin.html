@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text="${nameP+' list'}"></title>
+    <title th:text="${userType+' dashboard'}"></title>
     <!-- head -->
     <meta th:replace="fragments/head :: head">
     <!-- head -->
@@ -20,60 +20,95 @@
     <div class="container">
         <div id="forms" class="grid_3 grid_4">
             <!-- if there are companies waiting for approval -->
-            <th:block th:if="1==1">
+            <th:block th:if="1==0">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="alert alert-warning" role="alert">
 
                             <strong>Warning!</strong>
-                            <th:block th:if="1==0" th:text="${'There are '+ 5 +' companies waiting for approval.'}">
+                            <th:block th:if="1==0" th:text="${'There are '+ 5 +' companies awaiting for approval.'}">
                                 will be replaced
                             </th:block>
-                            <th:block th:if="1==1" th:text="${'There is one company waiting for approval.'}">
+                            <th:block th:if="1==1" th:text="${'There is one company awaiting for approval.'}">
                                 will be replaced
                             </th:block>
-                            <a class="btn-warning pull-right" th:href="@{/report/awaiting/companies}">
-                                Go
+                            <a th:href="@{/report/awaiting/companies}" class="pull-right">
+                                <span class="label label-warning">Go</span>
                             </a>
-
                         </div>
-
                     </div>
                 </div>
             </th:block>
-            <!-- affiliated companies -->
+
+            <!-- if there are no requests awaiting for approval -->
+            <th:block th:if="1==1">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="alert alert-info" role="alert">
+
+                            <strong>Relax!</strong>
+                            <th:block th:if="1==1" th:text="${'There are no requests awaiting for approval.'}">
+                                will be replaced
+                            </th:block>
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+
+            <!-- statistics -->
             <div class="row">
-                <div class="col-md-12">
-                    <div class="well w3l">
-                        <th:block th:if="1==0" th:text="${'There is one affiliated company.'}">
-
-                        </th:block>
-                        <th:block th:if="1==1" th:text="${'There are '+5+' affiliated companies.'}">
-
-                        </th:block>
+                <div class="col-md-12 ">
+                    <h3 class="w3ls-hdg">Statistics</h3>
+                    <div class="list-group list-group-alternate black squared">
+                        <a href="#" th:href="@{/report/users}" class="list-group-item"><span class="badge badge-success" th:text="${numUsers}">999</span> # of registered users</a>
+                        <a href="#" th:href="@{/report/companies}" class="list-group-item"><span class="badge badge-primary" th:text="${numCompanies}">999</span> # of companies </a>
+                        <a href="#" th:href="@{/report/students}" class="list-group-item"><span class="badge badge-warning" th:text="${numStudents}">999</span> # of students </a>
+                        <a href="#" th:href="@{/report/users}" class="list-group-item"><span class="badge badge-danger" th:text="${numAdmins}">999</span>  # of admins </a>
                     </div>
                 </div>
             </div>
-            <!-- registered users -->
+
+
+            <!-- most requested professors -->
             <div class="row">
                 <div class="col-md-12">
-                    <div class="well w3l">
-                        <th:block th:if="1==0" th:text="${'There is one registered user.'}">
+                    <h3 class="w3ls-hdg">Most requested Professors</h3>
+                    <div th:if="${!mostRequestedProfessors.isEmpty()}">
+                        <table class="table table-fixed table-bordered hover-effect">
+                            <thead>
+                            <tr>
+                                <th class="col-xs-1 text-center">#</th>
+                                <th class="col-xs-5">Professor</th>
+                                <th class="col-xs-3 text-center"># of internships</th>
+                                <th class="col-xs-3 text-right">Action</th>
+                            </tr>
+                            </thead>
 
-                        </th:block>
-                        <th:block th:if="1==1" th:text="${'There are '+5+' registered users.'}">
+                            <tbody>
+                            <tr th:each="item, iterationStatus : ${mostRequestedProfessors}">
+                                <td th:text="${iterationStatus.count}" class="col-xs-1 no-border-right text-center">
+                                </td>
+                                <td th:text="${item.getFirstName() +' '+ item.getLastName()+' - '+item.getDepartment()}" class="col-xs-5 no-border-right">
+                                </td>
+                                <td class="col-xs-3 no-border-right text-center">
+                                    <span class="badge badge-custom" th:text="${item.getCount()}">999</span>
+                                </td>
+                                <td class="col-xs-3 text-right">
+                                    <a th:href="@{'/update/professor/'+${item.getId()}}"
+                                       class="btn-default-border btn-xs squared">
+                                        <i class="fa fa-edit"></i>
+                                        Edit
+                                    </a>
+                                </td>
+                            </tr>
 
-                        </th:block>
+                            </tbody>
+                        </table>
+
                     </div>
-                </div>
-            </div>
-            <!-- most requested tutors -->
-            <div class="row">
-                <div class="col-md-12">
-                    <!-- report table-->
-                    <th:block th:replace="fragments/report_table_stats :: report_table_stats(${mostRequestedTutors}, ${nameS}, ${nameP})">
-                        will be replaced
-                    </th:block>
+                    <div class="well" th:unless="${!mostRequestedProfessors.isEmpty()}" th:text="${'No professor has been requested yet!'}">
+                        Empty report message
+                    </div>
                 </div>
             </div>
 
@@ -81,30 +116,21 @@
             <!-- aziende che ospitano più tirocinanti -->
             <div class="row">
                 <div class="col-md-12">
-                    <!-- report table-->
-                    <th:block th:replace="fragments/report_table_stats :: report_table_stats(${companiesWithMoreStudents}, ${nameS}, ${nameP})">
-                        will be replaced
-                    </th:block>
+                    <!-- TODO -->
                 </div>
             </div>
 
             <!-- aziende con valutazioni milgiori -->
             <div class="row">
                 <div class="col-md-12">
-                    <!-- report table-->
-                    <th:block th:replace="fragments/report_table_stats :: report_table_stats(${bestCompanies}, ${nameS}, ${nameP})">
-                        will be replaced
-                    </th:block>
+                    <!-- TODO -->
                 </div>
             </div>
 
             <!-- aziende con valutazioni peggiori -->
             <div class="row">
                 <div class="col-md-12">
-                    <!-- report table-->
-                    <th:block th:replace="fragments/report_table_stats :: report_table_stats(${worstCompanies}, ${nameS}, ${nameP})">
-                        will be replaced
-                    </th:block>
+                    <!-- TODO -->
                 </div>
             </div>
 
