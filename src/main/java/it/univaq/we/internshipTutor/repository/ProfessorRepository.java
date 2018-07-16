@@ -22,6 +22,6 @@ public interface ProfessorRepository extends JpaRepository<Professor, Long> {
 
     void deleteProfessorById(Long id);
 
-    @Query(value =  "SELECT p.id as id, p.department_id as department, p.first_name as firstName, p.last_name as lastName, p.email as email, COUNT(professor_id) as count FROM professor p LEFT JOIN student_internship si ON p.id = si.professor_id GROUP BY si.professor_id ORDER BY count DESC LIMIT ?1", nativeQuery = true)
+    @Query(value =  "SELECT p.id as id, p.department_id as department, p.first_name as firstName, p.last_name as lastName, COUNT(professor_id) as count FROM professor p LEFT JOIN student_internship si ON p.id = si.professor_id GROUP BY si.professor_id ORDER BY count DESC LIMIT ?1", nativeQuery = true)
     List<IProfessorInternshipCountProjection> mostRequestedProfessors(int limit);
 }

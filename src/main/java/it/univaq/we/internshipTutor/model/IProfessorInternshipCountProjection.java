@@ -5,6 +5,5 @@ public interface IProfessorInternshipCountProjection {
         Integer getCount();
         String getFirstName();
         String getLastName();
-        String getEmail();
         Department getDepartment();
 }
