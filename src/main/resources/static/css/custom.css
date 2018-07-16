@@ -137,3 +137,7 @@
 .margin-bottom-30{
     margin-bottom: 30px!important;
 }
+
+.badge-primary {
+    background-color: #10c7bf;
+}

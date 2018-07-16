@@ -1,0 +1,125 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${nameP+' list'}"></title>
+    <!-- head -->
+    <meta th:replace="fragments/head :: head">
+    <!-- head -->
+    <!-- head_scripts -->
+    <meta th:replace="fragments/head_scripts :: head_scripts">
+    <!-- head_scripts -->
+</head>
+<body>
+
+
+<!-- header -->
+<div th:replace="fragments/header :: header"></div>
+<!-- header -->
+
+<div class="codes about">
+    <div class="container">
+        <div id="forms" class="grid_3 grid_4">
+            <!-- if there are companies waiting for approval -->
+            <th:block th:if="1==1">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="alert alert-warning" role="alert">
+
+                            <strong>Warning!</strong>
+                            <th:block th:if="1==0" th:text="${'There are '+ 5 +' companies waiting for approval.'}">
+                                will be replaced
+                            </th:block>
+                            <th:block th:if="1==1" th:text="${'There is one company waiting for approval.'}">
+                                will be replaced
+                            </th:block>
+                            <a class="btn-warning pull-right" th:href="@{/report/awaiting/companies}">
+                                Go
+                            </a>
+
+                        </div>
+
+                    </div>
+                </div>
+            </th:block>
+            <!-- affiliated companies -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="well w3l">
+                        <th:block th:if="1==0" th:text="${'There is one affiliated company.'}">
+
+                        </th:block>
+                        <th:block th:if="1==1" th:text="${'There are '+5+' affiliated companies.'}">
+
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+            <!-- registered users -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="well w3l">
+                        <th:block th:if="1==0" th:text="${'There is one registered user.'}">
+
+                        </th:block>
+                        <th:block th:if="1==1" th:text="${'There are '+5+' registered users.'}">
+
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+            <!-- most requested tutors -->
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- report table-->
+                    <th:block th:replace="fragments/report_table_stats :: report_table_stats(${mostRequestedTutors}, ${nameS}, ${nameP})">
+                        will be replaced
+                    </th:block>
+                </div>
+            </div>
+
+
+            <!-- aziende che ospitano più tirocinanti -->
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- report table-->
+                    <th:block th:replace="fragments/report_table_stats :: report_table_stats(${companiesWithMoreStudents}, ${nameS}, ${nameP})">
+                        will be replaced
+                    </th:block>
+                </div>
+            </div>
+
+            <!-- aziende con valutazioni milgiori -->
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- report table-->
+                    <th:block th:replace="fragments/report_table_stats :: report_table_stats(${bestCompanies}, ${nameS}, ${nameP})">
+                        will be replaced
+                    </th:block>
+                </div>
+            </div>
+
+            <!-- aziende con valutazioni peggiori -->
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- report table-->
+                    <th:block th:replace="fragments/report_table_stats :: report_table_stats(${worstCompanies}, ${nameS}, ${nameP})">
+                        will be replaced
+                    </th:block>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+<!-- footer -->
+<div th:replace="fragments/footer"></div>
+<!-- footer -->
+<!-- footer_scripts -->
+<div th:replace="fragments/footer_scripts"></div>
+<!-- footer_scripts -->
+
+</body>
+</html>

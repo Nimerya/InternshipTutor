@@ -1,5 +1,6 @@
 package it.univaq.we.internshipTutor.service;
 
+import it.univaq.we.internshipTutor.model.IProfessorInternshipCountProjection;
 import it.univaq.we.internshipTutor.model.Professor;
 import it.univaq.we.internshipTutor.repository.ProfessorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +35,10 @@ public class ProfessorService implements IProfessorService {
     @Override
     public void deleteProfessorById(Long id){
         professorRepository.deleteProfessorById(id);
+    }
+
+    @Override
+    public List<IProfessorInternshipCountProjection> mostRequestedProfessors(int limit){
+        return professorRepository.mostRequestedProfessors(limit);
     }
 }
