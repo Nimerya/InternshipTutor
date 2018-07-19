@@ -32,18 +32,18 @@
                         <span class="list-group-item"><span class="badge" th:text="${user.getCompany().getName()}">value</span> Name</span>
                         <span class="list-group-item"><span class="badge" th:text="${user.getEmail()}">value</span> Email</span>
                         <span class="list-group-item"><span class="badge" th:text="${user.getCompany().getVatNumber()}">value</span> VAT n.</span>
-                        <span class="list-group-item"><span class="badge" th:text="${user.getCompant.getFiscalCode()}">value</span> Fiscal Code</span>
+                        <span class="list-group-item"><span class="badge" th:text="${user.getCompany().getFiscalCode()}">value</span> Fiscal Code</span>
                         <span class="list-group-item"><span class="badge" th:text="${user.getCompany().getAttorney()}">value</span> Attorney</span>
 
                     </div>
                 </div>
             </div>
 
-            <!-- Internships awaiting for approval -->
+            <!-- active internships -->
             <div class="row">
                 <div class="col-md-12">
-                    <h3 class="w3ls-hdg">Internships awaiting for approval</h3>
-                    <div th:if="${!internshipsAwaitingForApproval.isEmpty()}">
+                    <h3 class="w3ls-hdg">Active internships</h3>
+                    <div th:if="${!activeInternships.isEmpty()}">
                         <table class="table table-fixed table-bordered hover-effect">
                             <thead>
                             <tr>
@@ -55,16 +55,16 @@
                             </thead>
 
                             <tbody>
-                            <tr th:each="item, iterationStatus : ${internshipsAwaitingForApproval}">
+                            <tr th:each="item, iterationStatus : ${activeInternships}">
                                 <td th:text="${iterationStatus.count}" class="col-xs-1 no-border-right text-center">
                                 </td>
-                                <td th:text="${item.getInternship().getTitle()}" class="col-xs-5 no-border-right">
+                                <td th:text="${item.getTitle()}" class="col-xs-8 no-border-right">
                                 </td>
                                 <td class="col-xs-3 text-right">
-                                    <a th:href="@{${'/delete/internship/'+user.getCompany().getId()+'/'+item.getId()}}"
+                                    <a th:href="@{${'/update/internship/'+user.getCompany().getId()+'/'+item.getId()}}"
                                        class="btn-default-border btn-xs squared">
                                         <i class="fa fa-edit"></i>
-                                        Delete
+                                        Edit
                                     </a>
                                 </td>
                             </tr>
@@ -73,36 +73,39 @@
                         </table>
 
                     </div>
-                    <div class="well" th:unless="${!internshipsAwaitingForApproval.isEmpty()}" th:text="${'No internships awaiting for approval!'}">
+                    <div class="well" th:unless="${!activeInternships.isEmpty()}" th:text="${'No active internships yet!'}">
                         Empty report message
                     </div>
                 </div>
             </div>
 
-            <!-- ongoing internships -->
+            <!-- inactive internships -->
             <div class="row padding-top-30">
                 <div class="col-md-12">
-                    <h3 class="w3ls-hdg">Ongoing internships</h3>
-                    <div th:if="${!ongoingInternships.isEmpty()}">
+                    <h3 class="w3ls-hdg">Inactive internships</h3>
+                    <div th:if="${!inactiveInternships.isEmpty()}">
                         <table class="table table-fixed table-bordered hover-effect">
                             <thead>
                             <tr>
                                 <th class="col-xs-1 text-center">#</th>
-                                <th class="col-xs-5">Title</th>
-                                <th class="col-xs-3">Company</th>
-                                <th class="col-xs-3">Professor</th>
+                                <th class="col-xs-8">Title</th>
+                                <th class="col-xs-3 text-right">Action</th>
+
                             </tr>
                             </thead>
 
                             <tbody>
-                            <tr th:each="item, iterationStatus : ${ongoingInternships}">
+                            <tr th:each="item, iterationStatus : ${inactiveInternships}">
                                 <td th:text="${iterationStatus.count}" class="col-xs-1 no-border-right text-center">
                                 </td>
-                                <td th:text="${item.getInternship().getTitle()}" class="col-xs-5 no-border-right">
+                                <td th:text="${item.getTitle()}" class="col-xs-8 no-border-right">
                                 </td>
-                                <td th:text="${item.getInternship().getCompany().getName()}" class="col-xs-3 no-border-right">
-                                </td>
-                                <td th:text="${item.getProfessor().getInfo()}" class="col-xs-3">
+                                <td class="col-xs-3 text-right">
+                                    <a th:href="@{${'/update/internship/'+user.getCompany().getId()+'/'+item.getId()}}"
+                                       class="btn-default-border btn-xs squared">
+                                        <i class="fa fa-edit"></i>
+                                        Edit
+                                    </a>
                                 </td>
                             </tr>
 
@@ -110,49 +113,11 @@
                         </table>
 
                     </div>
-                    <div class="well" th:unless="${!ongoingInternships.isEmpty()}" th:text="${'No ognoing internships yet!'}">
+                    <div class="well" th:unless="${!inactiveInternships.isEmpty()}" th:text="${'No inactive internships!'}">
                         Empty report message
                     </div>
                 </div>
             </div>
-
-            <!-- ongoing internships -->
-            <div class="row padding-top-30">
-                <div class="col-md-12">
-                    <h3 class="w3ls-hdg">Completed internships</h3>
-                    <div th:if="${!completedInternships.isEmpty()}">
-                        <table class="table table-fixed table-bordered hover-effect">
-                            <thead>
-                            <tr>
-                                <th class="col-xs-1 text-center">#</th>
-                                <th class="col-xs-5">Title</th>
-                                <th class="col-xs-3">Company</th>
-                                <th class="col-xs-3">Professor</th>
-                            </tr>
-                            </thead>
-
-                            <tbody>
-                            <tr th:each="item, iterationStatus : ${completedInternships}">
-                                <td th:text="${iterationStatus.count}" class="col-xs-1 no-border-right text-center">
-                                </td>
-                                <td th:text="${item.getInternship().getTitle()}" class="col-xs-5 no-border-right">
-                                </td>
-                                <td th:text="${item.getInternship().getCompany().getName()}" class="col-xs-3 no-border-right">
-                                </td>
-                                <td th:text="${item.getProfessor().getInfo()}" class="col-xs-3">
-                                </td>
-                            </tr>
-
-                            </tbody>
-                        </table>
-
-                    </div>
-                    <div class="well" th:unless="${!completedInternships.isEmpty()}" th:text="${'No completed internships yet!'}">
-                        Empty report message
-                    </div>
-                </div>
-            </div>
-
 
         </div>
 

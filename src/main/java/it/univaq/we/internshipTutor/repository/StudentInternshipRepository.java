@@ -23,7 +23,7 @@ public interface StudentInternshipRepository extends JpaRepository<StudentIntern
     void deleteStudentInternshipById(Long id);
 
     // List of all student internships that student have done
-    List<StudentInternship> findStudentInternshipsByStudentAndCompleteTrue(Student s);
+    List<StudentInternship> findStudentInternshipsByStudentAndCompletedTrue(Student s);
 
     //List of all student internships that are in progress (respect to the student)
     List<StudentInternship> findStudentInternshipsByStudentAndAcceptedTrueAndCompletedFalse(Student s);

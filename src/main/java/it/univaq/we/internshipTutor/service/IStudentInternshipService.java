@@ -1,5 +1,6 @@
 package it.univaq.we.internshipTutor.service;
 
+import it.univaq.we.internshipTutor.model.Internship;
 import it.univaq.we.internshipTutor.model.Student;
 import it.univaq.we.internshipTutor.model.StudentInternship;
 import org.springframework.data.domain.Page;

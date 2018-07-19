@@ -1,5 +1,6 @@
 package it.univaq.we.internshipTutor.service;
 
+import it.univaq.we.internshipTutor.model.Internship;
 import it.univaq.we.internshipTutor.model.Student;
 import it.univaq.we.internshipTutor.model.StudentInternship;
 import it.univaq.we.internshipTutor.repository.StudentInternshipRepository;
@@ -42,13 +43,13 @@ public class StudentInternshipService implements IStudentInternshipService  {
     //List of all student internships that are in progress (respect to the student)
     @Override
     public List<StudentInternship> ongoingInternships(Student s){
-        return studentInternshipRepository.studentInternshipsInProgress(s.getId());
+        return studentInternshipRepository.findStudentInternshipsByStudentAndAcceptedTrueAndCompletedFalse(s);
     }
 
     //List of all student internships for wich the student awaiting to be accepted
     @Override
     public List<StudentInternship> internshipsAwaitingForApproval(Student s){
-        return studentInternshipRepository.studentInternshipsAwaitingAccepted(s.getId());
+        return studentInternshipRepository.findStudentInternshipsByStudentAndAcceptedFalseAndCompletedFalse(s);
     }
 
 

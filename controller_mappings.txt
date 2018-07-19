@@ -1,0 +1,17 @@
+admin actions:
+    /action/entity/id?
+
+company actions:
+    /company/action/id?
+
+student actions:
+    /student/action/id?
+
+admin dashboard:
+    /dashboard
+
+company dashboard:
+    /company/dashboard
+
+student dashboard:
+    /student/dashboard

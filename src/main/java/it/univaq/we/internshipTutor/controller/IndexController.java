@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class IndexController {
 
+
+
     @RequestMapping(value={"/", "/index", "/index.html"}, method = RequestMethod.GET)
     public String index(HttpSession httpSession, ModelMap model) {
 

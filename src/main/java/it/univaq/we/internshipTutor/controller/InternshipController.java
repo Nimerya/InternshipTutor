@@ -115,33 +115,18 @@ public class InternshipController {
         return "redirect:/create/internship";
     }
 
-    @RequestMapping(value={"/delete/internship/{companyId}/{internshipId}"}, method = RequestMethod.GET)
+    @RequestMapping(value={"/company/delete/internship/{internshipId}"}, method = RequestMethod.POST)
     public String doDeleteByCompany(@PathVariable(value = "internshipId") Long internshipId,
-                                    @PathVariable(value = "companyId") Long companyId,
                                     RedirectAttributes redirectAttributes) {
-        if (internshipId == null || internshipId < 0 || internshipId == null || companyId < 0) {
-            // if there are errors during the binding (e.g. NotNull, Min, etc.)
-            // redirect to the form displaying the errors
-            // add error message in the model
-            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
-            return "redirect:/company/dashboard";
-        }
+        // TODO delete internship by company
+        return "redirect:/index";
+    }
 
-        try{
-            Internship internship = internshipService.findInternshipById(internshipId);
-            if(!internship.getCompany().getId().equals(companyId)){
-                return "redirect:/403";
-            }
-            internshipService.deleteInternshipById(internshipId);
-        }catch (Exception e){
-            e.printStackTrace();
-            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_DEL));
-            return "redirect:/company/dashboard";
-        }
-
-        // add success message in the model
-        redirectAttributes.addFlashAttribute("popup", new Popup());
-        return "redirect:/company/dashboard";
+    @RequestMapping(value={"/company/update/internship/{internshipId}"}, method = RequestMethod.POST)
+    public String doUpdateByCompany(@PathVariable(value = "internshipId") Long internshipId,
+                                    RedirectAttributes redirectAttributes) {
+        // TODO update internship by company
+        return "redirect:/index";
     }
 
 

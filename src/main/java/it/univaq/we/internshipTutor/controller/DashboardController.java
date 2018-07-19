@@ -29,7 +29,10 @@ public class DashboardController {
     @Autowired
     StudentInternshipService studentInternshipService;
 
-    @RequestMapping(value = {"/admin/dashboard"}, method = RequestMethod.GET)
+    @Autowired
+    InternshipService internshipService;
+
+    @RequestMapping(value = {"/dashboard"}, method = RequestMethod.GET)
     public String renderAdminDashboard(ModelMap model) {
 
         model.addAttribute("userType",  "Admin");
@@ -68,7 +71,7 @@ public class DashboardController {
 
         model.addAttribute("userType",  "Student");
 
-        //TODO retrieve this from session
+        //TODO retrieve userid from session
         Long userId = 15L;
 
         User u = userService.findUserById(userId);
@@ -85,6 +88,27 @@ public class DashboardController {
         model.addAttribute("completedInternships", completedInternships);
 
         return "dashboard_student";
+    }
+
+    @RequestMapping(value = {"/company/dashboard"}, method = RequestMethod.GET)
+    public String renderCompanyDashboard(ModelMap model) {
+
+        model.addAttribute("userType",  "Student");
+
+        //TODO retrieve userid from session
+        Long userId = 20L;
+
+        User u = userService.findUserById(userId);
+        Company c = u.getCompany();
+        model.addAttribute("user", u);
+
+        List<Internship> activeInternships = internshipService.findActiveInternships(c);
+        model.addAttribute("activeInternships", activeInternships);
+
+        List<Internship> inactiveInternships = internshipService.findInactiveInternships(c);
+        model.addAttribute("inactiveInternships", inactiveInternships);
+
+        return "dashboard_company";
     }
 
 }
