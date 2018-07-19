@@ -47,6 +47,17 @@
     width: 198px;
 }
 
+.profile-image{
+    height: 100%;
+    width: 100%;
+    max-height: 256px;
+    max-width: 256px;
+}
+
+.my-group-list{
+    margin-bottom: 0!important
+}
+
 .file-upload{
     padding-top: 9px!important;
 }
@@ -123,8 +134,6 @@
     background-color: #f5f5f5;
     border-radius: 0;
 }
-
-
 
 
 .form-header-20 {

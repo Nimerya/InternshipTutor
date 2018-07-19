@@ -69,13 +69,13 @@ public class DashboardController {
         model.addAttribute("userType",  "Student");
 
         //TODO retrieve this from session
-        Long userId = 2L;
+        Long userId = 15L;
 
         User u = userService.findUserById(userId);
         Student s = u.getStudent();
         model.addAttribute("user", u);
 
-        List<StudentInternship> internshipsAwaitingForApproval = studentInternshipService.internshipsAwaitingForAproval(s);
+        List<StudentInternship> internshipsAwaitingForApproval = studentInternshipService.internshipsAwaitingForApproval(s);
         model.addAttribute("internshipsAwaitingForApproval", internshipsAwaitingForApproval);
 
         List<StudentInternship> ongoingInternships = studentInternshipService.ongoingInternships(s);

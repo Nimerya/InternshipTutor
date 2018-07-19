@@ -115,6 +115,35 @@ public class InternshipController {
         return "redirect:/create/internship";
     }
 
+    @RequestMapping(value={"/delete/internship/{companyId}/{internshipId}"}, method = RequestMethod.GET)
+    public String doDeleteByCompany(@PathVariable(value = "internshipId") Long internshipId,
+                                    @PathVariable(value = "companyId") Long companyId,
+                                    RedirectAttributes redirectAttributes) {
+        if (internshipId == null || internshipId < 0 || internshipId == null || companyId < 0) {
+            // if there are errors during the binding (e.g. NotNull, Min, etc.)
+            // redirect to the form displaying the errors
+            // add error message in the model
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
+            return "redirect:/company/dashboard";
+        }
+
+        try{
+            Internship internship = internshipService.findInternshipById(internshipId);
+            if(!internship.getCompany().getId().equals(companyId)){
+                return "redirect:/403";
+            }
+            internshipService.deleteInternshipById(internshipId);
+        }catch (Exception e){
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_DEL));
+            return "redirect:/company/dashboard";
+        }
+
+        // add success message in the model
+        redirectAttributes.addFlashAttribute("popup", new Popup());
+        return "redirect:/company/dashboard";
+    }
+
 
     @RequestMapping(value={"/create/internship"}, method = RequestMethod.GET)
     public String renderCreate(ModelMap model, Pageable pageable) {

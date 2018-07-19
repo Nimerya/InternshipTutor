@@ -1,5 +1,6 @@
 package it.univaq.we.internshipTutor.service;
 
+import it.univaq.we.internshipTutor.model.Student;
 import it.univaq.we.internshipTutor.model.StudentInternship;
 import it.univaq.we.internshipTutor.repository.StudentInternshipRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,20 +35,20 @@ public class StudentInternshipService implements IStudentInternshipService  {
 
     // List of all internship that student have done
     @Override
-    public List<StudentInternship> findStudentInternshipsByStudentAndCompleteTrue(Long id){
-        return studentInternshipRepository.findStudentInternshipsByStudentAndCompleteTrue(id);
+    public List<StudentInternship> completedInternships(Student s){
+        return studentInternshipRepository.findStudentInternshipsByStudentAndCompletedTrue(s);
     }
 
     //List of all internships that are in progress (respect to the student)
     @Override
-    public List<StudentInternship> studentInternshipsInProgress(Long id){
-        return studentInternshipRepository.studentInternshipsInProgress(id);
+    public List<StudentInternship> ongoingInternships(Student s){
+        return studentInternshipRepository.studentInternshipsInProgress(s.getId());
     }
 
     //List of all internships for wich the student awaiting to be accepted
     @Override
-    public List<StudentInternship> studentInternshipsAwaitingAccepted(Long id){
-        return studentInternshipRepository.studentInternshipsAwaitingAccepted(id);
+    public List<StudentInternship> internshipsAwaitingForApproval(Student s){
+        return studentInternshipRepository.studentInternshipsAwaitingAccepted(s.getId());
     }
 
 
