@@ -18,5 +18,15 @@ public interface IStudentInternshipService{
 
     void deleteStudentInternshipById(Long id);
 
+    // List of all internship that student have done
+    List<StudentInternship> findStudentInternshipsByStudentAndCompleteTrue(Long id);
+
+    //List of all internships that are in progress (respect to the student)
+    List<StudentInternship> studentInternshipsInProgress(Long id);
+
+    //List of all internships for wich the student awaiting to be accepted
+    List<StudentInternship> studentInternshipsAwaitingAccepted(Long id);
+
+
 
 }
