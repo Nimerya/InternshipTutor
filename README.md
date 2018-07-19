@@ -1,1 +1,1 @@
-InternshipTutor
+Web application developed with Spring Boot that allow students to apply to listed internships offers by approved companies.
