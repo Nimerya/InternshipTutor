@@ -28,7 +28,7 @@ public class DashboardController {
     @Autowired
     StudentService studentService;
 
-    @RequestMapping(value = {"/dashboard/admin"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/admin/dashboard"}, method = RequestMethod.GET)
     public String renderAdminDashboard(ModelMap model) {
 
         model.addAttribute("userType",  "Admin");
@@ -60,6 +60,21 @@ public class DashboardController {
         model.addAttribute("worstCompanies", worstCompanies);
 
         return "dashboard_admin";
+    }
+
+    @RequestMapping(value = {"/student/dashboard"}, method = RequestMethod.GET)
+    public String renderStudentDashboard(ModelMap model) {
+
+        model.addAttribute("userType",  "Student");
+
+        //TODO retrieve this from session
+        Long userId = 2L;
+
+        User u = userService.findUserById(userId);
+        model.addAttribute("user", u);
+
+
+        return "dashboard_student";
     }
 
 }

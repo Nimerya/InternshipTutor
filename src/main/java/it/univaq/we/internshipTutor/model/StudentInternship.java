@@ -48,9 +48,20 @@ public class StudentInternship {
     @Column(name = "accepted", nullable = true)
     private Boolean accepted;
 
+    @Column(name = "completed", nullable = true)
+    private Boolean completed;
+
     public StudentInternship() {}
 
     public StudentInternship(UUID uuid) { setUuid(uuid); }
+
+    public Boolean getCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(Boolean completed) {
+        this.completed = completed;
+    }
 
     public Long getId() {
         return id;
