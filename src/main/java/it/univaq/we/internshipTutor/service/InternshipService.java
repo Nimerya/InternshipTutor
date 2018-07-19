@@ -38,19 +38,5 @@ public class InternshipService implements IInternshipService {
         internshipRepository.deleteInternshipById(id);
     }
 
-    @Override
-    public List<Internship> findInternshipsByStudentInternshipsAndCompleted(Long id){
-        return internshipRepository.findInternshipsByStudentInternshipsAndCompleted(id);
-    }
-
-    @Override
-    public List<Internship> findInternshipsByStudentInternshipsAndActiveBeforeCompleted(Long id){
-        return internshipRepository.findInternshipsByStudentInternshipsAndActiveBeforeCompleted(id);
-    }
-
-    @Override
-    public List<Internship> findInternshipsByStudentInternshipsAndActiveFalse(Long id){
-        return internshipRepository.findInternshipsByStudentInternshipsAndActiveFalse(id);
-    }
 
 }
