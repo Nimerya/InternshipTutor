@@ -33,22 +33,29 @@ public class StudentInternshipService implements IStudentInternshipService  {
     @Override
     public void deleteStudentInternshipById(Long id){ studentInternshipRepository.deleteStudentInternshipById(id); }
 
-    // List of all internship that student have done
+    // List of all student internship that student have done
     @Override
     public List<StudentInternship> completedInternships(Student s){
         return studentInternshipRepository.findStudentInternshipsByStudentAndCompletedTrue(s);
     }
 
-    //List of all internships that are in progress (respect to the student)
+    //List of all student internships that are in progress (respect to the student)
     @Override
     public List<StudentInternship> ongoingInternships(Student s){
         return studentInternshipRepository.studentInternshipsInProgress(s.getId());
     }
 
-    //List of all internships for wich the student awaiting to be accepted
+    //List of all student internships for wich the student awaiting to be accepted
     @Override
     public List<StudentInternship> internshipsAwaitingForApproval(Student s){
         return studentInternshipRepository.studentInternshipsAwaitingAccepted(s.getId());
+    }
+
+
+    //List of all student internships for wich the student awaiting to be accepted, knowing the internship id
+    @Override
+    public List<StudentInternship> findCandidatesByInternship(Internship i){
+        return studentInternshipRepository.findStudentInternshipsByInternshipAndAcceptedFalse(i);
     }
 
 

@@ -28,6 +28,10 @@ public interface IStudentInternshipService{
     //List of all internships for wich the student awaiting to be accepted
     List<StudentInternship> internshipsAwaitingForApproval(Student s);
 
+    //List of all student internships for wich the student awaiting to be accepted, knowing the internship id
+    List<StudentInternship> findCandidatesByInternship(Internship i);
+
+
 
 
 }
