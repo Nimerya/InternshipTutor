@@ -20,10 +20,13 @@ public interface InternshipRepository extends JpaRepository<Internship, Long> {
 
     void deleteInternshipById(Long id);
 
+    // interships completed (terminated) given the student id
     List<Internship> findInternshipsByStudentInternshipsAndCompleted(Long id);
 
-    List<Internship> findInternshipsByStudentInternshipsAndActiveBeforeCompleted(Long id);
+    // active internships but not yet completed
+    List<Internship> findInternshipsByStudentInternshipsAndActiveAndCompletedFalse(Long id);
 
-    List<Internship> findInternshipsByStudentInternshipsAndActiveFalse(Long id);
+    // not yet accepted internships (w.r.t. the student)
+    List<Internship> findInternshipsByStudentInternshipsAndActiveTrueAndAcceptedFalse(Long id);
 
 }

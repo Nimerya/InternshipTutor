@@ -1,11 +1,9 @@
 package it.univaq.we.internshipTutor.controller;
 
 import it.univaq.we.internshipTutor.model.*;
-import it.univaq.we.internshipTutor.service.CompanyService;
-import it.univaq.we.internshipTutor.service.ProfessorService;
-import it.univaq.we.internshipTutor.service.StudentService;
-import it.univaq.we.internshipTutor.service.UserService;
+import it.univaq.we.internshipTutor.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.reflect.ConstructorDelegate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +25,9 @@ public class DashboardController {
 
     @Autowired
     StudentService studentService;
+
+    @Autowired
+    StudentInternshipService studentInternshipService;
 
     @RequestMapping(value = {"/admin/dashboard"}, method = RequestMethod.GET)
     public String renderAdminDashboard(ModelMap model) {
@@ -71,8 +72,17 @@ public class DashboardController {
         Long userId = 2L;
 
         User u = userService.findUserById(userId);
+        Student s = u.getStudent();
         model.addAttribute("user", u);
 
+        List<StudentInternship> internshipsAwaitingForApproval = studentInternshipService.internshipsAwaitingForAproval(s);
+        model.addAttribute("internshipsAwaitingForApproval", internshipsAwaitingForApproval);
+
+        List<StudentInternship> ongoingInternships = studentInternshipService.ongoingInternships(s);
+        model.addAttribute("ongoingInternships", ongoingInternships);
+
+        List<StudentInternship> completedInternships = studentInternshipService.completedInternships(s);
+        model.addAttribute("completedInternships", completedInternships);
 
         return "dashboard_student";
     }
