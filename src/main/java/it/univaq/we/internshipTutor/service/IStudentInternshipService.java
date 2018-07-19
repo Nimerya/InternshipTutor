@@ -1,5 +1,7 @@
 package it.univaq.we.internshipTutor.service;
 
+import it.univaq.we.internshipTutor.model.Internship;
+import it.univaq.we.internshipTutor.model.Student;
 import it.univaq.we.internshipTutor.model.StudentInternship;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,14 +20,18 @@ public interface IStudentInternshipService{
 
     void deleteStudentInternshipById(Long id);
 
-    // List of all internship that student have done
-    List<StudentInternship> findStudentInternshipsByStudentAndCompleteTrue(Long id);
+    // List of all student internship that student have done
+    List<StudentInternship> findStudentInternshipsByStudentAndCompleteTrue(Student s);
 
-    //List of all internships that are in progress (respect to the student)
-    List<StudentInternship> studentInternshipsInProgress(Long id);
+    //List of all student internships that are in progress (respect to the student)
+    List<StudentInternship> studentInternshipsInProgress(Student s);
 
-    //List of all internships for wich the student awaiting to be accepted
-    List<StudentInternship> studentInternshipsAwaitingAccepted(Long id);
+    //List of all student internships for wich the student awaiting to be accepted
+    List<StudentInternship> studentInternshipsAwaitingAccepted(Student s);
+
+    //List of all student internships for wich the student awaiting to be accepted, knowing the internship id
+    List<StudentInternship> findCandidatesByInternship(Internship i);
+
 
 
 

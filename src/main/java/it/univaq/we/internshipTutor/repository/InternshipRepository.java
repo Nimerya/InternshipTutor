@@ -1,5 +1,6 @@
 package it.univaq.we.internshipTutor.repository;
 
+import it.univaq.we.internshipTutor.model.Company;
 import it.univaq.we.internshipTutor.model.Internship;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,5 +20,12 @@ public interface InternshipRepository extends JpaRepository<Internship, Long> {
     <S extends Internship> S save(S internship);
 
     void deleteInternshipById(Long id);
+
+    //List of all active internships published by a given company
+    List<Internship> findInternshipsByCompanyAndActiveTrue(Company c);
+
+    //List of all inactive internships published by a given company
+    List<Internship> findInternshipsByCompanyAndActiveFalse(Company c);
+
 
 }
