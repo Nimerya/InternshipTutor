@@ -32,7 +32,7 @@ public class DegreeController {
     @Autowired
     DepartmentService departmentService;
 
-    @RequestMapping(value={"/create/degree"}, method = RequestMethod.POST)
+    @RequestMapping(value={"/admin/create/degree"}, method = RequestMethod.POST)
     public String doCreate(@Valid @ModelAttribute("degree") Degree degree, BindingResult result, RedirectAttributes redirectAttributes) {
 
         if(result.hasErrors()) {
@@ -41,7 +41,7 @@ public class DegreeController {
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.degree", result);
             redirectAttributes.addFlashAttribute("degree", degree);
-            return "redirect:/create/degree";
+            return "redirect:/admin/create/degree";
         }
 
         try{
@@ -49,17 +49,17 @@ public class DegreeController {
             degreeService.save(degree);
         }catch (Exception e){
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
-            return "redirect:/create/degree";
+            return "redirect:/admin/create/degree";
         }
 
 
         // add success message in the model
         redirectAttributes.addFlashAttribute("popup", new Popup());
 
-        return "redirect:/create/degree";
+        return "redirect:/admin/create/degree";
     }
 
-    @RequestMapping(value={"/update/degree"}, method = RequestMethod.POST)
+    @RequestMapping(value={"/admin/update/degree"}, method = RequestMethod.POST)
     public String doUpdate(@Valid @ModelAttribute("degree") Degree degree, BindingResult result, RedirectAttributes redirectAttributes) {
 
         if(result.hasErrors()) {
@@ -68,7 +68,7 @@ public class DegreeController {
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.degree", result);
             redirectAttributes.addFlashAttribute("degree", degree);
-            return "redirect:/update/degree/" + degree.getId();
+            return "redirect:/admin/update/degree/" + degree.getId();
         }
 
         try{
@@ -76,16 +76,16 @@ public class DegreeController {
         }catch (Exception e){
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
-            return "redirect:/update/degree/" + degree.getId();
+            return "redirect:/admin/update/degree/" + degree.getId();
         }
 
         // add success message in the model
         redirectAttributes.addFlashAttribute("popup", new Popup());
 
-        return "redirect:/update/degree/" + degree.getId();
+        return "redirect:/admin/update/degree/" + degree.getId();
     }
 
-    @RequestMapping(value={"/delete/degree/{id}"}, method = RequestMethod.POST)
+    @RequestMapping(value={"/admin/delete/degree/{id}"}, method = RequestMethod.POST)
     public String doDelete(ModelMap model, @PathVariable(value = "id") Long id, RedirectAttributes redirectAttributes) {
 
         if (id == null || id < 0) {
@@ -93,7 +93,7 @@ public class DegreeController {
             // redirect to the form displaying the errors
             // add error message in the model
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
-            return "redirect:/update/degree/" + id;
+            return "redirect:/admin/update/degree/" + id;
         }
 
         try{
@@ -102,16 +102,16 @@ public class DegreeController {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_DEL));
             redirectAttributes.addFlashAttribute("company", degreeService.findDegreeById(id));
-            return "redirect:/update/degree/" + id;
+            return "redirect:/admin/update/degree/" + id;
         }
 
         // add success message in the model
         redirectAttributes.addFlashAttribute("popup", new Popup());
-        return "redirect:/create/degree";
+        return "redirect:/admin/create/degree";
     }
 
 
-    @RequestMapping(value={"/create/degree"}, method = RequestMethod.GET)
+    @RequestMapping(value={"/admin/create/degree"}, method = RequestMethod.GET)
     public String renderCreate(ModelMap model, Pageable pageable) {
 
         if(!model.containsAttribute("degree")){
@@ -119,7 +119,7 @@ public class DegreeController {
         }
 
         Page<Degree> degrees = degreeService.findAll(pageable);
-        PageWrapper<Degree> page = new PageWrapper<>(degrees, "/create/degree");
+        PageWrapper<Degree> page = new PageWrapper<>(degrees, "/admin/create/degree");
         model.addAttribute("degrees", page.getContent());
         model.addAttribute("page", page);
 
@@ -129,7 +129,7 @@ public class DegreeController {
         return "degree_create";
     }
 
-    @RequestMapping(value={"/update/degree/{id}"}, method = RequestMethod.GET)
+    @RequestMapping(value={"/admin/update/degree/{id}"}, method = RequestMethod.GET)
     public String renderUpdate(ModelMap model, Pageable pageable, @PathVariable(value = "id") Long id) {
 
 
@@ -139,7 +139,7 @@ public class DegreeController {
         }
 
         Page<Degree> degrees = degreeService.findAll(pageable);
-        PageWrapper<Degree> page = new PageWrapper<>(degrees, "/update/degree/"+id);
+        PageWrapper<Degree> page = new PageWrapper<>(degrees, "/admin/update/degree/"+id);
         model.addAttribute("degrees", page.getContent());
         model.addAttribute("page", page);
 
@@ -149,11 +149,11 @@ public class DegreeController {
         return "degree_update";
     }
 
-    @RequestMapping(value = {"/report/degrees"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/admin/report/degrees"}, method = RequestMethod.GET)
     public String renderReport(ModelMap model, Pageable pageable) {
 
         Page<Degree> degrees = degreeService.findAll(pageable);
-        PageWrapper<Degree> page = new PageWrapper<>(degrees, "/report/degrees");
+        PageWrapper<Degree> page = new PageWrapper<>(degrees, "/admin/report/degrees");
         model.addAttribute("collection", page.getContent());
         model.addAttribute("page", page);
         model.addAttribute("nameS", "degree");

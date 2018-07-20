@@ -1,7 +1,6 @@
 package it.univaq.we.internshipTutor.service;
 
-import it.univaq.we.internshipTutor.model.Company;
-import it.univaq.we.internshipTutor.model.User;
+import it.univaq.we.internshipTutor.model.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -20,4 +19,11 @@ public interface ICompanyService {
     <S extends Company> S save(S company);
 
     void deleteCompanyById(Long id);
+
+    List<ICompanyStudentInternshipCountProjection> companiesWithMostStudents(int limit);
+
+    List<IBestCompanyProjection> bestCompanies(int limit);
+
+    List<IWorstCompanyProjection> worstCompanies(int limit);
+
 }

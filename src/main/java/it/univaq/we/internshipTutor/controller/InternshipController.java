@@ -31,7 +31,7 @@ public class InternshipController {
     @Autowired
     CompanyService companyService;
 
-    @RequestMapping(value={"/create/internship"}, method = RequestMethod.POST)
+    @RequestMapping(value={"/admin/create/internship"}, method = RequestMethod.POST)
     public String doCreate(@Valid @ModelAttribute("internship") Internship internship, BindingResult result, RedirectAttributes redirectAttributes) {
 
         if (result.hasErrors()) {
@@ -42,7 +42,7 @@ public class InternshipController {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.internship", result);
             redirectAttributes.addFlashAttribute("internship", internship);
 
-            return "redirect:/create/internship";
+            return "redirect:/admin/create/internship";
         }
 
         try{
@@ -50,7 +50,7 @@ public class InternshipController {
         }catch (Exception e){
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
-            return "redirect:/create/internship";
+            return "redirect:/admin/create/internship";
         }
 
 
@@ -58,12 +58,12 @@ public class InternshipController {
         redirectAttributes.addFlashAttribute("popup", new Popup());
 
         // render Create form
-        return "redirect:/create/internship";
+        return "redirect:/admin/create/internship";
     }
 
 
 
-    @RequestMapping(value={"/update/internship"}, method = RequestMethod.POST)
+    @RequestMapping(value={"/admin/update/internship"}, method = RequestMethod.POST)
     public String doUpdate(@Valid @ModelAttribute("internship") Internship internship, BindingResult result, RedirectAttributes redirectAttributes) {
 
         if (result.hasErrors()) {
@@ -72,7 +72,7 @@ public class InternshipController {
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.internship", result);
             redirectAttributes.addFlashAttribute("internship", internship);
-            return "redirect:/update/internship/" + internship.getId();
+            return "redirect:/admin/update/internship/" + internship.getId();
         }
 
         try{
@@ -80,25 +80,25 @@ public class InternshipController {
         }catch (Exception e){
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
-            return "redirect:/update/internship/" + internship.getId();
+            return "redirect:/admin/update/internship/" + internship.getId();
         }
 
         // add success message in the model
         redirectAttributes.addFlashAttribute("popup", new Popup());
         // render Update form
-        return "redirect:/update/internship/" + internship.getId();
+        return "redirect:/admin/update/internship/" + internship.getId();
     }
 
 
 
-    @RequestMapping(value={"/delete/internship/{id}"}, method = RequestMethod.POST)
+    @RequestMapping(value={"/admin/delete/internship/{id}"}, method = RequestMethod.POST)
     public String doDelete(@PathVariable(value = "id") Long id, RedirectAttributes redirectAttributes) {
         if (id == null || id < 0) {
             // if there are errors during the binding (e.g. NotNull, Min, etc.)
             // redirect to the form displaying the errors
             // add error message in the model
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
-            return "redirect:/update/internship/" + id;
+            return "redirect:/admin/update/internship/" + id;
         }
 
         try{
@@ -107,23 +107,37 @@ public class InternshipController {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_DEL));
             redirectAttributes.addFlashAttribute("internship", internshipService.findInternshipById(id));
-            return "redirect:/update/internship/" + id;
+            return "redirect:/admin/update/internship/" + id;
         }
 
         // add success message in the model
         redirectAttributes.addFlashAttribute("popup", new Popup());
-        return "redirect:/create/internship";
+        return "redirect:/admin/create/internship";
+    }
+
+    @RequestMapping(value={"/company/delete/internship/{internshipId}"}, method = RequestMethod.POST)
+    public String doDeleteByCompany(@PathVariable(value = "internshipId") Long internshipId,
+                                    RedirectAttributes redirectAttributes) {
+        // TODO delete internship by company
+        return "redirect:/index";
+    }
+
+    @RequestMapping(value={"/company/update/internship/{internshipId}"}, method = RequestMethod.POST)
+    public String doUpdateByCompany(@PathVariable(value = "internshipId") Long internshipId,
+                                    RedirectAttributes redirectAttributes) {
+        // TODO update internship by company
+        return "redirect:/index";
     }
 
 
-    @RequestMapping(value={"/create/internship"}, method = RequestMethod.GET)
+    @RequestMapping(value={"/admin/create/internship"}, method = RequestMethod.GET)
     public String renderCreate(ModelMap model, Pageable pageable) {
 
         if(!model.containsAttribute("internship")){
             model.addAttribute("internship", new Internship(UUID.randomUUID()));
         }
         Page<Internship> internships = internshipService.findAll(pageable);
-        PageWrapper<Internship> page = new PageWrapper<>(internships, "/create/internship");
+        PageWrapper<Internship> page = new PageWrapper<>(internships, "/admin/create/internship");
         model.addAttribute("internships", page.getContent());
         model.addAttribute("page", page);
 
@@ -134,7 +148,7 @@ public class InternshipController {
     }
 
 
-    @RequestMapping(value={"/update/internship/{id}"}, method = RequestMethod.GET)
+    @RequestMapping(value={"/admin/update/internship/{id}"}, method = RequestMethod.GET)
     public String renderUpdate(ModelMap model, Pageable pageable, @PathVariable(value = "id") Long id) {
 
         Internship i = internshipService.findInternshipById(id);
@@ -144,7 +158,7 @@ public class InternshipController {
         }
 
         Page<Internship> internships = internshipService.findAll(pageable);
-        PageWrapper<Internship> page = new PageWrapper<>(internships, "/update/internship/"+id);
+        PageWrapper<Internship> page = new PageWrapper<>(internships, "/admin/update/internship/"+id);
         model.addAttribute("internships", page.getContent());
         model.addAttribute("page", page);
 
@@ -155,11 +169,11 @@ public class InternshipController {
     }
 
 
-    @RequestMapping(value = {"/report/internships"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/admin/report/internships"}, method = RequestMethod.GET)
     public String renderReport(ModelMap model, Pageable pageable) {
 
         Page<Internship> internships = internshipService.findAll(pageable);
-        PageWrapper<Internship> page = new PageWrapper<>(internships, "/report/internships");
+        PageWrapper<Internship> page = new PageWrapper<>(internships, "/admin/report/internships");
         model.addAttribute("collection", page.getContent());
         model.addAttribute("page", page);
         model.addAttribute("nameS", "internship");

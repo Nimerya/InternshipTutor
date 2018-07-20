@@ -1,5 +1,6 @@
 package it.univaq.we.internshipTutor.service;
 
+import it.univaq.we.internshipTutor.model.IProfessorInternshipCountProjection;
 import it.univaq.we.internshipTutor.model.Professor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,4 +18,6 @@ public interface IProfessorService {
     <S extends Professor> S save(S professor);
 
     void deleteProfessorById(Long id);
+
+    List<IProfessorInternshipCountProjection> mostRequestedProfessors(int limit);
 }

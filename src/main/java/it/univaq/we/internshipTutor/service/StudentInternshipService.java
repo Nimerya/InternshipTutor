@@ -1,5 +1,7 @@
 package it.univaq.we.internshipTutor.service;
 
+import it.univaq.we.internshipTutor.model.Internship;
+import it.univaq.we.internshipTutor.model.Student;
 import it.univaq.we.internshipTutor.model.StudentInternship;
 import it.univaq.we.internshipTutor.repository.StudentInternshipRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,34 @@ public class StudentInternshipService implements IStudentInternshipService  {
 
     @Override
     public void deleteStudentInternshipById(Long id){ studentInternshipRepository.deleteStudentInternshipById(id); }
+
+    // List of all student internship that student have done
+    @Override
+    public List<StudentInternship> completedInternships(Student s){
+        return studentInternshipRepository.findStudentInternshipsByStudentAndCompletedTrue(s);
+    }
+
+    //List of all student internships that are in progress (respect to the student)
+    @Override
+    public List<StudentInternship> ongoingInternships(Student s){
+        return studentInternshipRepository.findStudentInternshipsByStudentAndAcceptedTrueAndCompletedFalse(s);
+    }
+
+    //List of all student internships for wich the student awaiting to be accepted
+    @Override
+    public List<StudentInternship> internshipsAwaitingForApproval(Student s){
+        return studentInternshipRepository.findStudentInternshipsByStudentAndAcceptedFalseAndCompletedFalse(s);
+    }
+
+
+    //List of all student internships for wich the student awaiting to be accepted, knowing the internship id
+    @Override
+    public List<StudentInternship> findCandidatesByInternship(Internship i){
+        return studentInternshipRepository.findStudentInternshipsByInternshipAndAcceptedFalse(i);
+    }
+
+
+
 
 
 }

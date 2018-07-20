@@ -36,7 +36,7 @@ public class StudentController {
     @Autowired
     DegreeService degreeService;
 
-    @RequestMapping(value={"/create/student"}, method = RequestMethod.POST)
+    @RequestMapping(value={"/admin/create/student"}, method = RequestMethod.POST)
     public String doCreate(@Valid @ModelAttribute("student") Student student, BindingResult result, RedirectAttributes redirectAttributes) {
 
         if (result.hasErrors()) {
@@ -53,7 +53,7 @@ public class StudentController {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.student", result);
             redirectAttributes.addFlashAttribute("student", student);
 
-            return "redirect:/create/student";
+            return "redirect:/admin/create/student";
         }
 
         try{
@@ -61,7 +61,7 @@ public class StudentController {
         }catch (Exception e){
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
-            return "redirect:/create/student";
+            return "redirect:/admin/create/student";
         }
 
 
@@ -69,11 +69,11 @@ public class StudentController {
         redirectAttributes.addFlashAttribute("popup", new Popup());
 
         // render Create form
-        return "redirect:/create/student";
+        return "redirect:/admin/create/student";
     }
 
 
-    @RequestMapping(value={"/update/student"}, method = RequestMethod.POST)
+    @RequestMapping(value={"/admin/update/student"}, method = RequestMethod.POST)
     public String doUpdate(@Valid @ModelAttribute("student") Student student, BindingResult result, RedirectAttributes redirectAttributes) {
 
         if (result.hasErrors()) {
@@ -82,7 +82,7 @@ public class StudentController {
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.student", result);
             redirectAttributes.addFlashAttribute("student", student);
-            return "redirect:/update/student/" + student.getId();
+            return "redirect:/admin/update/student/" + student.getId();
         }
 
         try{
@@ -90,24 +90,24 @@ public class StudentController {
         }catch (Exception e){
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
-            return "redirect:/update/student/" + student.getId();
+            return "redirect:/admin/update/student/" + student.getId();
         }
 
         // add success message in the model
         redirectAttributes.addFlashAttribute("popup", new Popup());
         // render Update form
-        return "redirect:/update/student/" + student.getId();
+        return "redirect:/admin/update/student/" + student.getId();
     }
 
 
-    @RequestMapping(value={"/delete/student/{id}"}, method = RequestMethod.POST)
+    @RequestMapping(value={"/admin/delete/student/{id}"}, method = RequestMethod.POST)
     public String doDelete(@PathVariable(value = "id") Long id, RedirectAttributes redirectAttributes) {
         if (id == null || id < 0) {
             // if there are errors during the binding (e.g. NotNull, Min, etc.)
             // redirect to the form displaying the errors
             // add error message in the model
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
-            return "redirect:/update/student/" + id;
+            return "redirect:/admin/update/student/" + id;
         }
 
         try{
@@ -116,16 +116,16 @@ public class StudentController {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_DEL));
             redirectAttributes.addFlashAttribute("student", studentService.findStudentById(id));
-            return "redirect:/update/student/" + id;
+            return "redirect:/admin/update/student/" + id;
         }
 
         // add success message in the model
         redirectAttributes.addFlashAttribute("popup", new Popup());
-        return "redirect:/create/student";
+        return "redirect:/admin/create/student";
     }
 
 
-    @RequestMapping(value={"/create/student"}, method = RequestMethod.GET)
+    @RequestMapping(value={"/admin/create/student"}, method = RequestMethod.GET)
     public String renderCreate(ModelMap model, Pageable pageable) {
 
         if(!model.containsAttribute("student")){
@@ -133,7 +133,7 @@ public class StudentController {
         }
 
         Page<Student> students = studentService.findAll(pageable);
-        PageWrapper<Student> page = new PageWrapper<>(students, "/create/student");
+        PageWrapper<Student> page = new PageWrapper<>(students, "/admin/create/student");
         model.addAttribute("students", page.getContent());
         model.addAttribute("page", page);
 
@@ -143,7 +143,7 @@ public class StudentController {
     }
 
 
-    @RequestMapping(value={"/update/student/{id}"}, method = RequestMethod.GET)
+    @RequestMapping(value={"/admin/update/student/{id}"}, method = RequestMethod.GET)
     public String renderUpdate(ModelMap model, Pageable pageable, @PathVariable(value = "id") Long id) {
 
         Student p = studentService.findStudentById(id);
@@ -153,7 +153,7 @@ public class StudentController {
         }
 
         Page<Student> students = studentService.findAll(pageable);
-        PageWrapper<Student> page = new PageWrapper<>(students, "/update/student/"+id);
+        PageWrapper<Student> page = new PageWrapper<>(students, "/admin/update/student/"+id);
         model.addAttribute("students", page.getContent());
         model.addAttribute("page", page);
 
@@ -164,11 +164,11 @@ public class StudentController {
     }
 
 
-    @RequestMapping(value = {"/report/students"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/admin/report/students"}, method = RequestMethod.GET)
     public String renderReport(ModelMap model, Pageable pageable) {
 
         Page<Student> students = studentService.findAll(pageable);
-        PageWrapper<Student> page = new PageWrapper<>(students, "/report/students");
+        PageWrapper<Student> page = new PageWrapper<>(students, "/admin/report/students");
         model.addAttribute("collection", page.getContent());
         model.addAttribute("page", page);
         model.addAttribute("nameS", "student");

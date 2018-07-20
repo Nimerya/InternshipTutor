@@ -22,7 +22,7 @@
                 <h3 class="w3ls-hdg">Update Company</h3>
                 <div class="tab-content">
                     <div class="tab-pane active">
-                        <form method="POST" th:action="@{/update/company}" th:object="${company}"
+                        <form method="POST" th:action="@{/admin/update/company}" th:object="${company}"
                               class="form-horizontal">
 
                             <input th:field="*{id}" type="hidden" id="id">
@@ -184,7 +184,7 @@
 
                         </form>
 
-                        <form method="POST" th:action="@{'/delete/company/'+${company.getId()}}"
+                        <form method="POST" th:action="@{'/admin/delete/company/'+${company.getId()}}"
                               class="form-horizontal">
                             <!-- submit -->
                             <div class="form-group">

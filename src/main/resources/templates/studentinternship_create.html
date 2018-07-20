@@ -23,7 +23,7 @@
                 <h3 class="w3ls-hdg">Create a new Student-Internship association</h3>
                 <div class="tab-content">
                     <div class="tab-pane active">
-                        <form method="POST" th:action="@{/create/studentinternship}" th:object="${studentinternship}"
+                        <form method="POST" th:action="@{/admin/create/studentinternship}" th:object="${studentinternship}"
                               class="form-horizontal">
 
 
@@ -146,6 +146,7 @@
                                 <label class="col-sm-3 control-label">Option</label>
                                 <div class="col-sm-9">
                                     <div class="checkbox-inline"><label><input th:field="*{accepted}" type="checkbox"> Accepted</label></div>
+                                    <div class="checkbox-inline"><label><input th:field="*{completed}" type="checkbox"> Completed</label></div>
                                 </div>
                             </div>
 

@@ -1,5 +1,6 @@
 package it.univaq.we.internshipTutor.service;
 
+import it.univaq.we.internshipTutor.model.Company;
 import it.univaq.we.internshipTutor.repository.InternshipRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -37,4 +38,18 @@ public class InternshipService implements IInternshipService {
     public void deleteInternshipById(Long id){
         internshipRepository.deleteInternshipById(id);
     }
+
+    //List of all active internships published by a given company
+    @Override
+    public List<Internship> findActiveInternships(Company c){
+        return internshipRepository.findInternshipsByCompanyAndActiveTrue(c);
+    }
+
+    //List of all inactive internships published by a given company
+    @Override
+    public List<Internship> findInactiveInternships(Company c){
+        return internshipRepository.findInternshipsByCompanyAndActiveFalse(c);
+    }
+
+
 }

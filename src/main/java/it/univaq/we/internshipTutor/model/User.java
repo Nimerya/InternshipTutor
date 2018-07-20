@@ -20,11 +20,11 @@ public class User {
     @Transient
     private UUID uuid;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "student_id", nullable = true)
     private Student student;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "company_id", nullable = true)
     private Company company;
 
@@ -165,5 +165,15 @@ public class User {
     }
 
     //Return info's about user
-    public String getInfo(){ return this.getEmail(); }
+    public String getInfo(){
+        String auxInfo = "";
+        if (this.getStudent() != null){
+            auxInfo += " - Student: "+this.getStudent().getInfo();
+        }else if (this.getCompany() != null){
+            auxInfo += " - Company: "+this.getCompany().getInfo();
+        }else{
+            auxInfo += " - Admin";
+        }
+        return this.getEmail()+auxInfo;
+    }
 }

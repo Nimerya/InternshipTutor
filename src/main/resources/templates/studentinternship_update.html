@@ -22,7 +22,7 @@
                 <h3 class="w3ls-hdg">Update Student-Internsnip</h3>
                 <div class="tab-content">
                     <div class="tab-pane active">
-                        <form method="POST" th:action="@{/update/studentinternship}" th:object="${studentinternship}"
+                        <form method="POST" th:action="@{/admin/update/studentinternship}" th:object="${studentinternship}"
                               class="form-horizontal">
 
                             <input th:field="*{id}" type="hidden" id="id">
@@ -144,6 +144,7 @@
                                 <label class="col-sm-3 control-label">Options</label>
                                 <div class="col-sm-9">
                                     <div class="checkbox-inline"><label><input th:field="*{accepted}" type="checkbox"> Accepted</label></div>
+                                    <div class="checkbox-inline"><label><input th:field="*{completed}" type="checkbox"> Completed</label></div>
                                 </div>
                             </div>
 
@@ -159,7 +160,7 @@
 
                         </form>
 
-                        <form method="POST" th:action="@{'/delete/studentinternship/'+${studentinternship.getId()}}"
+                        <form method="POST" th:action="@{'/admin/delete/studentinternship/'+${studentinternship.getId()}}"
                               class="form-horizontal">
                             <!-- submit -->
                             <div class="form-group">

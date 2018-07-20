@@ -1,0 +1,167 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${userType+' dashboard'}"></title>
+    <!-- head -->
+    <meta th:replace="fragments/head :: head">
+    <!-- head -->
+    <!-- head_scripts -->
+    <meta th:replace="fragments/head_scripts :: head_scripts">
+    <!-- head_scripts -->
+</head>
+<body>
+
+
+<!-- header -->
+<div th:replace="fragments/header :: header"></div>
+<!-- header -->
+
+<div class="codes about">
+    <div class="container">
+        <div id="forms" class="grid_3 grid_4">
+
+            <div class="row margin-bottom-30">
+                <!-- image -->
+                <div class="col-md-4">
+                    <img src="" th:src="${'/files/images/'+user.getImage()}" class="profile-image">
+                </div>
+                <!-- student details -->
+                <div class="col-md-8">
+                    <h3 class="w3ls-hdg">Info</h3>
+                    <div class="list-group list-group-alternate my-group-list black squared">
+                        <span class="list-group-item"><span class="badge" th:text="${user.getStudent().getMatriculationNumber()}">value</span> Matriculation #</span>
+                        <span class="list-group-item"><span class="badge" th:text="${user.getFirstName()}">value</span> First name</span>
+                        <span class="list-group-item"><span class="badge" th:text="${user.getLastName()}">value</span> Last name</span>
+                        <span class="list-group-item"><span class="badge" th:text="${user.getEmail()}">value</span> Email</span>
+                        <span class="list-group-item"><span class="badge" th:text="${user.getStudent().getDegree().getName()}">value</span> Degree</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Internships awaiting for approval -->
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="w3ls-hdg">Internships awaiting for approval</h3>
+                    <div th:if="${!internshipsAwaitingForApproval.isEmpty()}">
+                        <table class="table table-fixed table-bordered hover-effect">
+                            <thead>
+                            <tr>
+                                <th class="col-xs-1 text-center">#</th>
+                                <th class="col-xs-5">Title</th>
+                                <th class="col-xs-3">Company</th>
+                                <th class="col-xs-3">Professor</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr th:each="item, iterationStatus : ${internshipsAwaitingForApproval}">
+                                <td th:text="${iterationStatus.count}" class="col-xs-1 no-border-right text-center">
+                                </td>
+                                <td th:text="${item.getInternship().getTitle()}" class="col-xs-5 no-border-right">
+                                </td>
+                                <td th:text="${item.getInternship().getCompany().getName()}" class="col-xs-3 no-border-right">
+                                </td>
+                                <td th:text="${item.getProfessor().getInfo()}" class="col-xs-3">
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="well" th:unless="${!internshipsAwaitingForApproval.isEmpty()}" th:text="${'No internships awaiting for approval!'}">
+                        Empty report message
+                    </div>
+                </div>
+            </div>
+
+            <!-- ongoing internships -->
+            <div class="row padding-top-30">
+                <div class="col-md-12">
+                    <h3 class="w3ls-hdg">Ongoing internships</h3>
+                    <div th:if="${!ongoingInternships.isEmpty()}">
+                        <table class="table table-fixed table-bordered hover-effect">
+                            <thead>
+                            <tr>
+                                <th class="col-xs-1 text-center">#</th>
+                                <th class="col-xs-5">Title</th>
+                                <th class="col-xs-3">Company</th>
+                                <th class="col-xs-3">Professor</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr th:each="item, iterationStatus : ${ongoingInternships}">
+                                <td th:text="${iterationStatus.count}" class="col-xs-1 no-border-right text-center">
+                                </td>
+                                <td th:text="${item.getInternship().getTitle()}" class="col-xs-5 no-border-right">
+                                </td>
+                                <td th:text="${item.getInternship().getCompany().getName()}" class="col-xs-3 no-border-right">
+                                </td>
+                                <td th:text="${item.getProfessor().getInfo()}" class="col-xs-3">
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="well" th:unless="${!ongoingInternships.isEmpty()}" th:text="${'No ognoing internships yet!'}">
+                        Empty report message
+                    </div>
+                </div>
+            </div>
+
+            <!-- ongoing internships -->
+            <div class="row padding-top-30">
+                <div class="col-md-12">
+                    <h3 class="w3ls-hdg">Completed internships</h3>
+                    <div th:if="${!completedInternships.isEmpty()}">
+                        <table class="table table-fixed table-bordered hover-effect">
+                            <thead>
+                            <tr>
+                                <th class="col-xs-1 text-center">#</th>
+                                <th class="col-xs-5">Title</th>
+                                <th class="col-xs-3">Company</th>
+                                <th class="col-xs-3">Professor</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr th:each="item, iterationStatus : ${completedInternships}">
+                                <td th:text="${iterationStatus.count}" class="col-xs-1 no-border-right text-center">
+                                </td>
+                                <td th:text="${item.getInternship().getTitle()}" class="col-xs-5 no-border-right">
+                                </td>
+                                <td th:text="${item.getInternship().getCompany().getName()}" class="col-xs-3 no-border-right">
+                                </td>
+                                <td th:text="${item.getProfessor().getInfo()}" class="col-xs-3">
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="well" th:unless="${!completedInternships.isEmpty()}" th:text="${'No completed internships yet!'}">
+                        Empty report message
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+
+<!-- footer -->
+<div th:replace="fragments/footer"></div>
+<!-- footer -->
+<!-- footer_scripts -->
+<div th:replace="fragments/footer_scripts"></div>
+<!-- footer_scripts -->
+
+</body>
+</html>

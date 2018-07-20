@@ -1,7 +1,6 @@
 package it.univaq.we.internshipTutor.service;
 
-import it.univaq.we.internshipTutor.model.Company;
-import it.univaq.we.internshipTutor.model.User;
+import it.univaq.we.internshipTutor.model.*;
 import it.univaq.we.internshipTutor.repository.CompanyRepository;
 import it.univaq.we.internshipTutor.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +45,22 @@ public class CompanyService implements ICompanyService {
     @Override
     public void deleteCompanyById(Long id){
         companyRepository.deleteCompanyById(id);
+    }
+
+
+    @Override
+    public List<ICompanyStudentInternshipCountProjection> companiesWithMostStudents(int limit){
+        return companyRepository.companiesWithMostStudents(limit);
+    }
+
+    @Override
+    public List<IBestCompanyProjection> bestCompanies(int limit){
+        return companyRepository.bestCompanies(limit);
+    }
+
+    @Override
+    public List<IWorstCompanyProjection> worstCompanies(int limit){
+        return companyRepository.worstCompanies(limit);
     }
 }
 
