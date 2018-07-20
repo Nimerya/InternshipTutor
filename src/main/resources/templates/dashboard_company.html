@@ -61,7 +61,7 @@
                                 <td th:text="${item.getTitle()}" class="col-xs-8 no-border-right">
                                 </td>
                                 <td class="col-xs-3 text-right">
-                                    <a th:href="@{${'/update/internship/'+user.getCompany().getId()+'/'+item.getId()}}"
+                                    <a th:href="@{${'/company/update/internship/'+item.getId()}}"
                                        class="btn-default-border btn-xs squared">
                                         <i class="fa fa-edit"></i>
                                         Edit
@@ -101,7 +101,7 @@
                                 <td th:text="${item.getTitle()}" class="col-xs-8 no-border-right">
                                 </td>
                                 <td class="col-xs-3 text-right">
-                                    <a th:href="@{${'/update/internship/'+user.getCompany().getId()+'/'+item.getId()}}"
+                                    <a th:href="@{${'/company/update/internship/'+item.getId()}}"
                                        class="btn-default-border btn-xs squared">
                                         <i class="fa fa-edit"></i>
                                         Edit

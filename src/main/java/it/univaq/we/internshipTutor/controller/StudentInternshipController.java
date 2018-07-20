@@ -41,7 +41,7 @@ public class StudentInternshipController {
     ProfessorService professorService;
 
 
-    @RequestMapping(value={"/create/studentinternship"}, method = RequestMethod.POST)
+    @RequestMapping(value={"/admin/create/studentinternship"}, method = RequestMethod.POST)
     public String doCreate(@Valid @ModelAttribute("studentinternship") StudentInternship studentinternship, BindingResult result, RedirectAttributes redirectAttributes) {
 
         if(result.hasErrors()) {
@@ -50,7 +50,7 @@ public class StudentInternshipController {
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.studentinternship", result);
             redirectAttributes.addFlashAttribute("studentinternship", studentinternship);
-            return "redirect:/create/studentinternship";
+            return "redirect:/admin/create/studentinternship";
         }
 
         try{
@@ -59,17 +59,17 @@ public class StudentInternshipController {
         }catch (Exception e){
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
-            return "redirect:/create/studentinternship";
+            return "redirect:/admin/create/studentinternship";
         }
 
 
         // add success message in the model
         redirectAttributes.addFlashAttribute("popup", new Popup());
 
-        return "redirect:/create/studentinternship";
+        return "redirect:/admin/create/studentinternship";
     }
 
-    @RequestMapping(value={"/update/studentinternship"}, method = RequestMethod.POST)
+    @RequestMapping(value={"/admin/update/studentinternship"}, method = RequestMethod.POST)
     public String doUpdate(@Valid @ModelAttribute("studentinternship") StudentInternship studentinternship, BindingResult result, RedirectAttributes redirectAttributes) {
 
         if(result.hasErrors()) {
@@ -78,7 +78,7 @@ public class StudentInternshipController {
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.studentinternship", result);
             redirectAttributes.addFlashAttribute("studentinternship", studentinternship);
-            return "redirect:/update/studentinternship/" + studentinternship.getId();
+            return "redirect:/admin/update/studentinternship/" + studentinternship.getId();
         }
 
         try{
@@ -87,16 +87,16 @@ public class StudentInternshipController {
         }catch (Exception e){
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
-            return "redirect:/update/studentinternship/" + studentinternship.getId();
+            return "redirect:/admin/update/studentinternship/" + studentinternship.getId();
         }
 
         // add success message in the model
         redirectAttributes.addFlashAttribute("popup", new Popup());
 
-        return "redirect:/update/studentinternship/" + studentinternship.getId();
+        return "redirect:/admin/update/studentinternship/" + studentinternship.getId();
     }
 
-    @RequestMapping(value={"/delete/studentinternship/{id}"}, method = RequestMethod.POST)
+    @RequestMapping(value={"/admin/delete/studentinternship/{id}"}, method = RequestMethod.POST)
     public String doDelete(ModelMap model, @PathVariable(value = "id") Long id, RedirectAttributes redirectAttributes) {
 
         if (id == null || id < 0) {
@@ -104,7 +104,7 @@ public class StudentInternshipController {
             // redirect to the form displaying the errors
             // add error message in the model
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
-            return "redirect:/update/studentinternship/" + id;
+            return "redirect:/admin/update/studentinternship/" + id;
         }
 
         try{
@@ -113,16 +113,16 @@ public class StudentInternshipController {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_DEL));
             redirectAttributes.addFlashAttribute("studentinternship", studentinternshipService.findStudentInternshipById(id));
-            return "redirect:/update/studentinternship/" + id;
+            return "redirect:/admin/update/studentinternship/" + id;
         }
 
         // add success message in the model
         redirectAttributes.addFlashAttribute("popup", new Popup());
-        return "redirect:/create/studentinternship";
+        return "redirect:/admin/create/studentinternship";
     }
 
 
-    @RequestMapping(value={"/create/studentinternship"}, method = RequestMethod.GET)
+    @RequestMapping(value={"/admin/create/studentinternship"}, method = RequestMethod.GET)
     public String renderCreate(ModelMap model, Pageable pageable) {
 
         if(!model.containsAttribute("studentinternship")){
@@ -130,7 +130,7 @@ public class StudentInternshipController {
         }
 
         Page<StudentInternship> studentinternships = studentinternshipService.findAll(pageable);
-        PageWrapper<StudentInternship> page = new PageWrapper<>(studentinternships, "/create/studentinternship");
+        PageWrapper<StudentInternship> page = new PageWrapper<>(studentinternships, "/admin/create/studentinternship");
         model.addAttribute("studentinternships", page.getContent());
         model.addAttribute("page", page);
 
@@ -146,7 +146,7 @@ public class StudentInternshipController {
         return "studentinternship_create";
     }
 
-    @RequestMapping(value={"/update/studentinternship/{id}"}, method = RequestMethod.GET)
+    @RequestMapping(value={"/admin/update/studentinternship/{id}"}, method = RequestMethod.GET)
     public String renderUpdate(ModelMap model, Pageable pageable, @PathVariable(value = "id") Long id) {
 
 
@@ -156,7 +156,7 @@ public class StudentInternshipController {
         }
 
         Page<StudentInternship> studentinternships = studentinternshipService.findAll(pageable);
-        PageWrapper<StudentInternship> page = new PageWrapper<>(studentinternships, "/update/studentinternship/"+id);
+        PageWrapper<StudentInternship> page = new PageWrapper<>(studentinternships, "/admin/update/studentinternship/"+id);
         model.addAttribute("studentinternships", page.getContent());
         model.addAttribute("page", page);
 
@@ -173,11 +173,11 @@ public class StudentInternshipController {
     }
 
 
-    @RequestMapping(value = {"/report/studentinternships"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/admin/report/studentinternships"}, method = RequestMethod.GET)
     public String renderReport(ModelMap model, Pageable pageable) {
 
         Page<StudentInternship> studentinternships = studentinternshipService.findAll(pageable);
-        PageWrapper<StudentInternship> page = new PageWrapper<>(studentinternships, "/report/studentinternships");
+        PageWrapper<StudentInternship> page = new PageWrapper<>(studentinternships, "/admin/report/studentinternships");
         model.addAttribute("collection", page.getContent());
         model.addAttribute("page", page);
         model.addAttribute("nameS", "studentinternship");

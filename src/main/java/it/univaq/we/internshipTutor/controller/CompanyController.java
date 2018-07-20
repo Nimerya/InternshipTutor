@@ -31,7 +31,7 @@ public class CompanyController {
     CompanyService companyService;
 
 
-    @RequestMapping(value = {"/create/company"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/admin/create/company"}, method = RequestMethod.POST)
     public String doCreate(@Valid @ModelAttribute("company") Company company,
                            BindingResult result,
                            RedirectAttributes redirectAttributes) {
@@ -42,7 +42,7 @@ public class CompanyController {
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.company", result);
             redirectAttributes.addFlashAttribute("company", company);
-            return "redirect:/create/company";
+            return "redirect:/admin/create/company";
         }
         try{
             // else perform the insertion
@@ -50,16 +50,16 @@ public class CompanyController {
         }catch (Exception e){
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
-            return "redirect:/create/company";
+            return "redirect:/admin/create/company";
         }
 
         // add success message in the model
         redirectAttributes.addFlashAttribute("popup", new Popup("success", "Operation Completed Successfully!"));
 
-        return "redirect:/create/company";
+        return "redirect:/admin/create/company";
     }
 
-    @RequestMapping(value = {"/update/company"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/admin/update/company"}, method = RequestMethod.POST)
     public String doUpdate(@Valid @ModelAttribute("company") Company company,
                            BindingResult result,
                            RedirectAttributes redirectAttributes) {
@@ -70,7 +70,7 @@ public class CompanyController {
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.company", result);
             redirectAttributes.addFlashAttribute("company", company);
-            return "redirect:/update/company/" + company.getId();
+            return "redirect:/admin/update/company/" + company.getId();
         }
 
         try{
@@ -78,13 +78,13 @@ public class CompanyController {
         }catch (Exception e){
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
-            return "redirect:/update/company/" + company.getId();
+            return "redirect:/admin/update/company/" + company.getId();
         }
 
-        return "redirect:/update/company/" + company.getId();
+        return "redirect:/admin/update/company/" + company.getId();
     }
 
-    @RequestMapping(value = {"/delete/company/{id}"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/admin/delete/company/{id}"}, method = RequestMethod.POST)
     public String doDelete(ModelMap model, @PathVariable(value = "id") Long id, RedirectAttributes redirectAttributes) {
 
         if (id == null || id < 0) {
@@ -92,7 +92,7 @@ public class CompanyController {
             // redirect to the form displaying the errors
             // add error message in the model
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
-            return "redirect:/update/company/" + id;
+            return "redirect:/admin/update/company/" + id;
         }
 
         try{
@@ -102,16 +102,16 @@ public class CompanyController {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_DEL));
             redirectAttributes.addFlashAttribute("company", companyService.findCompanyById(id));
-            return "redirect:/update/company/" + id;
+            return "redirect:/admin/update/company/" + id;
         }
 
         // add success message in the model
         redirectAttributes.addFlashAttribute("popup", new Popup());
-        return "redirect:/create/company";
+        return "redirect:/admin/create/company";
     }
 
 
-    @RequestMapping(value = {"/create/company"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/admin/create/company"}, method = RequestMethod.GET)
     public String renderCreate(ModelMap model, Pageable pageable) {
 
         if (!model.containsAttribute("company")) {
@@ -119,14 +119,14 @@ public class CompanyController {
         }
 
         Page<Company> companies = companyService.findAll(pageable);
-        PageWrapper<Company> page = new PageWrapper<>(companies, "/create/company");
+        PageWrapper<Company> page = new PageWrapper<>(companies, "/admin/create/company");
         model.addAttribute("companies", page.getContent());
         model.addAttribute("page", page);
 
         return "company_create";
     }
 
-    @RequestMapping(value = {"/update/company/{id}"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/admin/update/company/{id}"}, method = RequestMethod.GET)
     public String renderUpdate(ModelMap model, Pageable pageable, @PathVariable(value = "id") Long id) {
 
 
@@ -135,7 +135,7 @@ public class CompanyController {
             model.addAttribute("company", c);
         }
         Page<Company> companies = companyService.findAll(pageable);
-        PageWrapper<Company> page = new PageWrapper<>(companies, "/update/company/"+id);
+        PageWrapper<Company> page = new PageWrapper<>(companies, "/admin/update/company/"+id);
         model.addAttribute("companies", page.getContent());
         model.addAttribute("page", page);
 
@@ -147,11 +147,11 @@ public class CompanyController {
     }
 
 
-    @RequestMapping(value = {"/report/companies"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/admin/report/companies"}, method = RequestMethod.GET)
     public String renderReport(ModelMap model, Pageable pageable) {
 
         Page<Company> companies = companyService.findAll(pageable);
-        PageWrapper<Company> page = new PageWrapper<>(companies, "/report/companies");
+        PageWrapper<Company> page = new PageWrapper<>(companies, "/admin/report/companies");
         model.addAttribute("collection", page.getContent());
         model.addAttribute("page", page);
         model.addAttribute("nameS", "company");

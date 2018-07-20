@@ -57,7 +57,7 @@
                             <li><a href="">Affiliated companies</a></li>
 
                             <!-- TODO parametric student/company not visible to anonymous-->
-                            <li><a th:href="@{/dashboard}" href="">Dashboard </a></li>
+                            <li><a th:href="@{/admin/dashboard}" href="">Dashboard </a></li>
 
                             <!-- TODO Admin only -->
                             <li>
@@ -76,8 +76,8 @@
                                             <span class="caret"></span>
                                         </a>
                                         <ul class="dropdown-menu squared">
-                                            <li><a th:href="@{/create/company}" href="">Create</a></li>
-                                            <li><a th:href="@{/report/companies}" href="">Report</a></li>
+                                            <li><a th:href="@{/admin/create/company}" href="">Create</a></li>
+                                            <li><a th:href="@{/admin/report/companies}" href="">Report</a></li>
                                         </ul>
                                     </li>
 
@@ -90,8 +90,8 @@
                                             <span class="caret"></span>
                                         </a>
                                         <ul class="dropdown-menu squared">
-                                            <li><a th:href="@{/create/degree}" href="">Create</a></li>
-                                            <li><a th:href="@{/report/degrees}" href="">Report</a></li>
+                                            <li><a th:href="@{/admin/create/degree}" href="">Create</a></li>
+                                            <li><a th:href="@{/admin/report/degrees}" href="">Report</a></li>
                                         </ul>
                                     </li>
 
@@ -104,8 +104,8 @@
                                             <span class="caret"></span>
                                         </a>
                                         <ul class="dropdown-menu squared">
-                                            <li><a th:href="@{/create/department}" href="">Create</a></li>
-                                            <li><a th:href="@{/report/departments}" href="">Report</a></li>
+                                            <li><a th:href="@{/admin/create/department}" href="">Create</a></li>
+                                            <li><a th:href="@{/admin/report/departments}" href="">Report</a></li>
                                         </ul>
                                     </li>
 
@@ -118,8 +118,8 @@
                                             <span class="caret"></span>
                                         </a>
                                         <ul class="dropdown-menu squared">
-                                            <li><a th:href="@{/create/internship}" href="">Create</a></li>
-                                            <li><a th:href="@{/report/internships}" href="">Report</a></li>
+                                            <li><a th:href="@{/admin/create/internship}" href="">Create</a></li>
+                                            <li><a th:href="@{/admin/report/internships}" href="">Report</a></li>
                                         </ul>
                                     </li>
 
@@ -132,8 +132,8 @@
                                             <span class="caret"></span>
                                         </a>
                                         <ul class="dropdown-menu squared">
-                                            <li><a th:href="@{/create/professor}" href="">Create</a></li>
-                                            <li><a th:href="@{/report/professors}" href="">Report</a></li>
+                                            <li><a th:href="@{/admin/create/professor}" href="">Create</a></li>
+                                            <li><a th:href="@{/admin/report/professors}" href="">Report</a></li>
                                         </ul>
                                     </li>
 
@@ -146,8 +146,8 @@
                                             <span class="caret"></span>
                                         </a>
                                         <ul class="dropdown-menu squared">
-                                            <li><a th:href="@{/create/student}" href="">Create</a></li>
-                                            <li><a th:href="@{/report/students}" href="">Report</a></li>
+                                            <li><a th:href="@{/admin/create/student}" href="">Create</a></li>
+                                            <li><a th:href="@{/admin/report/students}" href="">Report</a></li>
                                         </ul>
                                     </li>
 
@@ -160,8 +160,8 @@
                                             <span class="caret "></span>
                                         </a>
                                         <ul class="dropdown-menu squared">
-                                            <li><a th:href="@{/create/studentinternship}" href="">Create</a></li>
-                                            <li><a th:href="@{/report/studentinternships}" href="">Report</a></li>
+                                            <li><a th:href="@{/admin/create/studentinternship}" href="">Create</a></li>
+                                            <li><a th:href="@{/admin/report/studentinternships}" href="">Report</a></li>
                                         </ul>
                                     </li>
 
@@ -174,8 +174,8 @@
                                             <span class="caret"></span>
                                         </a>
                                         <ul class="dropdown-menu squared">
-                                            <li><a th:href="@{/create/user}" href="">Create</a></li>
-                                            <li><a th:href="@{/report/users}" href="">Report</a></li>
+                                            <li><a th:href="@{/admin/create/user}" href="">Create</a></li>
+                                            <li><a th:href="@{/admin/report/users}" href="">Report</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -200,9 +200,7 @@
                                                     <label for="password">Password</label>
                                                     <input type="password" name="password" id="password" required="">
                                                 </fieldset>
-                                                <input type="submit" id="login" value="Sign in">
-                                                <label for="checkbox"><input type="checkbox" id="checkbox"> <i>Remember
-                                                    me</i></label>
+                                                <input type="submit" id="login" value="Login">
                                             </fieldset>
                                             <span><a href="#">Forgot your password?</a></span>
                                         </form>

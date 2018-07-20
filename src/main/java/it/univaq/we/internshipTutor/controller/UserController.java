@@ -41,7 +41,7 @@ public class UserController {
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
-    @RequestMapping(value = {"/create/user"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/admin/create/user"}, method = RequestMethod.POST)
     public String doCreate(@Valid @ModelAttribute("user") User user,
                            BindingResult result,
                            RedirectAttributes redirectAttributes,
@@ -57,25 +57,25 @@ public class UserController {
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.user", result);
             redirectAttributes.addFlashAttribute("user", user);
-            return "redirect:/create/user";
+            return "redirect:/admin/create/user";
         }
 
         // a user cannot be a company and a student at the same time
         if(user.getCompany() != null && user.getStudent() != null){
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong! Cannot link user to both a Company and a Student."));
-            return "redirect:/create/user";
+            return "redirect:/admin/create/user";
         }
 
         // a student should have student role
         if(user.getStudent() != null && !user.getRole().getName().equals("STUDENT")){
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong! A Student should have STUDENT role."));
-            return "redirect:/create/user";
+            return "redirect:/admin/create/user";
         }
 
         // a company should have company role
         if(user.getCompany() != null && !user.getRole().getName().equals("COMPANY")){
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong! A Company should have COMPANY role."));
-            return "redirect:/create/user";
+            return "redirect:/admin/create/user";
         }
 
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
@@ -85,7 +85,7 @@ public class UserController {
         }catch (Exception e){
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong! Check the image you have uploaded"));
-            return "redirect:/create/user";
+            return "redirect:/admin/create/user";
         }
 
         try{
@@ -94,16 +94,16 @@ public class UserController {
         }catch (Exception e){
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
-            return "redirect:/create/user";
+            return "redirect:/admin/create/user";
         }
 
         // add success message in the model
         redirectAttributes.addFlashAttribute("popup", new Popup("success", "Operation Completed Successfully!"));
 
-        return "redirect:/create/user";
+        return "redirect:/admin/create/user";
     }
 
-    @RequestMapping(value = {"/update/user"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/admin/update/user"}, method = RequestMethod.POST)
     public String doUpdate(@Valid @ModelAttribute("user") User user,
                            BindingResult result,
                            RedirectAttributes redirectAttributes,
@@ -115,26 +115,26 @@ public class UserController {
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.user", result);
             redirectAttributes.addFlashAttribute("user", user);
-            return "redirect:/update/user/" + user.getId();
+            return "redirect:/admin/update/user/" + user.getId();
         }
 
 
         // a user cannot be a company and a student at the same time
         if(user.getCompany() != null && user.getStudent() != null){
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong! Cannot link user to both a Company and a Student."));
-            return "redirect:/update/user/" + user.getId();
+            return "redirect:/admin/update/user/" + user.getId();
         }
 
         // a student should have student role
         if(user.getStudent() != null && !user.getRole().getName().equals("STUDENT")){
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong! A Student should have STUDENT role."));
-            return "redirect:/update/user/" + user.getId();
+            return "redirect:/admin/update/user/" + user.getId();
         }
 
         // a company should have company role
         if(user.getCompany() != null && !user.getRole().getName().equals("COMPANY")){
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong! A Company should have COMPANY role."));
-            return "redirect:/update/user/" + user.getId();
+            return "redirect:/admin/update/user/" + user.getId();
         }
 
         try{
@@ -144,7 +144,7 @@ public class UserController {
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong! Check the image you have selected"));
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.user", result);
             redirectAttributes.addFlashAttribute("user", user);
-            return "redirect:/update/user/" + user.getId();
+            return "redirect:/admin/update/user/" + user.getId();
         }
 
         try{
@@ -156,16 +156,16 @@ public class UserController {
         }catch (Exception e){
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
-            return "redirect:/update/user/" + user.getId();
+            return "redirect:/admin/update/user/" + user.getId();
         }
 
         // add success message in the model
         redirectAttributes.addFlashAttribute("popup", new Popup());
 
-        return "redirect:/update/user/" + user.getId();
+        return "redirect:/admin/update/user/" + user.getId();
     }
 
-    @RequestMapping(value = {"/delete/user/{id}"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/admin/delete/user/{id}"}, method = RequestMethod.POST)
     public String doDelete(ModelMap model, @PathVariable(value = "id") Long id, RedirectAttributes redirectAttributes) {
 
         if (id == null || id < 0) {
@@ -173,7 +173,7 @@ public class UserController {
             // redirect to the form displaying the errors
             // add error message in the model
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
-            return "redirect:/update/user/" + id;
+            return "redirect:/admin/update/user/" + id;
         }
 
         try{
@@ -183,16 +183,16 @@ public class UserController {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_DEL));
             redirectAttributes.addFlashAttribute("user", userService.findUserById(id));
-            return "redirect:/update/user/" + id;
+            return "redirect:/admin/update/user/" + id;
         }
 
         // add success message in the model
         redirectAttributes.addFlashAttribute("popup", new Popup());
-        return "redirect:/create/user";
+        return "redirect:/admin/create/user";
     }
 
 
-    @RequestMapping(value = {"/create/user"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/admin/create/user"}, method = RequestMethod.GET)
     public String renderCreate(ModelMap model, Pageable pageable) {
 
         if (!model.containsAttribute("user")) {
@@ -200,7 +200,7 @@ public class UserController {
         }
 
         Page<User> users = userService.findAll(pageable);
-        PageWrapper<User> page = new PageWrapper<>(users, "/create/user");
+        PageWrapper<User> page = new PageWrapper<>(users, "/admin/create/user");
         model.addAttribute("users", page.getContent());
         model.addAttribute("page", page);
 
@@ -216,7 +216,7 @@ public class UserController {
         return "user_create";
     }
 
-    @RequestMapping(value = {"/update/user/{id}"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/admin/update/user/{id}"}, method = RequestMethod.GET)
     public String renderUpdate(ModelMap model, Pageable pageable, @PathVariable(value = "id") Long id) {
 
 
@@ -226,7 +226,7 @@ public class UserController {
         }
 
         Page<User> users = userService.findAll(pageable);
-        PageWrapper<User> page = new PageWrapper<>(users, "/update/user/"+id);
+        PageWrapper<User> page = new PageWrapper<>(users, "/admin/update/user/"+id);
         model.addAttribute("users", page.getContent());
         model.addAttribute("page", page);
 
@@ -243,11 +243,11 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = {"/report/users"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/admin/report/users"}, method = RequestMethod.GET)
     public String renderReport(ModelMap model, Pageable pageable) {
 
         Page<User> users = userService.findAll(pageable);
-        PageWrapper<User> page = new PageWrapper<>(users, "/report/users");
+        PageWrapper<User> page = new PageWrapper<>(users, "/admin/report/users");
         model.addAttribute("collection", page.getContent());
         model.addAttribute("page", page);
         model.addAttribute("nameS", "user");

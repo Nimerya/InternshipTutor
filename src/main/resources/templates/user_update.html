@@ -25,7 +25,7 @@
                 <div class="tab-content">
                     <div class="tab-pane active">
                         <form method="POST"
-                              th:action="@{/update/user}"
+                              th:action="@{/admin/update/user}"
                               th:object="${user}"
                               enctype="multipart/form-data"
                               class="form-horizontal">
@@ -249,7 +249,7 @@
 
                         </form>
 
-                        <form method="POST" th:action="@{'/delete/user/'+${user.getId()}}"
+                        <form method="POST" th:action="@{'/admin/delete/user/'+${user.getId()}}"
                               class="form-horizontal">
                             <!-- submit -->
                             <div class="form-group">

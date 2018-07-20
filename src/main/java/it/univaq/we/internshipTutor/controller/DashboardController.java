@@ -32,7 +32,7 @@ public class DashboardController {
     @Autowired
     InternshipService internshipService;
 
-    @RequestMapping(value = {"/dashboard"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/admin/dashboard"}, method = RequestMethod.GET)
     public String renderAdminDashboard(ModelMap model) {
 
         model.addAttribute("userType",  "Admin");

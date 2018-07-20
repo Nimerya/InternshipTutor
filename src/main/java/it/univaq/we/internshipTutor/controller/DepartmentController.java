@@ -23,7 +23,7 @@ public class DepartmentController {
     @Autowired
     DepartmentService departmentService;
 
-    @RequestMapping(value={"/create/department"}, method = RequestMethod.POST)
+    @RequestMapping(value={"/admin/create/department"}, method = RequestMethod.POST)
     public String doCreate(@Valid @ModelAttribute("department") Department department, BindingResult result, RedirectAttributes redirectAttributes) {
 
         if (result.hasErrors()) {
@@ -34,7 +34,7 @@ public class DepartmentController {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.department", result);
             redirectAttributes.addFlashAttribute("department", department);
 
-            return "redirect:/create/department";
+            return "redirect:/admin/create/department";
         }
 
         try{
@@ -42,7 +42,7 @@ public class DepartmentController {
         }catch (Exception e){
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
-            return "redirect:/create/department";
+            return "redirect:/admin/create/department";
         }
 
 
@@ -50,11 +50,11 @@ public class DepartmentController {
         redirectAttributes.addFlashAttribute("popup", new Popup());
 
         // render Create form
-        return "redirect:/create/department";
+        return "redirect:/admin/create/department";
     }
 
 
-    @RequestMapping(value={"/update/department"}, method = RequestMethod.POST)
+    @RequestMapping(value={"/admin/update/department"}, method = RequestMethod.POST)
     public String doUpdate(@Valid @ModelAttribute("department") Department department, BindingResult result, RedirectAttributes redirectAttributes) {
 
         if (result.hasErrors()) {
@@ -63,7 +63,7 @@ public class DepartmentController {
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.department", result);
             redirectAttributes.addFlashAttribute("department", department);
-            return "redirect:/update/department/" + department.getId();
+            return "redirect:/admin/update/department/" + department.getId();
         }
 
         try{
@@ -71,24 +71,24 @@ public class DepartmentController {
         }catch (Exception e){
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
-            return "redirect:/update/department/" + department.getId();
+            return "redirect:/admin/update/department/" + department.getId();
         }
 
         // add success message in the model
         redirectAttributes.addFlashAttribute("popup", new Popup());
         // render Update form
-        return "redirect:/update/department/" + department.getId();
+        return "redirect:/admin/update/department/" + department.getId();
     }
 
 
-    @RequestMapping(value={"/delete/department/{id}"}, method = RequestMethod.POST)
+    @RequestMapping(value={"/admin/delete/department/{id}"}, method = RequestMethod.POST)
     public String doDelete(@PathVariable(value = "id") Long id, RedirectAttributes redirectAttributes) {
         if (id == null || id < 0) {
             // if there are errors during the binding (e.g. NotNull, Min, etc.)
             // redirect to the form displaying the errors
             // add error message in the model
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_DEL));
-            return "redirect:/update/department/" + id;
+            return "redirect:/admin/update/department/" + id;
         }
 
         try{
@@ -97,23 +97,23 @@ public class DepartmentController {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_DEL));
             redirectAttributes.addFlashAttribute("department", departmentService.findDepartmentById(id));
-            return "redirect:/update/department/" + id;
+            return "redirect:/admin/update/department/" + id;
         }
 
         // add success message in the model
         redirectAttributes.addFlashAttribute("popup", new Popup());
-        return "redirect:/create/department";
+        return "redirect:/admin/create/department";
     }
 
 
-    @RequestMapping(value={"/create/department"}, method = RequestMethod.GET)
+    @RequestMapping(value={"/admin/create/department"}, method = RequestMethod.GET)
     public String renderCreate(ModelMap model, Pageable pageable) {
 
         if(!model.containsAttribute("department")){
             model.addAttribute("department", new Department(UUID.randomUUID()));
         }
         Page<Department> departments = departmentService.findAll(pageable);
-        PageWrapper<Department> page = new PageWrapper<>(departments, "/create/department");
+        PageWrapper<Department> page = new PageWrapper<>(departments, "/admin/create/department");
         model.addAttribute("departments", page.getContent());
         model.addAttribute("page", page);
 
@@ -121,7 +121,7 @@ public class DepartmentController {
     }
 
 
-    @RequestMapping(value={"/update/department/{id}"}, method = RequestMethod.GET)
+    @RequestMapping(value={"/admin/update/department/{id}"}, method = RequestMethod.GET)
     public String renderUpdate(ModelMap model, Pageable pageable, @PathVariable(value = "id") Long id) {
 
         Department d = departmentService.findDepartmentById(id);
@@ -131,18 +131,18 @@ public class DepartmentController {
         }
 
         Page<Department> departments = departmentService.findAll(pageable);
-        PageWrapper<Department> page = new PageWrapper<>(departments, "/update/department/"+id);
+        PageWrapper<Department> page = new PageWrapper<>(departments, "/admin/update/department/"+id);
         model.addAttribute("departments", page.getContent());
         model.addAttribute("page", page);
 
         return "department_update";
     }
 
-    @RequestMapping(value = {"/report/departments"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/admin/report/departments"}, method = RequestMethod.GET)
     public String renderReport(ModelMap model, Pageable pageable) {
 
         Page<Department> departments = departmentService.findAll(pageable);
-        PageWrapper<Department> page = new PageWrapper<>(departments, "/report/departments");
+        PageWrapper<Department> page = new PageWrapper<>(departments, "/admin/report/departments");
         model.addAttribute("collection", page.getContent());
         model.addAttribute("page", page);
         model.addAttribute("nameS", "department");

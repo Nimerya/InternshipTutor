@@ -22,7 +22,7 @@
                 <h3 class="w3ls-hdg">Update Professor</h3>
                 <div class="tab-content">
                     <div class="tab-pane active">
-                        <form method="POST" th:action="@{/update/professor}" th:object="${professor}"
+                        <form method="POST" th:action="@{/admin/update/professor}" th:object="${professor}"
                               class="form-horizontal">
 
                             <input th:field="*{id}" type="hidden" id="id">
@@ -146,7 +146,7 @@
 
                         </form>
 
-                        <form method="POST" th:action="@{'/delete/professor/'+${professor.getId()}}"
+                        <form method="POST" th:action="@{'/admin/delete/professor/'+${professor.getId()}}"
                               class="form-horizontal">
                             <!-- submit -->
                             <div class="form-group">

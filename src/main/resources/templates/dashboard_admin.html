@@ -32,7 +32,7 @@
                             <th:block th:if="1==1" th:text="${'There is one company awaiting for approval.'}">
                                 will be replaced
                             </th:block>
-                            <a th:href="@{/report/awaiting/companies}" class="pull-right">
+                            <a th:href="@{/admin/report/companies&awaiting=true}" class="pull-right">
                                 <span class="label label-warning">Go</span>
                             </a>
                         </div>
@@ -94,7 +94,7 @@
                                     <span class="badge badge-custom" th:text="${item.getCount()}">999</span>
                                 </td>
                                 <td class="col-xs-3 text-right">
-                                    <a th:href="@{'/update/professor/'+${item.getId()}}"
+                                    <a th:href="@{'/admin/update/professor/'+${item.getId()}}"
                                        class="btn-default-border btn-xs squared">
                                         <i class="fa fa-edit"></i>
                                         Edit
@@ -138,7 +138,7 @@
                                     <span class="badge badge-custom" th:text="${item.getCount()}">999</span>
                                 </td>
                                 <td class="col-xs-3 text-right">
-                                    <a th:href="@{'/update/company/'+${item.getId()}}"
+                                    <a th:href="@{'/admin/update/company/'+${item.getId()}}"
                                        class="btn-default-border btn-xs squared">
                                         <i class="fa fa-edit"></i>
                                         Edit
@@ -181,7 +181,7 @@
                                     <span class="badge badge-custom" th:text="${item.getAverage()}">999</span>
                                 </td>
                                 <td class="col-xs-3 text-right">
-                                    <a th:href="@{'/update/company/'+${item.getId()}}"
+                                    <a th:href="@{'/admin/update/company/'+${item.getId()}}"
                                        class="btn-default-border btn-xs squared">
                                         <i class="fa fa-edit"></i>
                                         Edit
@@ -224,7 +224,7 @@
                                     <span class="badge badge-custom" th:text="${item.getAverage()}">999</span>
                                 </td>
                                 <td class="col-xs-3 text-right">
-                                    <a th:href="@{'/update/company/'+${item.getId()}}"
+                                    <a th:href="@{'/admin/update/company/'+${item.getId()}}"
                                        class="btn-default-border btn-xs squared">
                                         <i class="fa fa-edit"></i>
                                         Edit

@@ -1,6 +1,7 @@
 package it.univaq.we.internshipTutor.controller;
 
 import it.univaq.we.internshipTutor.model.Popup;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -12,8 +13,6 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 public class IndexController {
-
-
 
     @RequestMapping(value={"/", "/index", "/index.html"}, method = RequestMethod.GET)
     public String index(HttpSession httpSession, ModelMap model) {

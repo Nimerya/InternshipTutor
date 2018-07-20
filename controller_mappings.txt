@@ -1,5 +1,5 @@
 admin actions:
-    /action/entity/id?
+    /admin/action/entity/id?
 
 company actions:
     /company/action/id?
@@ -8,7 +8,7 @@ student actions:
     /student/action/id?
 
 admin dashboard:
-    /dashboard
+    /admin/dashboard
 
 company dashboard:
     /company/dashboard
