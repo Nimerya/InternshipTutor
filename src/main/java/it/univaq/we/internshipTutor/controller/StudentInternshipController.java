@@ -52,6 +52,15 @@ public class StudentInternshipController {
             redirectAttributes.addFlashAttribute("studentinternship", studentinternship);
             return "redirect:/admin/create/studentinternship";
         }
+        if((studentinternship.getAccepted() && studentinternship.getRejected()) ||
+                (studentinternship.getRejected() && studentinternship.getCompleted()) ||
+                (!studentinternship.getAccepted() && studentinternship.getCompleted() )){
+
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", "There are inconsistencies with the options."));
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.studentinternship", result);
+            redirectAttributes.addFlashAttribute("studentinternship", studentinternship);
+            return "redirect:/admin/create/studentinternship";
+        }
 
         try{
             // else perform the insertion
@@ -79,6 +88,16 @@ public class StudentInternshipController {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.studentinternship", result);
             redirectAttributes.addFlashAttribute("studentinternship", studentinternship);
             return "redirect:/admin/update/studentinternship/" + studentinternship.getId();
+        }
+
+        if((studentinternship.getAccepted() && studentinternship.getRejected()) ||
+                (studentinternship.getRejected() && studentinternship.getCompleted()) ||
+                (!studentinternship.getAccepted() && studentinternship.getCompleted() )){
+
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", "There are inconsistencies with the options."));
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.studentinternship", result);
+            redirectAttributes.addFlashAttribute("studentinternship", studentinternship);
+            return "redirect:/admin/update/studentinternship"+studentinternship.getId();
         }
 
         try{
@@ -121,6 +140,51 @@ public class StudentInternshipController {
         return "redirect:/admin/create/studentinternship";
     }
 
+    @RequestMapping(value={"/company/accept/studentinternship/{id}"}, method = RequestMethod.GET)
+    public String doAcceptByCompany(ModelMap model, @PathVariable(value = "id") Long id, RedirectAttributes redirectAttributes) {
+
+        //TODO check that the company is accepting a student into one of its own internships
+        //TODO check that this studentinternship is active
+
+        Long internshipId = studentinternshipService.findStudentInternshipById(id).getInternship().getId();
+
+        try{
+            studentinternshipService.acceptStudentInternship(id);
+        }catch (Exception e){
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
+            return "redirect:/company/update/internship/" + internshipId;
+        }
+
+        // add success message in the model
+        redirectAttributes.addFlashAttribute("popup", new Popup());
+
+        return "redirect:/company/update/internship/" + internshipId;
+    }
+
+    @RequestMapping(value={"/company/reject/studentinternship/{id}"}, method = RequestMethod.GET)
+    public String doRejectByCompany(ModelMap model, @PathVariable(value = "id") Long id, RedirectAttributes redirectAttributes) {
+
+        //TODO check that the company is accepting a student into one of its own internships
+        //TODO check that this studentinternship is active
+
+        Long internshipId = studentinternshipService.findStudentInternshipById(id).getInternship().getId();
+
+        try{
+            studentinternshipService.rejectStudentInternship(id);
+        }catch (Exception e){
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
+            return "redirect:/company/update/internship/" + internshipId;
+        }
+
+        // add success message in the model
+        redirectAttributes.addFlashAttribute("popup", new Popup());
+
+        return "redirect:/company/update/internship/" + internshipId;
+    }
+
+
 
     @RequestMapping(value={"/admin/create/studentinternship"}, method = RequestMethod.GET)
     public String renderCreate(ModelMap model, Pageable pageable) {
@@ -140,7 +204,7 @@ public class StudentInternshipController {
         List<Student> students = studentService.findAll();
         model.addAttribute("students", students);
 
-        List<Internship> internships = internshipService.findAll();
+        List<Internship> internships = internshipService.findActiveInternships();
         model.addAttribute("internships", internships);
 
         return "studentinternship_create";
@@ -166,7 +230,7 @@ public class StudentInternshipController {
         List<Student> students = studentService.findAll();
         model.addAttribute("students", students);
 
-        List<Internship> internships = internshipService.findAll();
+        List<Internship> internships = internshipService.findActiveInternships();
         model.addAttribute("internships", internships);
 
         return "studentinternship_update";

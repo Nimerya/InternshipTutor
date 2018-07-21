@@ -3045,11 +3045,6 @@ fieldset[disabled] .btn {
   background-color: #fff;
   border-color: #ccc;
 }
-.btn-default-border{
-  color: #333;
-  background-color: #fff;
-  border: 1px solid #ccc;
-}
 .w-10{
   width: 10%;
 }
@@ -3214,7 +3209,7 @@ fieldset[disabled] .btn-success.active {
   color: #fff;
   /*background-color: #5bc0de;*/
   background-color: #10c7bf;
-  border-color: #10c7bf;
+  border-color: #12a29c;
   /*border-color: #46b8da;*/
 }
 .btn-info:hover,

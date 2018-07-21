@@ -48,6 +48,9 @@ public class StudentInternship {
     @Column(name = "accepted", nullable = true)
     private Boolean accepted;
 
+    @Column(name = "rejected", nullable = true)
+    private Boolean rejected;
+
     @Column(name = "completed", nullable = true)
     private Boolean completed;
 
@@ -109,6 +112,14 @@ public class StudentInternship {
 
     public void setReview(Integer review) {
         this.review = review;
+    }
+
+    public Boolean getRejected() {
+        return rejected;
+    }
+
+    public void setRejected(Boolean rejected) {
+        this.rejected = rejected;
     }
 
     public Boolean getAccepted() {

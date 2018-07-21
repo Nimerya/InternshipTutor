@@ -22,6 +22,7 @@ public class StudentInternshipService implements IStudentInternshipService  {
     @Override
     public List<StudentInternship> findAll(){ return studentInternshipRepository.findAll();}
 
+
     @Override
     public Page<StudentInternship> findAll(Pageable pageable){return studentInternshipRepository.findAll(pageable);}
 
@@ -49,14 +50,30 @@ public class StudentInternshipService implements IStudentInternshipService  {
     //List of all student internships for wich the student awaiting to be accepted
     @Override
     public List<StudentInternship> internshipsAwaitingForApproval(Student s){
-        return studentInternshipRepository.findStudentInternshipsByStudentAndAcceptedFalseAndCompletedFalse(s);
+        return studentInternshipRepository.findStudentInternshipsByStudentAndAcceptedFalseAndRejectedFalseAndCompletedFalse(s);
     }
 
 
-    //List of all student internships for wich the student awaiting to be accepted, knowing the internship id
+    //List of all student internship that represent the list of students that are candidate for a certain internship
     @Override
-    public List<StudentInternship> findCandidatesByInternship(Internship i){
-        return studentInternshipRepository.findStudentInternshipsByInternshipAndAcceptedFalse(i);
+    public Page<StudentInternship> findCandidatesByInternship(Pageable p, Internship i){
+        return studentInternshipRepository.findStudentInternshipsByInternship/*AndAcceptedFalseAndRejectedFalse*/(p, i);
+    }
+
+    @Override
+    public void acceptStudentInternship(Long id){
+        StudentInternship studentInternship = this.findStudentInternshipById(id);
+        studentInternship.setAccepted(Boolean.TRUE);
+        studentInternship.setRejected(Boolean.FALSE);
+        this.save(studentInternship);
+    }
+
+    @Override
+    public void rejectStudentInternship(Long id){
+        StudentInternship studentInternship = this.findStudentInternshipById(id);
+        studentInternship.setAccepted(Boolean.FALSE);
+        studentInternship.setRejected(Boolean.TRUE);
+        this.save(studentInternship);
     }
 
 

@@ -15,13 +15,6 @@
     opacity: 1;
 }
 
-
-/* scrollable table */
-.scrollable{
-    height: 350px;
-    overflow-y: scroll;
-}
-
 /* custom */
 .btn.btn-square {
     border-radius: 0;
@@ -77,12 +70,12 @@
 }
 
 .table-fixed thead{
-    border-top: 1px solid #10B4AC!important;
+    border-top: 1px solid #10c7bf!important;
 }
 
 .table-fixed thead tr th{
-    background-color: #10B4AC;
-    border-color: #10B4AC;
+    background-color: #10c7bf;
+    border-color: #10c7bf;
     color: #fff;
 }
 
@@ -92,7 +85,17 @@
 
 .table-fixed tbody td {
     float: left;
+    /*overflow: hidden!important;*/
+    /*text-overflow: ellipsis!important;*/
+    overflow-x:auto!important;
+    white-space: nowrap!important;
 }
+
+.table-fixed thead th{
+    overflow-x:auto!important;
+    white-space: nowrap!important;
+}
+
 .table-fixed thead tr th {
     float: left;
 }
@@ -171,4 +174,54 @@
 
 .max-width-1140{
     max-width: 1140px!important;
+}
+
+.margin-top-42{
+    margin-top: 42px!important;
+}
+
+.white-text{
+    color: #fff!important;
+}
+
+.btn-default-border{
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+.btn-warning-border{
+    color: #fff!important;
+    background-color: #f0ad4e;
+    border: 1px solid #eea236;
+}
+.btn-danger-border{
+    color: #fff!important;
+    background-color: #d9534f;
+    border: 1px solid #d43f3a;
+}
+.btn-info-border{
+    color: #fff!important;
+    background-color: #10c7bf;
+    border: 1px solid #12a29c;
+}
+.btn-success-border{
+    color: #fff!important;
+    background-color: #51A351;
+    border: 1px solid #499249;
+}
+
+.margin-right-5{
+    margin-right: 5px!important;
+}
+
+.student-accepted-bg > td{
+    background-color: rgba(81, 163, 81, 0.25) !important;
+    border-color: rgba(81, 163, 81, 0.25) !important;
+    color: #2f2f2f !important;
+}
+
+.student-rejected-bg > td{
+    background-color: rgba(217, 83, 79, 0.25) !important;
+    border-color: rgba(217, 83, 79, 0.25) !important
+    color: #2f2f2f !important;
 }
