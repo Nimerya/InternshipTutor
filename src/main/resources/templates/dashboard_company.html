@@ -47,8 +47,8 @@
                         <table class="table table-fixed table-bordered hover-effect">
                             <thead>
                             <tr>
-                                <th class="col-xs-1 text-center">#</th>
-                                <th class="col-xs-8">Title</th>
+                                <th class="col-md-1 hidden-sm hidden-xs text-center">#</th>
+                                <th class="col-xs-9 col-md-8">Title</th>
                                 <th class="col-xs-3 text-right">Action</th>
 
                             </tr>
@@ -56,9 +56,9 @@
 
                             <tbody>
                             <tr th:each="item, iterationStatus : ${activeInternships}">
-                                <td th:text="${iterationStatus.count}" class="col-xs-1 no-border-right text-center">
+                                <td th:text="${iterationStatus.count}" class="col-md-1 hidden-sm hidden-xs no-border-right text-center">
                                 </td>
-                                <td th:text="${item.getTitle()}" class="col-xs-8 no-border-right">
+                                <td th:text="${item.getTitle()}" class="col-xs-9 col-md-8 no-border-right">
                                 </td>
                                 <td class="col-xs-3 text-right">
                                     <a th:href="@{${'/company/update/internship/'+item.getId()}}"
@@ -87,8 +87,8 @@
                         <table class="table table-fixed table-bordered hover-effect">
                             <thead>
                             <tr>
-                                <th class="col-xs-1 text-center">#</th>
-                                <th class="col-xs-8">Title</th>
+                                <th class="col-md-1 hidden-sm hidden-xs text-center">#</th>
+                                <th class="col-xs-9 col-md-8">Title</th>
                                 <th class="col-xs-3 text-right">Action</th>
 
                             </tr>
@@ -96,9 +96,9 @@
 
                             <tbody>
                             <tr th:each="item, iterationStatus : ${inactiveInternships}">
-                                <td th:text="${iterationStatus.count}" class="col-xs-1 no-border-right text-center">
+                                <td th:text="${iterationStatus.count}" class="col-md-1 hidden-sm hidden-xs no-border-right text-center">
                                 </td>
-                                <td th:text="${item.getTitle()}" class="col-xs-8 no-border-right">
+                                <td th:text="${item.getTitle()}" class="col-xs-9 col-md-8 no-border-right">
                                 </td>
                                 <td class="col-xs-3 text-right">
                                     <a th:href="@{${'/company/update/internship/'+item.getId()}}"

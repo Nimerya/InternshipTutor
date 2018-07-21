@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<th:block th:fragment="reject_student_button(item)">
+    <div class="pull-right margin-right-5">
+        <a th:href="@{'/company/reject/studentinternship/'+${item.getId()}}"
+           class="btn-danger-border btn-xs squared">
+            <i class="fa  fa-times-circle-o"></i>
+            <span class="hidden-xs">Reject</span>
+        </a>
+    </div>
+</th:block>
+
+</body>
+</html>

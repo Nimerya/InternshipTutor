@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<th:block th:fragment="accept_student_button(item)">
+    <div class=" pull-right margin-right-5">
+        <a th:href="@{'/company/accept/studentinternship/'+${item.getId()}}"
+           class="btn-success-border btn-xs squared">
+            <i class="fa fa-check-circle-o"></i>
+            <span class="hidden-xs">Accept</span>
+        </a>
+    </div>
+</th:block>
+
+</body>
+</html>

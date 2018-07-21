@@ -32,6 +32,11 @@ public interface IStudentInternshipService{
     //List of all student internship that represent the list of students that are candidate for a certain internship
     Page<StudentInternship> findCandidatesByInternship(Pageable p, Internship i);
 
+    void acceptStudentInternship(Long id);
+
+    void rejectStudentInternship(Long id);
+
+
 
 
 

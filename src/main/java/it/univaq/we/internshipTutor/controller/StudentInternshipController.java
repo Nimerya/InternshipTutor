@@ -140,7 +140,50 @@ public class StudentInternshipController {
         return "redirect:/admin/create/studentinternship";
     }
 
-    //TODO accept/reject by company
+    @RequestMapping(value={"/company/accept/studentinternship/{id}"}, method = RequestMethod.GET)
+    public String doAcceptByCompany(ModelMap model, @PathVariable(value = "id") Long id, RedirectAttributes redirectAttributes) {
+
+        //TODO check that the company is accepting a student into one of its own internships
+        //TODO check that this studentinternship is active
+
+        Long internshipId = studentinternshipService.findStudentInternshipById(id).getInternship().getId();
+
+        try{
+            studentinternshipService.acceptStudentInternship(id);
+        }catch (Exception e){
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
+            return "redirect:/company/update/internship/" + internshipId;
+        }
+
+        // add success message in the model
+        redirectAttributes.addFlashAttribute("popup", new Popup());
+
+        return "redirect:/company/update/internship/" + internshipId;
+    }
+
+    @RequestMapping(value={"/company/reject/studentinternship/{id}"}, method = RequestMethod.GET)
+    public String doRejectByCompany(ModelMap model, @PathVariable(value = "id") Long id, RedirectAttributes redirectAttributes) {
+
+        //TODO check that the company is accepting a student into one of its own internships
+        //TODO check that this studentinternship is active
+
+        Long internshipId = studentinternshipService.findStudentInternshipById(id).getInternship().getId();
+
+        try{
+            studentinternshipService.rejectStudentInternship(id);
+        }catch (Exception e){
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
+            return "redirect:/company/update/internship/" + internshipId;
+        }
+
+        // add success message in the model
+        redirectAttributes.addFlashAttribute("popup", new Popup());
+
+        return "redirect:/company/update/internship/" + internshipId;
+    }
+
 
 
     @RequestMapping(value={"/admin/create/studentinternship"}, method = RequestMethod.GET)

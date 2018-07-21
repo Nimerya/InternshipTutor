@@ -46,8 +46,8 @@
                         <table class="table table-fixed table-bordered hover-effect">
                             <thead>
                             <tr>
-                                <th class="col-xs-1 text-center">#</th>
-                                <th class="col-xs-5">Title</th>
+                                <th class="col-md-1 col-md-1 hidden-sm hidden-xs text-center">#</th>
+                                <th class="col-xs-6 col-md-5">Title</th>
                                 <th class="col-xs-3">Company</th>
                                 <th class="col-xs-3">Professor</th>
                             </tr>
@@ -55,9 +55,9 @@
 
                             <tbody>
                             <tr th:each="item, iterationStatus : ${internshipsAwaitingForApproval}">
-                                <td th:text="${iterationStatus.count}" class="col-xs-1 no-border-right text-center">
+                                <td th:text="${iterationStatus.count}" class="col-md-1 col-md-1 hidden-sm hidden-xs no-border-right text-center">
                                 </td>
-                                <td th:text="${item.getInternship().getTitle()}" class="col-xs-5 no-border-right">
+                                <td th:text="${item.getInternship().getTitle()}" class="col-xs-6 col-md-5 no-border-right">
                                 </td>
                                 <td th:text="${item.getInternship().getCompany().getName()}" class="col-xs-3 no-border-right">
                                 </td>
@@ -83,8 +83,8 @@
                         <table class="table table-fixed table-bordered hover-effect">
                             <thead>
                             <tr>
-                                <th class="col-xs-1 text-center">#</th>
-                                <th class="col-xs-5">Title</th>
+                                <th class="col-md-1 col-md-1 hidden-sm hidden-xs text-center">#</th>
+                                <th class="col-xs-6 col-md-5">Title</th>
                                 <th class="col-xs-3">Company</th>
                                 <th class="col-xs-3">Professor</th>
                             </tr>
@@ -92,9 +92,9 @@
 
                             <tbody>
                             <tr th:each="item, iterationStatus : ${ongoingInternships}">
-                                <td th:text="${iterationStatus.count}" class="col-xs-1 no-border-right text-center">
+                                <td th:text="${iterationStatus.count}" class="col-md-1 col-md-1 hidden-sm hidden-xs no-border-right text-center">
                                 </td>
-                                <td th:text="${item.getInternship().getTitle()}" class="col-xs-5 no-border-right">
+                                <td th:text="${item.getInternship().getTitle()}" class="col-xs-6 col-md-5 no-border-right">
                                 </td>
                                 <td th:text="${item.getInternship().getCompany().getName()}" class="col-xs-3 no-border-right">
                                 </td>
@@ -120,8 +120,8 @@
                         <table class="table table-fixed table-bordered hover-effect">
                             <thead>
                             <tr>
-                                <th class="col-xs-1 text-center">#</th>
-                                <th class="col-xs-5">Title</th>
+                                <th class="col-md-1 col-md-1 hidden-sm hidden-xs text-center">#</th>
+                                <th class="col-xs-6 col-md-5">Title</th>
                                 <th class="col-xs-3">Company</th>
                                 <th class="col-xs-3">Professor</th>
                             </tr>
@@ -129,9 +129,9 @@
 
                             <tbody>
                             <tr th:each="item, iterationStatus : ${completedInternships}">
-                                <td th:text="${iterationStatus.count}" class="col-xs-1 no-border-right text-center">
+                                <td th:text="${iterationStatus.count}" class="col-md-1 col-md-1 hidden-sm hidden-xs no-border-right text-center">
                                 </td>
-                                <td th:text="${item.getInternship().getTitle()}" class="col-xs-5 no-border-right">
+                                <td th:text="${item.getInternship().getTitle()}" class="col-xs-6 col-md-5 no-border-right">
                                 </td>
                                 <td th:text="${item.getInternship().getCompany().getName()}" class="col-xs-3 no-border-right">
                                 </td>

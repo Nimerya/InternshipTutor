@@ -85,7 +85,18 @@
 
 .table-fixed tbody td {
     float: left;
+    /*overflow: hidden!important;*/
+    /*text-overflow: ellipsis!important;*/
+    overflow-x:auto!important;
+    white-space: nowrap!important;
+    color: #2d2d2d !important;
 }
+
+.table-fixed thead th{
+    overflow-x:auto!important;
+    white-space: nowrap!important;
+}
+
 .table-fixed thead tr th {
     float: left;
 }
@@ -202,4 +213,15 @@
 
 .margin-right-5{
     margin-right: 5px!important;
+}
+
+.student-accepted-bg > td{
+    background-color: rgba(81, 163, 81, 0.25) !important;
+    border-color: rgba(81, 163, 81, 0.25) !important;
+}
+
+.student-rejected-bg > td{
+    background-color: rgba(217, 83, 79, 0.25) !important;
+    border-color: rgba(217, 83, 79, 0.25) !important
+
 }
