@@ -5,12 +5,14 @@ import it.univaq.we.internshipTutor.model.*;
 import it.univaq.we.internshipTutor.service.CompanyService;
 import it.univaq.we.internshipTutor.service.InternshipService;
 import it.univaq.we.internshipTutor.service.StudentInternshipService;
+import it.univaq.we.internshipTutor.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import static it.univaq.we.internshipTutor.model.Popup.*;
@@ -31,6 +33,9 @@ public class InternshipController {
 
     @Autowired
     StudentInternshipService studentInternshipService;
+
+    @Autowired
+    UserService userService;
 
     @RequestMapping(value={"/admin/create/internship"}, method = RequestMethod.POST)
     public String doCreate(@Valid @ModelAttribute("internship") Internship internship, BindingResult result, RedirectAttributes redirectAttributes) {
@@ -116,6 +121,44 @@ public class InternshipController {
         return "redirect:/admin/create/internship";
     }
 
+    @RequestMapping(value={"/company/create/internship"}, method = RequestMethod.POST)
+    public String doCreateByCompany(@Valid @ModelAttribute("internship") Internship internship, BindingResult result, RedirectAttributes redirectAttributes) {
+
+        if (result.hasErrors()) {
+            // if there are errors during the binding (e.g. NotNull, Min, etc.)
+            // redirect to the form displaying the errors
+            // add error message in the model as flash attribute
+            System.out.println("#####     Bindingresult errors:     #####");
+            List<FieldError> errors = result.getFieldErrors();
+            for (FieldError error : errors ) {
+                System.out.println (error.getField() + " - " + error.getDefaultMessage());
+            }
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.internship", result);
+            redirectAttributes.addFlashAttribute("internship", internship);
+
+            return "redirect:/company/create/internship";
+        }
+
+        //TODO assign to company_id the id of the company that is creating the intership
+
+        try{
+            internshipService.save(internship);
+        }catch (Exception e){
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
+            return "redirect:/company/create/internship";
+        }
+
+
+        // add success message in the model as flash attribute
+        redirectAttributes.addFlashAttribute("popup", new Popup());
+
+        // render Create form
+        return "redirect:/company/create/internship";
+    }
+
+
     @RequestMapping(value={"/company/delete/internship/{id}"}, method = RequestMethod.POST)
     public String doDeleteByCompany(@PathVariable(value = "id") Long id,
                                     RedirectAttributes redirectAttributes) {
@@ -174,6 +217,29 @@ public class InternshipController {
         // render Update form
         return "redirect:/company/update/internship/" + internship.getId();
     }
+
+
+    @RequestMapping(value={"/company/create/internship"}, method = RequestMethod.GET)
+    public String renderCreateByCompany(ModelMap model, Pageable pageable) {
+
+
+        if(!model.containsAttribute("internship")){
+            //TODO set the company by looking at the one is session
+            Long userId = 20L;
+            Internship internship = new Internship(UUID.randomUUID());
+            internship.setCompany(userService.findUserById(userId).getCompany());
+            model.addAttribute("internship", internship);
+        }
+
+        Page<Internship> internships = internshipService.findAll(pageable);
+        PageWrapper<Internship> page = new PageWrapper<>(internships, "/company/create/internship");
+        model.addAttribute("internships", page.getContent());
+        model.addAttribute("page", page);
+
+
+        return "internship_create_by_company";
+    }
+
 
     @RequestMapping(value={"/company/update/internship/{id}"}, method = RequestMethod.GET)
     public String renderUpdateByCompany(ModelMap model, Pageable pageable, @PathVariable(value = "id") Long id) {
