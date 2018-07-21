@@ -26,8 +26,8 @@
                               class="form-horizontal">
 
                             <input th:field="*{id}" type="hidden" id="id">
-                            <input th:field="*{company}" type="hidden" id="company" th:value="${internship.getCompany().getId()}">
-                            <input th:field="*{active}" type="hidden" th:value="${internship.getActive()}">
+                            <input th:field="*{company}" type="hidden" id="company"
+                                   th:value="${internship.getCompany().getId()}">
 
                             <!-- title -->
                             <div class="form-group">
@@ -37,7 +37,8 @@
                                 <label for="title" class="col-sm-3 control-label">Title</label>
                                 <!-- input -->
                                 <div class="col-sm-9">
-                                    <input th:field="*{title}" type="text" required="required" class="form-control1" id="title"
+                                    <input th:field="*{title}" type="text" required="required" class="form-control1"
+                                           id="title"
                                            placeholder="Insert internship title">
                                 </div>
 
@@ -65,7 +66,8 @@
                                 <label for="address" class="col-sm-3 control-label">Address</label>
                                 <!-- input -->
                                 <div class="col-sm-9">
-                                    <input th:field="*{address}" required="required" type="text" class="form-control1" id="address"
+                                    <input th:field="*{address}" required="required" type="text" class="form-control1"
+                                           id="address"
                                            placeholder="Insert internship address">
                                 </div>
 
@@ -93,7 +95,8 @@
                                 <label for="city" class="col-sm-3 control-label">City</label>
                                 <!-- input -->
                                 <div class="col-sm-9">
-                                    <input th:field="*{city}" required="required" type="text" class="form-control1" id="city"
+                                    <input th:field="*{city}" required="required" type="text" class="form-control1"
+                                           id="city"
                                            placeholder="Insert internship city">
                                 </div>
 
@@ -121,7 +124,8 @@
                                 <label for="province" class="col-sm-3 control-label">Province</label>
                                 <!-- input -->
                                 <div class="col-sm-9">
-                                    <input th:field="*{province}" required="required" type="text" class="form-control1" id="province"
+                                    <input th:field="*{province}" required="required" type="text" class="form-control1"
+                                           id="province"
                                            placeholder="Insert internship province">
                                 </div>
 
@@ -149,7 +153,8 @@
                                 <label for="state" class="col-sm-3 control-label">State</label>
                                 <!-- input -->
                                 <div class="col-sm-9">
-                                    <input th:field="*{state}" required="required" type="text" class="form-control1" id="state"
+                                    <input th:field="*{state}" required="required" type="text" class="form-control1"
+                                           id="state"
                                            placeholder="Insert internship state">
                                 </div>
 
@@ -177,7 +182,8 @@
                                 <label for="schedule" class="col-sm-3 control-label">Schedule</label>
                                 <!-- input -->
                                 <div class="col-sm-9">
-                                    <textarea rows="3" th:field="*{schedule}" class="form-control1 textarea-long" id="schedule" placeholder="Insert internship schedule">
+                                    <textarea rows="3" th:field="*{schedule}" class="form-control1 textarea-long"
+                                              id="schedule" placeholder="Insert internship schedule">
                                     </textarea>
                                 </div>
 
@@ -205,7 +211,8 @@
                                 <label for="length" class="col-sm-3 control-label">Length</label>
                                 <!-- input -->
                                 <div class="col-sm-9">
-                                    <input th:field="*{length}" type="number" min="1" max="24" class="form-control1" id="length"
+                                    <input th:field="*{length}" type="number" min="1" max="24" class="form-control1"
+                                           id="length"
                                            placeholder="Insert internship length">
                                 </div>
 
@@ -283,31 +290,16 @@
 
 
                             <!-- facilitations -->
+
+
                             <div class="form-group">
-
-
-                                <!-- label -->
                                 <label for="facilitations" class="col-sm-3 control-label">Facilitations</label>
-                                <!-- input -->
                                 <div class="col-sm-9">
-                                    <input th:field="*{facilitations}" type="text" class="form-control1"
-                                           id="facilitations"
-                                           placeholder="Insert internship facilitations">
+                                    <textarea rows="3" th:field="*{facilitations}" class="form-control1 textarea-long"
+                                              id="facilitations"
+                                              placeholder="Insert internship facilitations"></textarea>
                                 </div>
 
-                                <!-- help text
-                                <div class="col-sm-2">
-                                    <p class="help-block"></p>
-                                </div> -->
-
-                                <!-- error box -->
-                                <div class="col-sm-offset-3 col-sm-9">
-                                    <div class="alert alert-danger squared my-small-alert"
-                                         role="alert"
-                                         th:if="${#fields.hasErrors('facilitations')}"
-                                         th:errors="*{facilitations}">
-                                    </div>
-                                </div>
                             </div>
 
 
@@ -315,8 +307,12 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Options</label>
                                 <div class="col-sm-9">
-                                    <div class="checkbox-inline"><label><input th:field="*{remote}" type="checkbox"> Remote</label></div>
-                                    <div class="checkbox-inline"><label><input th:field="*{refund}" type="checkbox"> Refund</label></div>
+                                    <div class="checkbox-inline"><label><input th:field="*{remote}" type="checkbox">
+                                        Remote</label></div>
+                                    <div class="checkbox-inline"><label><input th:field="*{refund}" type="checkbox">
+                                        Refund</label></div>
+                                    <div class="checkbox-inline"><label><input th:field="*{active}" type="checkbox">
+                                        Active</label></div>
                                 </div>
                             </div>
 
@@ -359,30 +355,37 @@
                         </thead>
 
                         <tbody>
-                        <tr th:each="item, iterationStatus : ${studentinternships}" th:classappend="|${(item.getAccepted() && !item.getRejected()) ? 'student-accepted-bg' : ''} ${(!item.getAccepted() && item.getRejected()) ? 'student-rejected-bg' : ''}|">
-                            <td th:text="${iterationStatus.count + (page.getSize() * (page.getNumber()-1))}" class="col-md-1 hidden-sm hidden-xs no-border-right text-center">
+                        <tr th:each="item, iterationStatus : ${studentinternships}"
+                            th:classappend="|${(item.getAccepted() && !item.getRejected()) ? 'student-accepted-bg' : ''} ${(!item.getAccepted() && item.getRejected()) ? 'student-rejected-bg' : ''}|">
+                            <td th:text="${iterationStatus.count + (page.getSize() * (page.getNumber()-1))}"
+                                class="col-md-1 hidden-sm hidden-xs no-border-right text-center">
                             </td>
-                            <td th:text="${item.getStudent().getMatriculationNumber()+' - '+item.getStudent().getUser().getEmail()}" class="col-xs-7 col-md-6 no-border-right">
+                            <td th:text="${item.getStudent().getMatriculationNumber()+' - '+item.getStudent().getUser().getEmail()}"
+                                class="col-xs-7 col-md-6 no-border-right">
                             </td>
                             <td class="col-xs-5  text-right">
                                 <!-- if the student is neither accepter nor rejected, than i can do both -->
                                 <th:block th:if="${!item.getAccepted() && !item.getRejected()}">
-                                    <th:block th:replace="fragments/reject_student_button :: reject_student_button(${item})">
+                                    <th:block
+                                            th:replace="fragments/reject_student_button :: reject_student_button(${item})">
                                         will be replaced
                                     </th:block>
-                                    <th:block th:replace="fragments/accept_student_button :: accept_student_button(${item})">
+                                    <th:block
+                                            th:replace="fragments/accept_student_button :: accept_student_button(${item})">
                                         will be replaced
                                     </th:block>
                                 </th:block>
                                 <!-- if the student is accepted can only be rejected -->
                                 <th:block th:if="${item.getAccepted() && !item.getRejected()}">
-                                    <th:block th:replace="fragments/reject_student_button :: reject_student_button(${item})">
+                                    <th:block
+                                            th:replace="fragments/reject_student_button :: reject_student_button(${item})">
                                         will be replaced
                                     </th:block>
                                 </th:block>
                                 <!-- if the student is rejected it can only be accepted -->
                                 <th:block th:if="${!item.getAccepted() && item.getRejected()}">
-                                    <th:block th:replace="fragments/accept_student_button :: accept_student_button(${item})">
+                                    <th:block
+                                            th:replace="fragments/accept_student_button :: accept_student_button(${item})">
                                         will be replaced
                                     </th:block>
                                 </th:block>
@@ -394,7 +397,8 @@
                     </table>
 
                 </div>
-                <div class="well" th:unless="${!studentinternships.isEmpty()}" th:text="${'There are no requests yet!'}">
+                <div class="well" th:unless="${!studentinternships.isEmpty()}"
+                     th:text="${'There are no requests yet!'}">
                     Empty report message
                 </div>
 

@@ -27,17 +27,19 @@
                               class="form-horizontal">
 
                             <!-- company -->
-                            <input th:field="*{company}" type="hidden" id="company">
+                            <input th:field="*{company}" type="hidden" id="company"
+                                   th:value="${internship.getCompany().getId()}">
 
                             <!-- title -->
                             <div class="form-group">
 
 
                                 <!-- label -->
-                                <label for="title" class="col-sm-3 control-label">Title</label>
+                                <label for="title" class="col-sm-2 control-label">Title</label>
                                 <!-- input -->
-                                <div class="col-sm-9">
-                                    <input th:field="*{title}" type="text" required="required" class="form-control1" id="title"
+                                <div class="col-sm-10">
+                                    <input th:field="*{title}" type="text" required="required" class="form-control1"
+                                           id="title"
                                            placeholder="Insert internship title">
                                 </div>
 
@@ -47,7 +49,7 @@
                                 </div> -->
 
                                 <!-- error box -->
-                                <div class="col-sm-offset-3 col-sm-9">
+                                <div class="col-sm-offset-2 col-sm-10">
                                     <div class="alert alert-danger squared my-small-alert"
                                          role="alert"
                                          th:if="${#fields.hasErrors('title')}"
@@ -62,10 +64,11 @@
 
 
                                 <!-- label -->
-                                <label for="address" class="col-sm-3 control-label">Address</label>
+                                <label for="address" class="col-sm-2 control-label">Address</label>
                                 <!-- input -->
-                                <div class="col-sm-9">
-                                    <input th:field="*{address}" type="text" required="required" class="form-control1" id="address"
+                                <div class="col-sm-10">
+                                    <input th:field="*{address}" type="text" required="required" class="form-control1"
+                                           id="address"
                                            placeholder="Insert internship address">
                                 </div>
 
@@ -75,7 +78,7 @@
                                 </div> -->
 
                                 <!-- error box -->
-                                <div class="col-sm-offset-3 col-sm-9">
+                                <div class="col-sm-offset-2 col-sm-10">
                                     <div class="alert alert-danger squared my-small-alert"
                                          role="alert"
                                          th:if="${#fields.hasErrors('address')}"
@@ -90,10 +93,11 @@
 
 
                                 <!-- label -->
-                                <label for="city" class="col-sm-3 control-label">City</label>
+                                <label for="city" class="col-sm-2 control-label">City</label>
                                 <!-- input -->
-                                <div class="col-sm-9">
-                                    <input th:field="*{city}" type="text" required="required" class="form-control1" id="city"
+                                <div class="col-sm-10">
+                                    <input th:field="*{city}" type="text" required="required" class="form-control1"
+                                           id="city"
                                            placeholder="Insert internship city">
                                 </div>
 
@@ -103,7 +107,7 @@
                                 </div> -->
 
                                 <!-- error box -->
-                                <div class="col-sm-offset-3 col-sm-9">
+                                <div class="col-sm-offset-2 col-sm-10">
                                     <div class="alert alert-danger squared my-small-alert"
                                          role="alert"
                                          th:if="${#fields.hasErrors('city')}"
@@ -118,10 +122,11 @@
 
 
                                 <!-- label -->
-                                <label for="province" class="col-sm-3 control-label">Province</label>
+                                <label for="province" class="col-sm-2 control-label">Province</label>
                                 <!-- input -->
-                                <div class="col-sm-9">
-                                    <input th:field="*{province}" type="text" required="required" class="form-control1" id="province"
+                                <div class="col-sm-10">
+                                    <input th:field="*{province}" type="text" required="required" class="form-control1"
+                                           id="province"
                                            placeholder="Insert internship province">
                                 </div>
 
@@ -131,7 +136,7 @@
                                 </div> -->
 
                                 <!-- error box -->
-                                <div class="col-sm-offset-3 col-sm-9">
+                                <div class="col-sm-offset-2 col-sm-10">
                                     <div class="alert alert-danger squared my-small-alert"
                                          role="alert"
                                          th:if="${#fields.hasErrors('province')}"
@@ -146,10 +151,11 @@
 
 
                                 <!-- label -->
-                                <label for="state" class="col-sm-3 control-label">State</label>
+                                <label for="state" class="col-sm-2 control-label">State</label>
                                 <!-- input -->
-                                <div class="col-sm-9">
-                                    <input th:field="*{state}" type="text" required="required" class="form-control1" id="state"
+                                <div class="col-sm-10">
+                                    <input th:field="*{state}" type="text" required="required" class="form-control1"
+                                           id="state"
                                            placeholder="Insert internship state">
                                 </div>
 
@@ -159,7 +165,7 @@
                                 </div> -->
 
                                 <!-- error box -->
-                                <div class="col-sm-offset-3 col-sm-9">
+                                <div class="col-sm-offset-2 col-sm-10">
                                     <div class="alert alert-danger squared my-small-alert"
                                          role="alert"
                                          th:if="${#fields.hasErrors('state')}"
@@ -174,16 +180,17 @@
 
 
                                 <!-- label -->
-                                <label for="schedule" class="col-sm-3 control-label">Schedule</label>
+                                <label for="schedule" class="col-sm-2 control-label">Schedule</label>
                                 <!-- input -->
-                                <div class="col-sm-9">
-                                    <textarea rows="3" th:field="*{schedule}" class="form-control1 textarea-long" id="schedule" placeholder="Insert internship schedule">
+                                <div class="col-sm-10">
+                                    <textarea rows="3" th:field="*{schedule}" class="form-control1 textarea-long"
+                                              id="schedule" placeholder="Insert internship schedule">
                                     </textarea>
                                 </div>
 
 
                                 <!-- error box -->
-                                <div class="col-sm-offset-3 col-sm-9">
+                                <div class="col-sm-offset-2 col-sm-10">
                                     <div class="alert alert-danger squared my-small-alert"
                                          role="alert"
                                          th:if="${#fields.hasErrors('schedule')}"
@@ -198,10 +205,11 @@
 
 
                                 <!-- label -->
-                                <label for="length" class="col-sm-3 control-label">Length</label>
+                                <label for="length" class="col-sm-2 control-label">Length</label>
                                 <!-- input -->
-                                <div class="col-sm-9">
-                                    <input th:field="*{length}" type="number" min="1" max="24" required="required" class="form-control1" id="length"
+                                <div class="col-sm-10">
+                                    <input th:field="*{length}" type="number" min="1" max="24" required="required"
+                                           class="form-control1" id="length"
                                            placeholder="Insert internship length">
                                 </div>
 
@@ -211,7 +219,7 @@
                                 </div> -->
 
                                 <!-- error box -->
-                                <div class="col-sm-offset-3 col-sm-9">
+                                <div class="col-sm-offset-2 col-sm-10">
                                     <div class="alert alert-danger squared my-small-alert"
                                          role="alert"
                                          th:if="${#fields.hasErrors('length')}"
@@ -223,8 +231,8 @@
 
                             <!-- modeItIt -->
                             <div class="form-group">
-                                <label for="modeItIt" class="col-sm-3 control-label">Mode (IT)</label>
-                                <div class="col-sm-9">
+                                <label for="modeItIt" class="col-sm-2 control-label">Mode (IT)</label>
+                                <div class="col-sm-10">
                                     <textarea rows="3" th:field="*{modeItIt}" class="form-control1 textarea-long"
                                               id="modeItIt" placeholder="Insert italian mode"></textarea>
                                 </div>
@@ -232,8 +240,8 @@
 
                             <!-- modeEnGb -->
                             <div class="form-group">
-                                <label for="modeEnGb" class="col-sm-3 control-label">Mode (EN)</label>
-                                <div class="col-sm-9">
+                                <label for="modeEnGb" class="col-sm-2 control-label">Mode (EN)</label>
+                                <div class="col-sm-10">
                                     <textarea rows="3" th:field="*{modeEnGb}" class="form-control1 textarea-long"
                                               id="modeEnGb" placeholder="Insert english mode"></textarea>
                                 </div>
@@ -242,8 +250,8 @@
 
                             <!-- goalsItIt -->
                             <div class="form-group">
-                                <label for="goalsItIt" class="col-sm-3 control-label">Goals (IT)</label>
-                                <div class="col-sm-9">
+                                <label for="goalsItIt" class="col-sm-2 control-label">Goals (IT)</label>
+                                <div class="col-sm-10">
                                     <textarea rows="3" th:field="*{goalsItIt}" class="form-control1 textarea-long"
                                               id="goalsItIt" placeholder="Insert italian goals"></textarea>
                                 </div>
@@ -251,8 +259,8 @@
 
                             <!-- goalsEnGb -->
                             <div class="form-group">
-                                <label for="goalsEnGb" class="col-sm-3 control-label">Goals (EN)</label>
-                                <div class="col-sm-9">
+                                <label for="goalsEnGb" class="col-sm-2 control-label">Goals (EN)</label>
+                                <div class="col-sm-10">
                                     <textarea rows="3" th:field="*{goalsEnGb}" class="form-control1 textarea-long"
                                               id="goalsEnGb" placeholder="Insert english goals"></textarea>
                                 </div>
@@ -261,8 +269,8 @@
 
                             <!-- detailsItIt -->
                             <div class="form-group">
-                                <label for="detailsItIt" class="col-sm-3 control-label">Details (IT)</label>
-                                <div class="col-sm-9">
+                                <label for="detailsItIt" class="col-sm-2 control-label">Details (IT)</label>
+                                <div class="col-sm-10">
                                     <textarea rows="3" th:field="*{detailsItIt}" class="form-control1 textarea-long"
                                               id="detailsItIt" placeholder="Insert italian details"></textarea>
                                 </div>
@@ -270,8 +278,8 @@
 
                             <!-- goalsEnGb -->
                             <div class="form-group">
-                                <label for="detailsEnGb" class="col-sm-3 control-label">Details (EN)</label>
-                                <div class="col-sm-9">
+                                <label for="detailsEnGb" class="col-sm-2 control-label">Details (EN)</label>
+                                <div class="col-sm-10">
                                     <textarea rows="3" th:field="*{detailsEnGb}" class="form-control1 textarea-long"
                                               id="detailsEnGb" placeholder="Insert english details"></textarea>
                                 </div>
@@ -279,47 +287,33 @@
 
 
                             <!-- facilitations -->
+
                             <div class="form-group">
-
-
-                                <!-- label -->
-                                <label for="facilitations" class="col-sm-3 control-label">Facilitations</label>
-                                <!-- input -->
-                                <div class="col-sm-9">
-                                    <input th:field="*{facilitations}" type="text" class="form-control1"
-                                           id="facilitations"
-                                           placeholder="Insert internship facilitations">
-                                </div>
-
-                                <!-- help text
-                                <div class="col-sm-2">
-                                    <p class="help-block"></p>
-                                </div> -->
-
-                                <!-- error box -->
-                                <div class="col-sm-offset-3 col-sm-9">
-                                    <div class="alert alert-danger squared my-small-alert"
-                                         role="alert"
-                                         th:if="${#fields.hasErrors('facilitations')}"
-                                         th:errors="*{facilitations}">
-                                    </div>
+                                <label for="facilitations" class="col-sm-2 control-label">Facilitations</label>
+                                <div class="col-sm-10">
+                                    <textarea rows="3" th:field="*{facilitations}" class="form-control1 textarea-long"
+                                              id="facilitations"
+                                              placeholder="Insert internship facilitations"></textarea>
                                 </div>
                             </div>
 
 
                             <!-- checkboxes -->
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">Options</label>
-                                <div class="col-sm-9">
-                                    <div class="checkbox-inline"><label><input th:field="*{remote}" type="checkbox"> Remote</label></div>
-                                    <div class="checkbox-inline"><label><input th:field="*{refund}" type="checkbox"> Refund</label></div>
-                                    <div class="checkbox-inline"><label><input th:field="*{active}" type="checkbox"> Active</label></div>
+                                <label class="col-sm-2 control-label">Options</label>
+                                <div class="col-sm-10">
+                                    <div class="checkbox-inline"><label><input th:field="*{remote}" type="checkbox">
+                                        Remote</label></div>
+                                    <div class="checkbox-inline"><label><input th:field="*{refund}" type="checkbox">
+                                        Refund</label></div>
+                                    <div class="checkbox-inline"><label><input th:field="*{active}" type="checkbox">
+                                        Active</label></div>
                                 </div>
                             </div>
 
                             <!-- submit -->
                             <div class="form-group">
-                                <div class="col-sm-offset-3 col-sm-9">
+                                <div class="col-sm-offset-2 col-sm-10">
                                     <input type="submit" class="btn btn-info btn-block pull-right squared btn-lg"
                                            value="Insert"/>
                                 </div>
