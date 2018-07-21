@@ -52,6 +52,15 @@ public class StudentInternshipController {
             redirectAttributes.addFlashAttribute("studentinternship", studentinternship);
             return "redirect:/admin/create/studentinternship";
         }
+        if((studentinternship.getAccepted() && studentinternship.getRejected()) ||
+                (studentinternship.getRejected() && studentinternship.getCompleted()) ||
+                (!studentinternship.getAccepted() && studentinternship.getCompleted() )){
+
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", "There are inconsistencies with the options."));
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.studentinternship", result);
+            redirectAttributes.addFlashAttribute("studentinternship", studentinternship);
+            return "redirect:/admin/create/studentinternship";
+        }
 
         try{
             // else perform the insertion
@@ -79,6 +88,16 @@ public class StudentInternshipController {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.studentinternship", result);
             redirectAttributes.addFlashAttribute("studentinternship", studentinternship);
             return "redirect:/admin/update/studentinternship/" + studentinternship.getId();
+        }
+
+        if((studentinternship.getAccepted() && studentinternship.getRejected()) ||
+                (studentinternship.getRejected() && studentinternship.getCompleted()) ||
+                (!studentinternship.getAccepted() && studentinternship.getCompleted() )){
+
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", "There are inconsistencies with the options."));
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.studentinternship", result);
+            redirectAttributes.addFlashAttribute("studentinternship", studentinternship);
+            return "redirect:/admin/update/studentinternship"+studentinternship.getId();
         }
 
         try{

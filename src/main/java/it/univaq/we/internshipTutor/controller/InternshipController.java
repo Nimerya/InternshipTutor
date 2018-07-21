@@ -1,12 +1,10 @@
 package it.univaq.we.internshipTutor.controller;
 
 
-import it.univaq.we.internshipTutor.model.Internship;
-import it.univaq.we.internshipTutor.model.Company;
-import it.univaq.we.internshipTutor.model.PageWrapper;
-import it.univaq.we.internshipTutor.model.Popup;
+import it.univaq.we.internshipTutor.model.*;
 import it.univaq.we.internshipTutor.service.CompanyService;
 import it.univaq.we.internshipTutor.service.InternshipService;
+import it.univaq.we.internshipTutor.service.StudentInternshipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,6 +28,9 @@ public class InternshipController {
 
     @Autowired
     CompanyService companyService;
+
+    @Autowired
+    StudentInternshipService studentInternshipService;
 
     @RequestMapping(value={"/admin/create/internship"}, method = RequestMethod.POST)
     public String doCreate(@Valid @ModelAttribute("internship") Internship internship, BindingResult result, RedirectAttributes redirectAttributes) {
@@ -122,11 +123,50 @@ public class InternshipController {
         return "redirect:/index";
     }
 
-    @RequestMapping(value={"/company/update/internship/{internshipId}"}, method = RequestMethod.POST)
-    public String doUpdateByCompany(@PathVariable(value = "internshipId") Long internshipId,
-                                    RedirectAttributes redirectAttributes) {
-        // TODO update internship by company
-        return "redirect:/index";
+    @RequestMapping(value={"/company/update/internship"}, method = RequestMethod.POST)
+    public String doUpdateByCompany(@Valid @ModelAttribute("internship") Internship internship, BindingResult result, RedirectAttributes redirectAttributes) {
+
+        if (result.hasErrors()) {
+            // if there are errors during the binding (e.g. NotNull, Min, etc.)
+            // redirect to the form displaying the errors
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.internship", result);
+            redirectAttributes.addFlashAttribute("internship", internship);
+            return "redirect:/company/update/internship/" + internship.getId();
+        }
+
+        //TODO check that the compnay is updating is own internship
+        //TODO force the values of "active" and "company" to be the same as they were before the update
+
+        try{
+            internshipService.save(internship);
+        }catch (Exception e){
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
+            return "redirect:/company/update/internship/" + internship.getId();
+        }
+
+        // add success message in the model
+        redirectAttributes.addFlashAttribute("popup", new Popup());
+        // render Update form
+        return "redirect:/company/update/internship/" + internship.getId();
+    }
+
+    @RequestMapping(value={"/company/update/internship/{id}"}, method = RequestMethod.GET)
+    public String renderUpdateByCompany(ModelMap model, Pageable pageable, @PathVariable(value = "id") Long id) {
+
+        Internship i = internshipService.findInternshipById(id);
+
+        if(!model.containsAttribute("internship")){
+            model.addAttribute("internship", i);
+        }
+
+        Page<StudentInternship> studentinternships = studentInternshipService.findCandidatesByInternship(i);
+        PageWrapper<StudentInternship> page = new PageWrapper<>(studentinternships, "/company/update/internship/"+id);
+        model.addAttribute("studentinternships", page.getContent());
+        model.addAttribute("page", page);
+
+        return "internship_update_by_company";
     }
 
 

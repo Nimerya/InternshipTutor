@@ -28,13 +28,13 @@
                 <!-- student details -->
                 <div class="col-md-8">
                     <h3 class="w3ls-hdg">Info</h3>
-                    <div class="list-group list-group-alternate my-group-list black squared">
+                    <div class="list-group list-group-alternate my-group-list squared">
                         <span class="list-group-item"><span class="badge" th:text="${user.getCompany().getName()}">value</span> Name</span>
                         <span class="list-group-item"><span class="badge" th:text="${user.getEmail()}">value</span> Email</span>
-                        <span class="list-group-item"><span class="badge" th:text="${user.getCompany().getVatNumber()}">value</span> VAT n.</span>
+                        <!--<span class="list-group-item"><span class="badge" th:text="${user.getCompany().getVatNumber()}">value</span> VAT n.</span>-->
                         <span class="list-group-item"><span class="badge" th:text="${user.getCompany().getFiscalCode()}">value</span> Fiscal Code</span>
-                        <span class="list-group-item"><span class="badge" th:text="${user.getCompany().getAttorney()}">value</span> Attorney</span>
-
+                        <!--<span class="list-group-item"><span class="badge" th:text="${user.getCompany().getAttorney()}">value</span> Attorney</span>-->
+                        <a th:href="@{/company/create/internship}" class="margin-top-42 white-text btn btn-info btn-block squared btn-lg"> Insert an internship offer</a>
                     </div>
                 </div>
             </div>
@@ -63,8 +63,8 @@
                                 <td class="col-xs-3 text-right">
                                     <a th:href="@{${'/company/update/internship/'+item.getId()}}"
                                        class="btn-default-border btn-xs squared">
-                                        <i class="fa fa-edit"></i>
-                                        Edit
+                                        <i class="fa fa-arrow-circle-o-right"></i>
+                                        Go
                                     </a>
                                 </td>
                             </tr>
@@ -103,8 +103,8 @@
                                 <td class="col-xs-3 text-right">
                                     <a th:href="@{${'/company/update/internship/'+item.getId()}}"
                                        class="btn-default-border btn-xs squared">
-                                        <i class="fa fa-edit"></i>
-                                        Edit
+                                        <i class="fa fa-arrow-circle-o-right"></i>
+                                        Go
                                     </a>
                                 </td>
                             </tr>

@@ -93,7 +93,7 @@ public class DashboardController {
     @RequestMapping(value = {"/company/dashboard"}, method = RequestMethod.GET)
     public String renderCompanyDashboard(ModelMap model) {
 
-        model.addAttribute("userType",  "Student");
+        model.addAttribute("userType",  "Company");
 
         //TODO retrieve userid from session
         Long userId = 20L;
