@@ -347,34 +347,39 @@
 
 
             <div class="col-md-6">
-                <h3 class="w3ls-hdg" th:text="${'Students List'}">List</h3>
+                <h3 class="w3ls-hdg" th:text="${'Candidates List'}">List</h3>
                 <div th:if="${!studentinternships.isEmpty()}">
                     <table class="table table-fixed table-bordered squared hover-effect">
                         <thead>
                         <tr>
-                            <th class="col-xs-1 text-center">#</th>
-                            <th class="col-xs-8">Student</th>
-                            <th class="col-xs-3 text-right">Action</th>
+                            <th class="col-md-1 hidden-sm hidden-xs text-center">#</th>
+                            <th class="col-xs-7 col-md-6">Student</th>
+                            <th class="col-xs-5 text-right">Action</th>
                         </tr>
                         </thead>
 
                         <tbody>
                         <tr th:each="item, iterationStatus : ${studentinternships}">
-                            <td th:text="${iterationStatus.count + (page.getSize() * (page.getNumber()-1))}" class="col-xs-1 no-border-right text-center">
+                            <td th:text="${iterationStatus.count + (page.getSize() * (page.getNumber()-1))}" class="col-md-1 hidden-sm hidden-xs no-border-right text-center">
                             </td>
-                            <td th:text="${item.getInfo()}" class="col-xs-8 no-border-right">
+                            <td th:text="${item.getStudent().getMatriculationNumber()+' - '+item.getStudent().getUser().getEmail()}" class="col-xs-7 col-md-6 no-border-right">
                             </td>
-                            <td class="col-xs-3 text-right">
-                                <a th:href="@{'/company/studentinternship/accept/'+${item.getId()}}"
-                                   class="btn-success-border btn-xs squared">
-                                    <i class="fa fa-check-circle-o"></i>
-                                    Accept
-                                </a>
-                                <a th:href="@{'/company/studentinternship/reject/'+${item.getId()}}"
-                                   class="btn-danger-border btn-xs squared">
-                                    <i class="fa  fa-times-circle-o"></i>
-                                    Reject
-                                </a>
+                            <td class="col-xs-5  text-right">
+                                <div class="pull-right ">
+                                    <a th:href="@{'/company/studentinternship/reject/'+${item.getId()}}"
+                                       class="btn-danger-border btn-xs squared">
+                                        <i class="fa  fa-times-circle-o"></i>
+                                        <span class="hidden-xs">Reject</span>
+                                    </a>
+                                </div>
+                                <div class=" pull-right margin-right-5">
+                                    <a th:href="@{'/company/studentinternship/accept/'+${item.getId()}}"
+                                       class="btn-success-border btn-xs squared">
+                                        <i class="fa fa-check-circle-o"></i>
+                                        <span class="hidden-xs">Accept</span>
+                                    </a>
+                                </div>
+
                             </td>
                         </tr>
 
@@ -387,7 +392,7 @@
                 </div>
 
                 <!-- pagination -->
-                <th:block th:if="${!internships.isEmpty()}">
+                <th:block th:if="${!studentinternships.isEmpty()}">
                     <th:block th:replace="fragments/pagination_bar :: pagination_bar(${page})">
                         will be replaced
                     </th:block>

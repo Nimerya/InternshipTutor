@@ -75,7 +75,7 @@
 
 .table-fixed thead tr th{
     background-color: #10c7bf;
-    border-color: #12a29c;
+    border-color: #10c7bf;
     color: #fff;
 }
 
@@ -180,22 +180,26 @@
     border: 1px solid #ccc;
 }
 .btn-warning-border{
-    color: #333;
+    color: #fff!important;
     background-color: #f0ad4e;
     border: 1px solid #eea236;
 }
 .btn-danger-border{
-    color: #fff;
+    color: #fff!important;
     background-color: #d9534f;
     border: 1px solid #d43f3a;
 }
 .btn-info-border{
-    color: #fff;
+    color: #fff!important;
     background-color: #10c7bf;
     border: 1px solid #12a29c;
 }
 .btn-success-border{
-    color: #fff;
+    color: #fff!important;
     background-color: #51A351;
     border: 1px solid #499249;
+}
+
+.margin-right-5{
+    margin-right: 5px!important;
 }

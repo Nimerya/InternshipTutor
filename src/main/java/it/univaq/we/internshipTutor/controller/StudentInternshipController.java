@@ -140,6 +140,8 @@ public class StudentInternshipController {
         return "redirect:/admin/create/studentinternship";
     }
 
+    //TODO accept/reject by company
+
 
     @RequestMapping(value={"/admin/create/studentinternship"}, method = RequestMethod.GET)
     public String renderCreate(ModelMap model, Pageable pageable) {
@@ -159,7 +161,7 @@ public class StudentInternshipController {
         List<Student> students = studentService.findAll();
         model.addAttribute("students", students);
 
-        List<Internship> internships = internshipService.findAll();
+        List<Internship> internships = internshipService.findActiveInternships();
         model.addAttribute("internships", internships);
 
         return "studentinternship_create";
@@ -185,7 +187,7 @@ public class StudentInternshipController {
         List<Student> students = studentService.findAll();
         model.addAttribute("students", students);
 
-        List<Internship> internships = internshipService.findAll();
+        List<Internship> internships = internshipService.findActiveInternships();
         model.addAttribute("internships", internships);
 
         return "studentinternship_update";

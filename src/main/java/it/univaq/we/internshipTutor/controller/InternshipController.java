@@ -116,11 +116,34 @@ public class InternshipController {
         return "redirect:/admin/create/internship";
     }
 
-    @RequestMapping(value={"/company/delete/internship/{internshipId}"}, method = RequestMethod.POST)
-    public String doDeleteByCompany(@PathVariable(value = "internshipId") Long internshipId,
+    @RequestMapping(value={"/company/delete/internship/{id}"}, method = RequestMethod.POST)
+    public String doDeleteByCompany(@PathVariable(value = "id") Long id,
                                     RedirectAttributes redirectAttributes) {
-        // TODO delete internship by company
-        return "redirect:/index";
+
+        if (id == null || id < 0) {
+            // if there are errors during the binding (e.g. NotNull, Min, etc.)
+            // redirect to the form displaying the errors
+            // add error message in the model
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
+            return "redirect:/company/update/internship/" + id;
+        }
+
+        //TODO check that the compnay is updating is own internship
+        //TODO force the values of "active" and "company" to be the same as they were before the update
+
+        try{
+            internshipService.deleteInternshipById(id);
+        }catch (Exception e){
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_DEL));
+            redirectAttributes.addFlashAttribute("internship", internshipService.findInternshipById(id));
+            return "redirect:/company/update/internship/" + id;
+        }
+
+        // add success message in the model
+        redirectAttributes.addFlashAttribute("popup", new Popup());
+        return "redirect:/company/dashboard";
+
     }
 
     @RequestMapping(value={"/company/update/internship"}, method = RequestMethod.POST)
@@ -161,7 +184,7 @@ public class InternshipController {
             model.addAttribute("internship", i);
         }
 
-        Page<StudentInternship> studentinternships = studentInternshipService.findCandidatesByInternship(i);
+        Page<StudentInternship> studentinternships = studentInternshipService.findCandidatesByInternship(pageable, i);
         PageWrapper<StudentInternship> page = new PageWrapper<>(studentinternships, "/company/update/internship/"+id);
         model.addAttribute("studentinternships", page.getContent());
         model.addAttribute("page", page);

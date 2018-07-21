@@ -22,6 +22,7 @@ public class StudentInternshipService implements IStudentInternshipService  {
     @Override
     public List<StudentInternship> findAll(){ return studentInternshipRepository.findAll();}
 
+
     @Override
     public Page<StudentInternship> findAll(Pageable pageable){return studentInternshipRepository.findAll(pageable);}
 
@@ -55,8 +56,8 @@ public class StudentInternshipService implements IStudentInternshipService  {
 
     //List of all student internship that represent the list of students that are candidate for a certain internship
     @Override
-    public List<StudentInternship> findCandidatesByInternship(Internship i){
-        return studentInternshipRepository.findStudentInternshipsByInternshipAndAcceptedFalseAndRejectedFalse(i);
+    public Page<StudentInternship> findCandidatesByInternship(Pageable p, Internship i){
+        return studentInternshipRepository.findStudentInternshipsByInternshipAndAcceptedFalseAndRejectedFalse(p, i);
     }
 
 

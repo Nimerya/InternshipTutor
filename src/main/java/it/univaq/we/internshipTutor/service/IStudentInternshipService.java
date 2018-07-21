@@ -30,7 +30,7 @@ public interface IStudentInternshipService{
     List<StudentInternship> internshipsAwaitingForApproval(Student s);
 
     //List of all student internship that represent the list of students that are candidate for a certain internship
-    List<StudentInternship> findCandidatesByInternship(Internship i);
+    Page<StudentInternship> findCandidatesByInternship(Pageable p, Internship i);
 
 
 

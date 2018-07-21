@@ -9,11 +9,13 @@ import java.util.List;
 
 public interface IInternshipService {
 
-     List<Internship> findAll();
+    List<Internship> findAll();
+
+    List<Internship> findActiveInternships();
 
     Page<Internship> findAll(Pageable pageable);
 
-     Internship findInternshipById(Long id);
+    Internship findInternshipById(Long id);
 
     <S extends Internship> S save(S internship);
 
