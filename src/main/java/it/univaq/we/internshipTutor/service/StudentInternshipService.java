@@ -49,14 +49,14 @@ public class StudentInternshipService implements IStudentInternshipService  {
     //List of all student internships for wich the student awaiting to be accepted
     @Override
     public List<StudentInternship> internshipsAwaitingForApproval(Student s){
-        return studentInternshipRepository.findStudentInternshipsByStudentAndAcceptedFalseAndCompletedFalse(s);
+        return studentInternshipRepository.findStudentInternshipsByStudentAndAcceptedFalseAndRejectedFalseAndCompletedFalse(s);
     }
 
 
-    //List of all student internships for wich the student awaiting to be accepted, knowing the internship id
+    //List of all student internship that represent the list of students that are candidate for a certain internship
     @Override
     public List<StudentInternship> findCandidatesByInternship(Internship i){
-        return studentInternshipRepository.findStudentInternshipsByInternshipAndAcceptedFalse(i);
+        return studentInternshipRepository.findStudentInternshipsByInternshipAndAcceptedFalseAndRejectedFalse(i);
     }
 
 
