@@ -50,6 +50,9 @@ public class Company implements java.io.Serializable {
     @Column(name = "active", nullable = true)
     private Boolean active;
 
+    @Column(name = "agreement", nullable = true, length = 255)
+    private String agreement;
+
     // constructor used by persistence
     public Company() {}
 
@@ -136,6 +139,14 @@ public class Company implements java.io.Serializable {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public String getAgreement() {
+        return agreement;
+    }
+
+    public void setAgreement(String agreement) {
+        this.agreement = agreement;
     }
 
     // https://stackoverflow.com/questions/5031614/the-jpa-hashcode-equals-dilemma
