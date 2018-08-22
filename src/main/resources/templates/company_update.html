@@ -23,6 +23,7 @@
                 <div class="tab-content">
                     <div class="tab-pane active">
                         <form method="POST" th:action="@{/admin/update/company}" th:object="${company}"
+                              enctype="multipart/form-data"
                               class="form-horizontal">
 
                             <input th:field="*{id}" type="hidden" id="id">
@@ -165,6 +166,37 @@
                                 </div>
                             </div>
 
+                            <!-- compiled agreement file -->
+                            <div class="form-group">
+
+
+                                <!-- label -->
+                                <label for="agreementFile" class="col-sm-3 control-label">Agreement</label>
+                                <!-- input -->
+                                <div class="col-sm-9">
+                                    <input  type="file" class="form-control1 file-upload" id="agreementFile" name="agreementFile"
+                                            placeholder="Upload the signed agreement file">
+                                </div>
+
+                                <!-- error box -->
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <div class="alert alert-danger squared my-small-alert"
+                                         role="alert"
+                                         th:if="${#fields.hasErrors('agreement')}"
+                                         th:errors="*{agreement}">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- submit -->
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <input type="submit" class="btn btn-info btn-block squared btn-lg"
+                                           value="Update"/>
+                                </div>
+                            </div>
+
                             <!-- checkboxes -->
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Options</label>
@@ -183,6 +215,21 @@
 
 
                         </form>
+
+                        <!-- TODO create and download agreement file -->
+                        <th:block th:if="${company.getAgreement() == null}">
+                            <form method="POST" th:action="@{'#'}"
+                                  class="form-horizontal">
+                                <!-- submit -->
+                                <div class="form-group">
+                                    <div class="col-sm-offset-3 col-sm-9">
+                                        <input type="submit" class="btn btn-warning btn-block squared btn-lg"
+                                               value="Download precompiled agreement"/>
+                                    </div>
+                                </div>
+                            </form>
+                        </th:block>
+
 
                         <form method="POST" th:action="@{'/admin/delete/company/'+${company.getId()}}"
                               class="form-horizontal">

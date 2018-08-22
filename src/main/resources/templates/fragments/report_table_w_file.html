@@ -5,14 +5,15 @@
     <title>Title</title>
 </head>
 <body>
-<th:block th:fragment="report_table(page, collection, nameS, nameP)">
+<th:block th:fragment="report_table(page, collection, nameS, nameP, fileType)">
     <h3 class="w3ls-hdg" th:text="${nameP + ' List'}">List</h3>
     <div th:if="${!collection.isEmpty()}">
         <table class="table table-fixed table-bordered hover-effect squared">
             <thead>
             <tr>
                 <th class="col-md-1 hidden-sm hidden-xs text-center">#</th>
-                <th class="col-xs-9 col-md-8">Entry</th>
+                <th class="col-xs-6 col-md-5">Entry</th>
+                <th class="col-xs-3" th:text="fileType">FileType</th>
                 <th class="col-xs-3 text-right">Action</th>
             </tr>
             </thead>
@@ -21,7 +22,21 @@
             <tr th:each="item, iterationStatus : ${collection}">
                 <td th:text="${iterationStatus.count + (page.getSize() * (page.getNumber()-1))}" class="col-md-1 hidden-sm hidden-xs no-border-right text-center">
                 </td>
-                <td th:text="${item.getInfo()}" class="col-xs-9 col-md-8 no-border-right">
+                <td th:text="${item.getInfo()}" class="col-xs-6 col-md-5 no-border-right">
+                </td>
+                <td>
+                    <!-- TODO add download path -->
+                    <th:block th:if="${item.getAgreement() != null}">
+                        <a th:href="@{'#'}}"
+                           class="btn-success-border btn-xs squared">
+                            <i class="fa fa-cloud-download"></i>
+                            Download
+                        </a>
+                    </th:block>
+                    <th:block th:if="${item.getAgreement() == null}">
+                        -
+                    </th:block>
+
                 </td>
                 <td class="col-xs-3 text-right">
                     <a th:href="@{'/admin/update/'+${nameS}+'/'+${item.getId()}}"

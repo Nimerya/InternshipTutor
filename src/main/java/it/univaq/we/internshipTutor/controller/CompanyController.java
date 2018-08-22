@@ -6,6 +6,7 @@ import it.univaq.we.internshipTutor.model.User;
 import it.univaq.we.internshipTutor.model.Company;
 import it.univaq.we.internshipTutor.model.Popup;
 import it.univaq.we.internshipTutor.service.CompanyService;
+import it.univaq.we.internshipTutor.service.FileUploadService;
 import it.univaq.we.internshipTutor.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import static it.univaq.we.internshipTutor.model.Popup.*;
 
@@ -29,6 +31,9 @@ public class CompanyController {
 
     @Autowired
     CompanyService companyService;
+
+    @Autowired
+    FileUploadService fileUploadService;
 
 
     @RequestMapping(value = {"/admin/create/company"}, method = RequestMethod.POST)
@@ -54,7 +59,7 @@ public class CompanyController {
         }
 
         // add success message in the model
-        redirectAttributes.addFlashAttribute("popup", new Popup("success", "Operation Completed Successfully!"));
+        redirectAttributes.addFlashAttribute("popup", new Popup());
 
         return "redirect:/admin/create/company";
     }
@@ -62,7 +67,8 @@ public class CompanyController {
     @RequestMapping(value = {"/admin/update/company"}, method = RequestMethod.POST)
     public String doUpdate(@Valid @ModelAttribute("company") Company company,
                            BindingResult result,
-                           RedirectAttributes redirectAttributes) {
+                           RedirectAttributes redirectAttributes,
+                           @RequestParam("agreementFile") MultipartFile agreementFile) {
 
         if (result.hasErrors()) {
             // if there are errors during the binding (e.g. NotNull, Min, etc.)
@@ -73,6 +79,17 @@ public class CompanyController {
             return "redirect:/admin/update/company/" + company.getId();
         }
 
+        if(agreementFile != null){
+            try{
+                company.setAgreement(fileUploadService.uploadPdf(agreementFile, "agreement_"+company.getName()));
+                company.setActive(Boolean.TRUE);
+            }catch (Exception e){
+                e.printStackTrace();
+                redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong! Check the file you have uploaded"));
+                return "redirect:/admin/update/company";
+            }
+        }
+
         try{
             companyService.save(company);
         }catch (Exception e){
@@ -81,6 +98,7 @@ public class CompanyController {
             return "redirect:/admin/update/company/" + company.getId();
         }
 
+        redirectAttributes.addFlashAttribute("popup", new Popup());
         return "redirect:/admin/update/company/" + company.getId();
     }
 
@@ -148,14 +166,21 @@ public class CompanyController {
 
 
     @RequestMapping(value = {"/admin/report/companies"}, method = RequestMethod.GET)
-    public String renderReport(ModelMap model, Pageable pageable) {
+    public String renderReport(ModelMap model, Pageable pageable, @RequestParam("awaiting") Boolean awaiting) {
 
-        Page<Company> companies = companyService.findAll(pageable);
+        Page<Company> companies;
+
+        if (awaiting != null && awaiting){
+            companies = companyService.findCompaniesByActiveFalse(pageable);
+        }else{
+            companies = companyService.findAll(pageable);
+        }
         PageWrapper<Company> page = new PageWrapper<>(companies, "/admin/report/companies");
         model.addAttribute("collection", page.getContent());
         model.addAttribute("page", page);
         model.addAttribute("nameS", "company");
         model.addAttribute("nameP", "Companies");
+        model.addAttribute("fileType", "Agreement");
 
         return "report";
     }

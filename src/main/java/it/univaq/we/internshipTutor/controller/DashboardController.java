@@ -41,6 +41,10 @@ public class DashboardController {
         int numUsers = users.size();
         model.addAttribute("numUsers", numUsers);
 
+        List<Company> companiesAwaitingForApproval = companyService.findCompaniesByActiveFalse();
+        int numCompaniesAwaitingForApproval = companiesAwaitingForApproval.size();
+        model.addAttribute("numCompaniesAwaitingForApproval", numCompaniesAwaitingForApproval);
+
         List<Company> companies = companyService.findAll();
         int numCompanies = companies.size();
         model.addAttribute("numCompanies", numCompanies);

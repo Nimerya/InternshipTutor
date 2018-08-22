@@ -22,7 +22,11 @@
         <div id="forms" class="grid_3 grid_4">
             <div class="col-md-12">
                 <!-- report table-->
-                <th:block th:replace="fragments/report_table :: report_table(${page}, ${collection}, ${nameS}, ${nameP})">
+                <th:block th:if="${fileType == null}" th:replace="fragments/report_table :: report_table(${page}, ${collection}, ${nameS}, ${nameP})">
+                    will be replaced
+                </th:block>
+
+                <th:block th:if="${fileType != null}" th:replace="fragments/report_table_w_file :: report_table(${page}, ${collection}, ${nameS}, ${nameP}, ${fileType})">
                     will be replaced
                 </th:block>
 
