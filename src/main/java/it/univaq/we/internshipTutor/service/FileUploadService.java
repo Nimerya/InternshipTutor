@@ -1,11 +1,13 @@
 package it.univaq.we.internshipTutor.service;
 
+import org.apache.pdfbox.pdmodel.PDDocument;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -66,48 +68,25 @@ public class FileUploadService implements IFileUploadService {
         }
     }
 
+    /**
+     * converts a multipart file to file and checks if it is a pdf file
+     * @param file multipart input file to check
+     * @return true or false
+     */
     @Override
     public Boolean isPdf(MultipartFile file){
-        byte[] data;
-
-        try {
-            data = file.getBytes();
-        } catch (IOException e) {
-            e.printStackTrace();
+        try{
+            File convFile = new File(file.getOriginalFilename());
+            convFile.createNewFile();
+            FileOutputStream fos = new FileOutputStream(convFile);
+            fos.write(file.getBytes());
+            fos.close();
+            PDDocument.load(convFile);
+            Files.deleteIfExists(convFile.toPath());
+        }catch (Exception e){
             return false;
         }
-
-        if (data != null && data.length > 4 &&
-                data[0] == 0x25 && // %
-                data[1] == 0x50 && // P
-                data[2] == 0x44 && // D
-                data[3] == 0x46 && // F
-                data[4] == 0x2D) { // -
-
-            // version 1.3 file terminator
-            if (data[5] == 0x31 && data[6] == 0x2E && data[7] == 0x33 &&
-                    data[data.length - 7] == 0x25 && // %
-                    data[data.length - 6] == 0x25 && // %
-                    data[data.length - 5] == 0x45 && // E
-                    data[data.length - 4] == 0x4F && // O
-                    data[data.length - 3] == 0x46 && // F
-                    data[data.length - 2] == 0x20 && // SPACE
-                    data[data.length - 1] == 0x0A) { // EOL
-                return true;
-            }
-
-            // version 1.3 file terminator
-            if (data[5] == 0x31 && data[6] == 0x2E && data[7] == 0x34 &&
-                    data[data.length - 6] == 0x25 && // %
-                    data[data.length - 5] == 0x25 && // %
-                    data[data.length - 4] == 0x45 && // E
-                    data[data.length - 3] == 0x4F && // O
-                    data[data.length - 2] == 0x46 && // F
-                    data[data.length - 1] == 0x0A) { // EOL
-                return true;
-            }
-        }
-        return false;
+        return true;
     }
 
 }

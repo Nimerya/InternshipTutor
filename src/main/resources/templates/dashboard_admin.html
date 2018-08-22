@@ -32,7 +32,7 @@
                             <th:block th:if="${numCompaniesAwaitingForApproval == 1}" th:text="${'There is one company awaiting for approval.'}">
                                 will be replaced
                             </th:block>
-                            <a th:href="@{/admin/report/companies&awaiting=true}" class="pull-right">
+                            <a th:href="@{'/admin/report/companies?awaiting=true'}" class="pull-right">
                                 <span class="label label-warning">Go</span>
                             </a>
                         </div>

@@ -1,6 +1,7 @@
 package it.univaq.we.internshipTutor.controller;
 
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import it.univaq.we.internshipTutor.model.PageWrapper;
 import it.univaq.we.internshipTutor.model.User;
 import it.univaq.we.internshipTutor.model.Company;
@@ -51,6 +52,7 @@ public class CompanyController {
         }
         try{
             // else perform the insertion
+            company.setActive(Boolean.FALSE);
             companyService.save(company);
         }catch (Exception e){
             e.printStackTrace();
@@ -79,15 +81,22 @@ public class CompanyController {
             return "redirect:/admin/update/company/" + company.getId();
         }
 
-        if(agreementFile != null){
+        if(agreementFile != null && !agreementFile.isEmpty()){
             try{
-                company.setAgreement(fileUploadService.uploadPdf(agreementFile, "agreement_"+company.getName()));
+                company.setAgreement(fileUploadService.uploadPdf(agreementFile, "agreement_"+company.getName()+'_'));
                 company.setActive(Boolean.TRUE);
             }catch (Exception e){
                 e.printStackTrace();
                 redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong! Check the file you have uploaded"));
-                return "redirect:/admin/update/company";
+                return "redirect:/admin/update/company/" + company.getId();
             }
+        }else{
+            String oldAgreement = companyService.findCompanyById(company.getId()).getAgreement();
+            company.setAgreement(oldAgreement);
+        }
+
+        if(company.getAgreement() == null){
+            company.setActive(Boolean.FALSE);
         }
 
         try{
@@ -166,23 +175,26 @@ public class CompanyController {
 
 
     @RequestMapping(value = {"/admin/report/companies"}, method = RequestMethod.GET)
-    public String renderReport(ModelMap model, Pageable pageable, @RequestParam("awaiting") Boolean awaiting) {
+    public String renderReport(ModelMap model, Pageable pageable,
+                               @RequestParam(value = "awaiting", required = false) Boolean awaiting) {
 
         Page<Company> companies;
+        PageWrapper<Company> page;
 
         if (awaiting != null && awaiting){
             companies = companyService.findCompaniesByActiveFalse(pageable);
+            page = new PageWrapper<>(companies, "/admin/report/companies?awaiting=true");
         }else{
             companies = companyService.findAll(pageable);
+            page = new PageWrapper<>(companies, "/admin/report/companies");
         }
-        PageWrapper<Company> page = new PageWrapper<>(companies, "/admin/report/companies");
         model.addAttribute("collection", page.getContent());
         model.addAttribute("page", page);
         model.addAttribute("nameS", "company");
         model.addAttribute("nameP", "Companies");
         model.addAttribute("fileType", "Agreement");
 
-        return "report";
+        return "report_companies";
     }
 
 }
