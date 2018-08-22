@@ -26,4 +26,9 @@ public interface ICompanyService {
 
     List<IWorstCompanyProjection> worstCompanies(int limit);
 
+    List<Company> findCompaniesByActiveFalse();
+
+    Page<Company> findCompaniesByActiveFalse(Pageable pageable);
+
+
 }
