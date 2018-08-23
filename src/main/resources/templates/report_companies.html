@@ -42,7 +42,7 @@
                             <td class="col-xs-3 no-border-right text-right">
                                 <!-- TODO add download path -->
                                 <th:block th:if="${item.getAgreement() != null}">
-                                    <a th:href="@{'#'}"
+                                    <a th:href="@{${'/download/agreement/' + item.getAgreement()}}"
                                        class="btn-success-border btn-xs squared">
                                         <i class="fa fa-cloud-download"></i>
                                         Download

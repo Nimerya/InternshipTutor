@@ -1,9 +1,7 @@
 package it.univaq.we.internshipTutor.controller;
 
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import it.univaq.we.internshipTutor.model.PageWrapper;
-import it.univaq.we.internshipTutor.model.User;
 import it.univaq.we.internshipTutor.model.Company;
 import it.univaq.we.internshipTutor.model.Popup;
 import it.univaq.we.internshipTutor.service.CompanyService;
