@@ -1,11 +1,13 @@
 package it.univaq.we.internshipTutor.controller;
 
+import it.univaq.we.internshipTutor.service.FileDownloadService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -13,32 +15,26 @@ import java.io.*;
 @Controller
 public class DownloadController {
 
-    @Value("${spring.file.path.images}")
-    private String imagesPath;
+    @Autowired
+    FileDownloadService fileDownloadService;
 
-    @Value("${spring.file.path.docs}")
-    private String docsPath;
-
-    private static final String APPLICATION_PDF = "application/pdf";
-
-
-    @RequestMapping(value = "/a", method = RequestMethod.GET, produces = APPLICATION_PDF)
-    public @ResponseBody void downloadA(HttpServletResponse response) throws IOException {
-        File file = getFile();
-        InputStream in = new FileInputStream(file);
-
-        response.setContentType(APPLICATION_PDF);
-        response.setHeader("Content-Disposition", "attachment; filename=" + file.getName());
-        response.setHeader("Content-Length", String.valueOf(file.length()));
-        FileCopyUtils.copy(in, response.getOutputStream());
+    @RequestMapping(value = "/download/agreement/{fileName}", method = RequestMethod.GET, produces = "application/pdf")
+    public void downloadAgreement(HttpServletResponse response, @PathVariable(value = "fileName") String fileName) throws IOException {
+        //TODO check permissions (only admin and the company that is logged and owns this agreement file)
+        fileDownloadService.download(response, fileName);
     }
 
-    private File getFile() throws FileNotFoundException {
-        File file = new File(docsPath);
-        if (!file.exists()){
-            throw new FileNotFoundException("file with path: " + docsPath + " was not found.");
-        }
-        return file;
+    @RequestMapping(value = "/download/report/{fileName}", method = RequestMethod.GET, produces = "application/pdf")
+    public void downloadReport(HttpServletResponse response, @PathVariable(value = "fileName") String fileName) throws IOException {
+        //TODO check permissions (admin, company that provides the internship and student that have done the internship)
+        fileDownloadService.download(response, fileName);
     }
+
+    @RequestMapping(value = "/download/project/{fileName}", method = RequestMethod.GET, produces = "application/pdf")
+    public void downloadProject(HttpServletResponse response, @PathVariable(value = "fileName") String fileName) throws IOException {
+        //TODO check permissions (admin, company that provides the internship and student that have done the internship)
+        fileDownloadService.download(response, fileName);
+    }
+
 
 }

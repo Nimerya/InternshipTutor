@@ -171,7 +171,7 @@
 
 
                                 <!-- label -->
-                                <label for="agreementFile" class="col-sm-3 control-label">Agreement</label>
+                                <label for="agreementFile" class="col-sm-3 control-label">Signed agreement</label>
                                 <!-- input -->
                                 <div class="col-sm-9">
                                     <input  type="file" class="form-control1 file-upload" id="agreementFile" name="agreementFile"
@@ -208,9 +208,8 @@
 
                         </form>
 
-                        <!-- TODO create and download agreement file -->
                         <th:block th:if="${company.getAgreement() == null}">
-                            <form method="POST" th:action="@{'#'}"
+                            <form method="GET" th:action="@{'/admin/build/agreement/' + ${company.getId()}}"
                                   class="form-horizontal">
                                 <!-- submit -->
                                 <div class="form-group">
