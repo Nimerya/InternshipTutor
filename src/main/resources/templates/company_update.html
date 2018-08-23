@@ -208,9 +208,8 @@
 
                         </form>
 
-                        <!-- TODO create and download agreement file -->
                         <th:block th:if="${company.getAgreement() == null}">
-                            <form method="POST" th:action="@{'#'}"
+                            <form method="GET" th:action="@{'/admin/build/agreement/' + ${company.getId()}}"
                                   class="form-horizontal">
                                 <!-- submit -->
                                 <div class="form-group">

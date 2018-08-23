@@ -56,7 +56,7 @@ public class FileUploadService implements IFileUploadService {
             if (isPdf(pdf)) {
 
                 InputStream is = pdf.getInputStream();
-                File savedPdf = File.createTempFile(fileName, "", new File(docsPath));
+                File savedPdf = File.createTempFile(fileName, ".pdf", new File(docsPath));
                 Files.copy(is, savedPdf.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
                 return savedPdf.getName();
@@ -84,6 +84,7 @@ public class FileUploadService implements IFileUploadService {
             PDDocument.load(convFile);
             Files.deleteIfExists(convFile.toPath());
         }catch (Exception e){
+            e.printStackTrace();
             return false;
         }
         return true;
