@@ -40,14 +40,15 @@
                             <td th:text="${item.getInfo()}" class="col-xs-6 col-md-5 no-border-right">
                             </td>
                             <td class="col-xs-3 no-border-right text-center">
-                                <th:block th:if="${item.getAgreement() != null}">
-                                    <a th:href="@{${'/download/agreement/' + item.getAgreement()}}"
+                                <!-- TODO add download path -->
+                                <th:block th:if="${item.getTrainingProject() != null}">
+                                    <a th:href="@{${'/download/trainingproject/' + item.getTrainingProject()}}"
                                        class="btn-success-border btn-xs squared">
                                         <i class="fa fa-cloud-download"></i>
                                         Download
                                     </a>
                                 </th:block>
-                                <th:block th:if="${item.getAgreement() == null}">
+                                <th:block th:if="${item.getTrainingProject() == null}">
                                     <span>-</span>
                                 </th:block>
 

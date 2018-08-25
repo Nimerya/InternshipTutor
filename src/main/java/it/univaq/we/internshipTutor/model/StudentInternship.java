@@ -1,10 +1,13 @@
 package it.univaq.we.internshipTutor.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -39,6 +42,11 @@ public class StudentInternship {
     @NotNull(message = "this field is mandatory")
     @Min(1)
     private Integer cfu;
+
+    @Column(name = "start_date", nullable = true)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
+    private Date startDate;
 
     @Column(name = "review", nullable = true)
     @Min(1)

@@ -30,7 +30,7 @@ public class DownloadController {
         fileDownloadService.download(response, fileName);
     }
 
-    @RequestMapping(value = "/download/project/{fileName}", method = RequestMethod.GET, produces = "application/pdf")
+    @RequestMapping(value = "/download/trainingproject/{fileName}", method = RequestMethod.GET, produces = "application/pdf")
     public void downloadProject(HttpServletResponse response, @PathVariable(value = "fileName") String fileName) throws IOException {
         //TODO check permissions (admin, company that provides the internship and student that have done the internship)
         fileDownloadService.download(response, fileName);

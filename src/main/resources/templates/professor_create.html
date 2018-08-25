@@ -110,6 +110,29 @@
 
                             </div>
 
+                            <!-- phone number -->
+                            <div class="form-group">
+
+
+                                <!-- label -->
+                                <label for="lastName" class="col-sm-3 control-label">Phone Number</label>
+                                <!-- input -->
+                                <div class="col-sm-9">
+                                    <input th:field="*{phoneNumber}" type="tel" required="required" class="form-control1" id="phoneNumber"
+                                           placeholder="Insert Phone Number">
+                                </div>
+
+                                <!-- error box -->
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <div class="alert alert-danger squared my-small-alert"
+                                         role="alert"
+                                         th:if="${#fields.hasErrors('phoneNumber')}"
+                                         th:errors="*{phoneNumber}">
+                                    </div>
+                                </div>
+
+                            </div>
+
 
                             <!-- department -->
                             <div class="form-group">

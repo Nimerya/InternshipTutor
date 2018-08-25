@@ -1,11 +1,13 @@
 package it.univaq.we.internshipTutor.service;
 
+import it.univaq.we.internshipTutor.model.Company;
 import it.univaq.we.internshipTutor.model.Internship;
 import it.univaq.we.internshipTutor.model.Student;
 import it.univaq.we.internshipTutor.model.StudentInternship;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Date;
 import java.util.List;
 
 public interface IStudentInternshipService{
@@ -24,7 +26,9 @@ public interface IStudentInternshipService{
     List<StudentInternship> completedInternships(Student s);
 
     //List of all internships that are in progress (respect to the student)
-    List<StudentInternship> ongoingInternships(Student s);
+    List<StudentInternship> ongoingInternshipsByStudent(Student s);
+
+    List<StudentInternship> ongoingInternshipsByCompany(Company c);
 
     //List of all internships for wich the student awaiting to be accepted
     List<StudentInternship> internshipsAwaitingForApproval(Student s);

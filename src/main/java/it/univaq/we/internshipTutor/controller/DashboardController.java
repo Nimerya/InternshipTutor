@@ -85,7 +85,7 @@ public class DashboardController {
         List<StudentInternship> internshipsAwaitingForApproval = studentInternshipService.internshipsAwaitingForApproval(s);
         model.addAttribute("internshipsAwaitingForApproval", internshipsAwaitingForApproval);
 
-        List<StudentInternship> ongoingInternships = studentInternshipService.ongoingInternships(s);
+        List<StudentInternship> ongoingInternships = studentInternshipService.ongoingInternshipsByStudent(s);
         model.addAttribute("ongoingInternships", ongoingInternships);
 
         List<StudentInternship> completedInternships = studentInternshipService.completedInternships(s);
@@ -111,6 +111,9 @@ public class DashboardController {
 
         List<Internship> inactiveInternships = internshipService.findInactiveInternships(c);
         model.addAttribute("inactiveInternships", inactiveInternships);
+
+        List<StudentInternship> ongoingInternships = studentInternshipService.ongoingInternshipsByCompany(c);
+        model.addAttribute("ongoingInternships", ongoingInternships);
 
         return "dashboard_company";
     }

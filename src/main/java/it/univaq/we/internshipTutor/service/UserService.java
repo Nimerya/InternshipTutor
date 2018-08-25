@@ -40,4 +40,7 @@ public class UserService implements IUserService {
         userRepository.deleteUserById(id);
     }
 
+    @Override
+    public User findUserByCompany(Long id){ return userRepository.findUserByCompanyId(id);}
+
 }

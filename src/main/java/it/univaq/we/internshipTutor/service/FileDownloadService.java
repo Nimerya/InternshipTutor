@@ -15,13 +15,15 @@ public class FileDownloadService implements IFileDownloadService{
     private String docsPath;
 
     @Override
-    public @ResponseBody void download(HttpServletResponse response, String fileName) throws IOException {
+    public void download(HttpServletResponse response, String fileName) throws IOException {
         File file = getFile(fileName);
         InputStream in = new FileInputStream(file);
         response.setContentType("application/pdf");
         response.setHeader("Content-Disposition", "attachment; filename=" + file.getName());
         response.setHeader("Content-Length", String.valueOf(file.length()));
         FileCopyUtils.copy(in, response.getOutputStream());
+        response.getOutputStream().flush();
+        response.getOutputStream().close();
     }
 
     @Override

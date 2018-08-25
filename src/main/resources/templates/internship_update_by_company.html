@@ -343,60 +343,14 @@
 
 
             <div class="col-md-6">
-                <h3 class="w3ls-hdg" th:text="${'Candidates List'}">List</h3>
-                <div th:if="${!studentinternships.isEmpty()}">
-                    <table class="table table-fixed table-bordered squared hover-effect">
-                        <thead>
-                        <tr>
-                            <th class="col-md-1 hidden-sm hidden-xs text-center">#</th>
-                            <th class="col-xs-7 col-md-6">Student</th>
-                            <th class="col-xs-5 text-right">Action</th>
-                        </tr>
-                        </thead>
 
-                        <tbody>
-                        <tr th:each="item, iterationStatus : ${studentinternships}"
-                            th:classappend="|${(item.getAccepted() && !item.getRejected()) ? 'student-accepted-bg' : ''} ${(!item.getAccepted() && item.getRejected()) ? 'student-rejected-bg' : ''}|">
-                            <td th:text="${iterationStatus.count + (page.getSize() * (page.getNumber()-1))}"
-                                class="col-md-1 hidden-sm hidden-xs no-border-right text-center">
-                            </td>
-                            <td th:text="${item.getStudent().getMatriculationNumber()+' - '+item.getStudent().getUser().getEmail()}"
-                                class="col-xs-7 col-md-6 no-border-right">
-                            </td>
-                            <td class="col-xs-5  text-right">
-                                <!-- if the student is neither accepter nor rejected, than i can do both -->
-                                <th:block th:if="${!item.getAccepted() && !item.getRejected()}">
-                                    <th:block
-                                            th:replace="fragments/reject_student_button :: reject_student_button(${item})">
-                                        will be replaced
-                                    </th:block>
-                                    <th:block
-                                            th:replace="fragments/accept_student_button :: accept_student_button(${item})">
-                                        will be replaced
-                                    </th:block>
-                                </th:block>
-                                <!-- if the student is accepted can only be rejected -->
-                                <th:block th:if="${item.getAccepted() && !item.getRejected()}">
-                                    <th:block
-                                            th:replace="fragments/reject_student_button :: reject_student_button(${item})">
-                                        will be replaced
-                                    </th:block>
-                                </th:block>
-                                <!-- if the student is rejected it can only be accepted -->
-                                <th:block th:if="${!item.getAccepted() && item.getRejected()}">
-                                    <th:block
-                                            th:replace="fragments/accept_student_button :: accept_student_button(${item})">
-                                        will be replaced
-                                    </th:block>
-                                </th:block>
-                            </td>
+                <!-- candidates list-->
+                <th:block th:if="${!studentinternships.isEmpty()}">
+                    <th:block th:replace="fragments/candidates_list :: candidates_list(${studentinternships})">
+                        will be replaced
+                    </th:block>
+                </th:block>
 
-                        </tr>
-
-                        </tbody>
-                    </table>
-
-                </div>
                 <div class="well" th:unless="${!studentinternships.isEmpty()}"
                      th:text="${'There are no requests yet!'}">
                     Empty report message
