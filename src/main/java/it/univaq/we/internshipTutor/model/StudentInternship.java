@@ -43,11 +43,6 @@ public class StudentInternship {
     @Min(1)
     private Integer cfu;
 
-    @Column(name = "start_date", nullable = true)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Temporal(TemporalType.DATE)
-    private Date startDate;
-
     @Column(name = "review", nullable = true)
     @Min(1)
     @Max(5)

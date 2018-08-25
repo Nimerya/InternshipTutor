@@ -23,7 +23,9 @@ public interface IStudentInternshipService{
     void deleteStudentInternshipById(Long id);
 
     // List of all internship that student have done
-    List<StudentInternship> completedInternships(Student s);
+    List<StudentInternship> completedInternshipsByStudent(Student s);
+
+    List<StudentInternship> completedInternshipsByCompany(Company c);
 
     //List of all internships that are in progress (respect to the student)
     List<StudentInternship> ongoingInternshipsByStudent(Student s);

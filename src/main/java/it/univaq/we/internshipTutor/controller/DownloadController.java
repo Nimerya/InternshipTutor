@@ -24,14 +24,14 @@ public class DownloadController {
         fileDownloadService.download(response, fileName);
     }
 
-    @RequestMapping(value = "/download/report/{fileName}", method = RequestMethod.GET, produces = "application/pdf")
-    public void downloadReport(HttpServletResponse response, @PathVariable(value = "fileName") String fileName) throws IOException {
+    @RequestMapping(value = "/download/finalreport/{fileName}", method = RequestMethod.GET, produces = "application/pdf")
+    public void downloadFinalReport(HttpServletResponse response, @PathVariable(value = "fileName") String fileName) throws IOException {
         //TODO check permissions (admin, company that provides the internship and student that have done the internship)
         fileDownloadService.download(response, fileName);
     }
 
     @RequestMapping(value = "/download/trainingproject/{fileName}", method = RequestMethod.GET, produces = "application/pdf")
-    public void downloadProject(HttpServletResponse response, @PathVariable(value = "fileName") String fileName) throws IOException {
+    public void downloadTrainingProject(HttpServletResponse response, @PathVariable(value = "fileName") String fileName) throws IOException {
         //TODO check permissions (admin, company that provides the internship and student that have done the internship)
         fileDownloadService.download(response, fileName);
     }

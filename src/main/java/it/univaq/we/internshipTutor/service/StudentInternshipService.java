@@ -45,8 +45,25 @@ public class StudentInternshipService implements IStudentInternshipService  {
 
     // List of all student internship that student have done
     @Override
-    public List<StudentInternship> completedInternships(Student s){
+    public List<StudentInternship> completedInternshipsByStudent(Student s){
         return studentInternshipRepository.findStudentInternshipsByStudentAndCompletedTrue(s);
+    }
+
+    @Override
+    public List<StudentInternship> completedInternshipsByCompany(Company c){
+        List<Internship> internships = internshipRepository.findInternshipsByCompanyAndActiveTrue(c);
+        List<StudentInternship> studentInternships = new ArrayList<>();
+        try{
+            for(Internship i : internships){
+                List<StudentInternship> si = studentInternshipRepository.findStudentInternshipsByInternshipAndAcceptedTrueAndCompletedTrue(i);
+                if(si.size() > 0){
+                    studentInternships.addAll(si);
+                }
+            }
+        }catch (NullPointerException e){
+            //e.printStackTrace();
+        }
+        return studentInternships;
     }
 
     //List of all student internships that are in progress (respect to the student)
@@ -61,7 +78,7 @@ public class StudentInternshipService implements IStudentInternshipService  {
         List<StudentInternship> studentInternships = new ArrayList<>();
         try{
             for(Internship i : internships){
-                List<StudentInternship> si = studentInternshipRepository.findStudentInternshipsByInternshipAndAcceptedTrue(i);
+                List<StudentInternship> si = studentInternshipRepository.findStudentInternshipsByInternshipAndAcceptedTrueAndCompletedFalse(i);
                 if(si.size() > 0){
                     studentInternships.addAll(si);
                 }

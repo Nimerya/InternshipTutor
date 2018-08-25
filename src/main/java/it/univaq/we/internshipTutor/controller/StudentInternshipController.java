@@ -40,6 +40,9 @@ public class StudentInternshipController {
     @Autowired
     FileUploadService fileUploadService;
 
+    @Autowired
+    PdfBuilderService pdfBuilderService;
+
 
     @RequestMapping(value = {"/admin/create/studentinternship"}, method = RequestMethod.POST)
     public String doCreate(@Valid @ModelAttribute("studentinternship") StudentInternship studentinternship, BindingResult result, RedirectAttributes redirectAttributes) {
@@ -154,7 +157,7 @@ public class StudentInternshipController {
         Long internshipId = studentInternship.getInternship().getId();
 
         try {
-            studentInternship.setTrainingProject(fileUploadService.uploadPdf(trainingProjectFile, "training_project_" + studentInternship.getInternship().getTitle() + '_'));
+            studentInternship.setTrainingProject(fileUploadService.uploadPdf(trainingProjectFile, "training_project_" + studentInternship.getInfo() + '_'));
         } catch (Exception e) {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong! Check the file you have uploaded"));
@@ -221,6 +224,109 @@ public class StudentInternshipController {
         redirectAttributes.addFlashAttribute("popup", new Popup());
 
         return "redirect:/company/update/internship/" + internshipId;
+    }
+
+
+    @RequestMapping(value = {"/student/create/review/{id}"}, method = RequestMethod.GET)
+    public String renderCreateReviewByStudent(ModelMap model, @PathVariable(value = "id") Long id,
+                                              RedirectAttributes redirectAttributes) {
+
+        //TODO security checks
+
+        StudentInternship studentinternship = studentinternshipService.findStudentInternshipById(id);
+        model.addAttribute("studentinternship", studentinternship);
+
+        Student student = studentinternship.getStudent();
+        model.addAttribute("student", student);
+
+        Internship intership = studentinternship.getInternship();
+        model.addAttribute("internship", intership);
+
+        Professor professor = studentinternship.getProfessor();
+        model.addAttribute("professor", professor);
+
+        return "review_by_student";
+    }
+
+    @RequestMapping(value = {"/student/create/review"}, method = RequestMethod.POST)
+    public String doCreateReviewByStudent(RedirectAttributes redirectAttributes,
+                                    @RequestParam("id") Long id, @RequestParam("review") Integer review) {
+
+        //TODO security checks
+
+        StudentInternship studentInternship = studentinternshipService.findStudentInternshipById(id);
+
+        if (review < 1 || review > 5){
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Review value not valid."));
+            return "redirect:/student/create/review/" + id;
+        }
+
+        try {
+            studentInternship.setReview(review);
+            studentinternshipService.save(studentInternship);
+        } catch (Exception e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
+            return "redirect:/student/create/review/" + id;
+        }
+
+        // add success message in the model
+        redirectAttributes.addFlashAttribute("popup", new Popup());
+
+        return "redirect:/student/dashboard";
+    }
+
+    @RequestMapping(value = {"/company/create/finalreport/{id}"}, method = RequestMethod.GET)
+    public String renderCreateFinalReportByCompany(ModelMap model, @PathVariable(value = "id") Long id,
+                                        RedirectAttributes redirectAttributes) {
+
+        //TODO security checks (only the authorized company can see this form)
+        //TODO do not allow to access this page if the studentinternship is not completed
+
+        StudentInternship studentinternship = studentinternshipService.findStudentInternshipById(id);
+        model.addAttribute("studentinternship", studentinternship);
+
+        Student student = studentinternship.getStudent();
+        model.addAttribute("student", student);
+
+        Internship intership = studentinternship.getInternship();
+        model.addAttribute("internship", intership);
+
+        Professor professor = studentinternship.getProfessor();
+        model.addAttribute("professor", professor);
+
+        return "final_report_create_by_company";
+    }
+
+    @RequestMapping(value = {"/company/create/finalreport"}, method = RequestMethod.POST)
+    public String doCreateFinalReportByCompany(RedirectAttributes redirectAttributes,
+                                    @RequestParam("id") Long id,
+                                    @RequestParam("finalReportFile") MultipartFile finalReportFile) {
+
+        //TODO security/integrity checks
+
+        StudentInternship studentInternship = studentinternshipService.findStudentInternshipById(id);
+
+        try {
+            studentInternship.setFinalReport(fileUploadService.uploadPdf(finalReportFile, "final_report_" + studentInternship.getInfo() + '_'));
+        } catch (Exception e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Something Went Wrong! Check the file you have uploaded"));
+            return "redirect:/company/create/finalreport/" + id;
+        }
+
+        try {
+            studentinternshipService.save(studentInternship);
+        } catch (Exception e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
+            return "redirect:/company/dashboard";
+        }
+
+        // add success message in the model
+        redirectAttributes.addFlashAttribute("popup", new Popup());
+
+        return "redirect:/company/dashboard";
     }
 
 

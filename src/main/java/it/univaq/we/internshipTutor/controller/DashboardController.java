@@ -88,7 +88,7 @@ public class DashboardController {
         List<StudentInternship> ongoingInternships = studentInternshipService.ongoingInternshipsByStudent(s);
         model.addAttribute("ongoingInternships", ongoingInternships);
 
-        List<StudentInternship> completedInternships = studentInternshipService.completedInternships(s);
+        List<StudentInternship> completedInternships = studentInternshipService.completedInternshipsByStudent(s);
         model.addAttribute("completedInternships", completedInternships);
 
         return "dashboard_student";
@@ -114,6 +114,9 @@ public class DashboardController {
 
         List<StudentInternship> ongoingInternships = studentInternshipService.ongoingInternshipsByCompany(c);
         model.addAttribute("ongoingInternships", ongoingInternships);
+
+        List<StudentInternship> completedInternships = studentInternshipService.completedInternshipsByCompany(c);
+        model.addAttribute("completedInternships", completedInternships);
 
         return "dashboard_company";
     }

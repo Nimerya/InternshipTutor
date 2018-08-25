@@ -62,6 +62,21 @@ public class PdfBuilderController {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", Popup.WAR_MSG_EN));
         }
-
     }
+
+    @RequestMapping(value = "/company/build/finalreport/{studentInternshipId}", method = RequestMethod.GET)
+    public void buildFinalReport(HttpServletResponse response,
+                                     @PathVariable(value = "studentInternshipId") Long studentInternshipId,
+                                     RedirectAttributes redirectAttributes){
+        try{
+            StudentInternship studentInternship = studentInternshipService.findStudentInternshipById(studentInternshipId);
+            String fileName = pdfBuilderService.buildFinalReport(studentInternship);
+            fileDownloadService.download(response,fileName);
+            pdfBuilderService.clean(fileName);
+        } catch(Exception e){
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", Popup.WAR_MSG_EN));
+        }
+    }
+
 }

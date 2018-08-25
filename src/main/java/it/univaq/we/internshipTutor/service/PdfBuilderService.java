@@ -171,6 +171,49 @@ public class PdfBuilderService implements IPdfBuilderService {
     }
 
     @Override
+    public String buildFinalReport(StudentInternship studentInternship) {
+
+        String finalReportForm = docsPath + "/forms/form_final_report.pdf";
+        String fileName = "precompiled_final_report_" + studentInternship.getInfo() +".pdf";
+
+        try {
+            Path path = Paths.get(finalReportForm);
+            byte[] fileContent = Files.readAllBytes(path);
+
+            Student s = studentInternship.getStudent();
+            Company c = studentInternship.getInternship().getCompany();
+            Internship i = studentInternship.getInternship();
+
+            PDDocument form = PDDocument.load(new ByteArrayInputStream(fileContent));
+            PDDocumentCatalog docCatalog = form.getDocumentCatalog();
+            PDAcroForm acroForm = docCatalog.getAcroForm();
+            PDField azienda = acroForm.getField("azienda");
+            PDField codice_fiscale_azienda = acroForm.getField("codice_fiscale_azienda");
+            PDField tirocinante_cognome = acroForm.getField("tirocinante_cognome");
+            PDField tirocinante_nome = acroForm.getField("tirocinante_nome");
+            PDField codice_identificativo_tirocinio = acroForm.getField("codice_identificativo_tirocinio");
+            PDField sede_tirocinio = acroForm.getField("sede_tirocinio");
+            PDField tirocinante_nome_cognome = acroForm.getField("tirocinante_nome_cognome");
+
+            azienda.setValue(c.getName());
+            codice_fiscale_azienda.setValue(c.getVatNumber());
+            tirocinante_cognome.setValue(s.getUser().getLastName());
+            tirocinante_nome.setValue(s.getUser().getFirstName());
+            //TODO maybe check language
+            codice_identificativo_tirocinio.setValue("id associazione studente-tirocinio: "+ studentInternship.getId());
+            sede_tirocinio.setValue(i.getAddress());
+            tirocinante_nome_cognome.setValue(s.getUser().getFirstName()+" "+s.getUser().getLastName());
+
+            form.save(new File(docsPath, fileName));
+            form.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return fileName;
+    }
+
+    @Override
     public void clean(String fileName) throws IOException {
         Path path = Paths.get(docsPath+fileName);
         Files.deleteIfExists(path);

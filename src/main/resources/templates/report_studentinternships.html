@@ -27,9 +27,11 @@
                         <thead>
                         <tr>
                             <th class="col-md-1 hidden-sm hidden-xs text-center">#</th>
-                            <th class="col-xs-6 col-md-5">Entry</th>
-                            <th class="col-xs-3 text-center" th:text="${fileType}">FileType</th>
-                            <th class="col-xs-3 text-right">Action</th>
+                            <th class="col-xs-4">Entry</th>
+                            <th class="col-xs-3 col-md-2 text-center">Training Project</th>
+                            <th class="col-xs-3 col-md-2 text-center">Final Report</th>
+                            <th class="col-md-1 hidden-sm hidden-xs text-center">Review</th>
+                            <th class="col-xs-2 text-right">Action</th>
                         </tr>
                         </thead>
 
@@ -37,10 +39,9 @@
                         <tr th:each="item, iterationStatus : ${collection}">
                             <td th:text="${iterationStatus.count + (page.getSize() * (page.getNumber()-1))}" class="col-md-1 hidden-sm hidden-xs no-border-right text-center">
                             </td>
-                            <td th:text="${item.getInfo()}" class="col-xs-6 col-md-5 no-border-right">
+                            <td th:text="${item.getInfo()}" class="col-xs-4 no-border-right">
                             </td>
-                            <td class="col-xs-3 no-border-right text-center">
-                                <!-- TODO add download path -->
+                            <td class="col-xs-3 col-md-2 no-border-right text-center">
                                 <th:block th:if="${item.getTrainingProject() != null}">
                                     <a th:href="@{${'/download/trainingproject/' + item.getTrainingProject()}}"
                                        class="btn-success-border btn-xs squared">
@@ -53,7 +54,30 @@
                                 </th:block>
 
                             </td>
-                            <td class="col-xs-3 text-right">
+                            <td class="col-xs-3 col-md-2 no-border-right text-center">
+                                <th:block th:if="${item.getFinalReport() != null}">
+                                    <a th:href="@{${'/download/finalreport/' + item.getFinalReport()}}"
+                                       class="btn-success-border btn-xs squared">
+                                        <i class="fa fa-cloud-download"></i>
+                                        Download
+                                    </a>
+                                </th:block>
+                                <th:block th:if="${item.getFinalReport() == null}">
+                                    <span>-</span>
+                                </th:block>
+
+                            </td>
+
+                            <td class="col-md-1 hidden-sm hidden-xs no-border-right text-center">
+                                <th:block th:if="${item.getReview() == null}">
+                                    <span>-</span>
+                                </th:block>
+                                <th:block th:if="${item.getReview() != null}">
+                                    <span class="badge badge-custom" th:text="${item.getReview()}"></span>
+                                </th:block>
+                            </td>
+
+                            <td class="col-xs-2 text-right">
                                 <a th:href="@{'/admin/update/'+${nameS}+'/'+${item.getId()}}"
                                    class="btn-default-border btn-xs squared">
                                     <i class="fa fa-arrow-circle-o-right"></i>
