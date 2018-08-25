@@ -15,17 +15,38 @@ public class CustomErrorController implements ErrorController {
 
     @RequestMapping(value="/error", method = {RequestMethod.GET})
     public String error(HttpServletRequest request, ModelMap model) {
-        Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
+
+        Integer errorCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
         Exception exception = (Exception) request.getAttribute("javax.servlet.error.exception");
 
-        if (statusCode.equals(403)){
-            return "403";
+        String errorMessage;
+
+        model.addAttribute("errorCode", errorCode);
+
+        switch (errorCode) {
+            case 403:
+                errorMessage = "You are not authorized to access this resource.";
+                break;
+            case 404:
+                errorMessage = "The resource you were looking for cannot be found.";
+                break;
+
+                //TODO add other error codes
+
+            default:
+                errorMessage = "Something went wrong.";
+                break;
         }
 
-        model.addAttribute("status", statusCode);
-        model.addAttribute("exception", exception);
+        model.addAttribute("errorMessage", errorMessage);
 
-        return "error";
+        try{
+            exception.printStackTrace();
+        }catch (Exception e){
+
+        }
+
+        return "error_page";
     }
 
     @Override
