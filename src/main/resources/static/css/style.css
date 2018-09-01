@@ -373,47 +373,12 @@ fieldset#body {
     width: 100%;
     border: 1px solid #DADADA;
     color: #777;
-    background: #FFF;
     padding: 6px;
     font-size: 0.9em;
     -webkit-apperance: none;
 }
 /* Sign In Button */
-#loginForm #login {
-    background: #10c7bf;
-    color: #fff;
-    font-size: 1em;
-    padding: 5px 20px;
-    border: 1px solid #10c7bf; 
-    transition: all .5s;
-    -webkit-transition: all .5s;
-    -moz-transition: all .5s;
-    -o-transition: all .5s;
-}
-#loginForm #login:hover {
-    background: #fff;
-    color:#10c7bf; 
-}
-/* Forgot your password */
-#loginForm span {
-    display: block;
-    padding-bottom: 15px;
-    text-align: center;
-}
-#loginForm span a{
-    font-weight: 400;
-    color: #2B2B2B !important;
-    padding: 0 !important;
-    font-size: .9em;
-}
-#loginForm span a:hover{
-    text-decoration: none;
-    color: #10c7bf !important;
-}
-input:focus {
-    outline:none;
-}
-/*--//Login --*/
+
 /*-- banner --*/
 .banner{
     background: url(../images/1.jpg) no-repeat center bottom;
