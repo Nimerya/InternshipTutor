@@ -20,4 +20,7 @@ public interface IUserService {
 
     User findUserByCompany(Long id);
 
+    User findUserByStudent(Long id);
+
+
 }

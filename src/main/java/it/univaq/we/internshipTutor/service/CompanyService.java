@@ -36,10 +36,14 @@ public class CompanyService implements ICompanyService {
     }
 
     @Override
-    public void registerCompany(Company company, User user){
+    public void registerCompany(Company company, User user) throws Exception{
         companyRepository.save(company);
-        user.setCompany(company);
-        userRepository.save(user);
+        User u = userRepository.findUserByCompanyId(company.getId());
+        if (u == null){
+            user.setCompany(company);
+            user.setStudent(null);
+            userRepository.save(user);
+        }else throw new Exception("user with id "+u.getId()+" is already binded to this company");
     }
 
     @Override

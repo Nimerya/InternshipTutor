@@ -4,6 +4,7 @@ import it.univaq.we.internshipTutor.model.User;
 import it.univaq.we.internshipTutor.repository.StudentRepository;
 import it.univaq.we.internshipTutor.model.Student;
 import it.univaq.we.internshipTutor.repository.UserRepository;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -37,10 +38,14 @@ public class StudentService implements IStudentService {
     }
 
     @Override
-    public void registerStudent(Student student, User user){
+    public void registerStudent(Student student, User user) throws Exception{
         studentRepository.save(student);
-        user.setStudent(student);
-        userRepository.save(user);
+        User u = userRepository.findUserByStudentId(student.getId());
+        if (u == null){
+            user.setStudent(student);
+            user.setCompany(null);
+            userRepository.save(user);
+        }else throw new Exception("user with id "+u.getId()+" is already binded to this student");
     }
 
     @Override

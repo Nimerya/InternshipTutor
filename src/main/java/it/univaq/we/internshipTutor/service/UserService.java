@@ -43,4 +43,7 @@ public class UserService implements IUserService {
     @Override
     public User findUserByCompany(Long id){ return userRepository.findUserByCompanyId(id);}
 
+    @Override
+    public User findUserByStudent(Long id){ return userRepository.findUserByStudentId(id);}
+
 }
