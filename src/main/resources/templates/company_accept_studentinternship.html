@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Accept the Student</title>
+    <!-- head -->
+    <meta th:replace="fragments/head :: head">
+    <!-- head -->
+    <!-- head_scripts -->
+    <meta th:replace="fragments/head_scripts :: head_scripts">
+    <!-- head_scripts -->
+</head>
+<body>
+
+<!-- header -->
+<div th:replace="fragments/header :: header"></div>
+<!-- header -->
+
+<div class="codes about">
+    <div class="container">
+        <div id="forms" class="grid_3 grid_4">
+            <div class="col-md-6">
+                <h3 class="w3ls-hdg">Accept the Student</h3>
+                <div class="tab-content">
+                    <div class="tab-pane active">
+                        <form method="POST" th:action="@{/company/accept/studentinternship}"
+                              enctype="multipart/form-data"
+                              class="form-horizontal">
+
+                            <input th:value="${studentinternship.getId()}" type="hidden" id="id" name="id">
+
+                            <!-- student -->
+                            <div class="form-group">
+
+                                <label for="student" class="col-sm-3 control-label">Student</label>
+                                <div class="col-sm-9">
+                                    <select name="student" id="student" class="form-control1">
+                                        <option th:value="${student.getId()}" th:text="${student.getMatriculationNumber()}" selected="selected"></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- internship -->
+                            <div class="form-group">
+                                <label for="internship" class="col-sm-3 control-label">Internship</label>
+                                <div class="col-sm-9">
+                                    <select name="internship" id="internship" class="form-control1">
+                                        <option th:value="${internship.getId()}" th:text="${internship.getTitle() +' - '+internship.getCompany().getName()}" selected="selected"></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- professor -->
+                            <div class="form-group">
+                                <label for="internship" class="col-sm-3 control-label">Professor</label>
+                                <div class="col-sm-9">
+                                    <select name="professor" id="professor" class="form-control1">
+                                        <option th:value="${professor.getId()}" th:text="${professor.getFirstName()+' '+professor.getLastName()+' - '+professor.getDepartment().getName()}" selected="selected"></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- compiled training project file -->
+                            <div class="form-group">
+
+                                <!-- label -->
+                                <label for="trainingProjectFile" class="col-sm-3 control-label">Compiled training project</label>
+                                <!-- input -->
+                                <div class="col-sm-9">
+                                    <input  type="file" required="required" class="form-control1 file-upload" id="trainingProjectFile" name="trainingProjectFile"
+                                            placeholder="Upload the compiled training project file">
+                                </div>
+
+                            </div>
+
+                            <!-- submit -->
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <input type="submit" class="btn btn-info btn-block squared btn-lg"
+                                           value="Accept the Student"/>
+                                </div>
+                            </div>
+
+                        </form>
+
+                        <form method="GET" th:action="@{'/company/build/trainingproject/' + ${studentinternship.getId()}}"
+                              class="form-horizontal">
+                            <!-- submit -->
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <input type="submit" class="btn btn-success btn-block squared btn-lg"
+                                           value="Download precompiled training project"/>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+
+                <!-- candidates list-->
+                <th:block th:if="${!studentinternships.isEmpty()}">
+                    <th:block th:replace="fragments/candidates_list :: candidates_list(${studentinternships})">
+                        will be replaced
+                    </th:block>
+                </th:block>
+
+                <div class="well" th:unless="${!studentinternships.isEmpty()}"
+                     th:text="${'There are no requests yet!'}">
+                    Empty report message
+                </div>
+
+                <!-- pagination -->
+                <th:block th:if="${!studentinternships.isEmpty()}">
+                    <th:block th:replace="fragments/pagination_bar :: pagination_bar(${page})">
+                        will be replaced
+                    </th:block>
+                </th:block>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- footer -->
+<div th:replace="fragments/footer"></div>
+<!-- footer -->
+<!-- footer_scripts -->
+<div th:replace="fragments/footer_scripts"></div>
+<!-- footer_scripts -->
+
+</body>
+</html>

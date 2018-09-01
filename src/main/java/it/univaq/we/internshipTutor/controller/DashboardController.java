@@ -41,6 +41,10 @@ public class DashboardController {
         int numUsers = users.size();
         model.addAttribute("numUsers", numUsers);
 
+        List<Company> companiesAwaitingForApproval = companyService.findCompaniesByActiveFalse();
+        int numCompaniesAwaitingForApproval = companiesAwaitingForApproval.size();
+        model.addAttribute("numCompaniesAwaitingForApproval", numCompaniesAwaitingForApproval);
+
         List<Company> companies = companyService.findAll();
         int numCompanies = companies.size();
         model.addAttribute("numCompanies", numCompanies);
@@ -81,10 +85,10 @@ public class DashboardController {
         List<StudentInternship> internshipsAwaitingForApproval = studentInternshipService.internshipsAwaitingForApproval(s);
         model.addAttribute("internshipsAwaitingForApproval", internshipsAwaitingForApproval);
 
-        List<StudentInternship> ongoingInternships = studentInternshipService.ongoingInternships(s);
+        List<StudentInternship> ongoingInternships = studentInternshipService.ongoingInternshipsByStudent(s);
         model.addAttribute("ongoingInternships", ongoingInternships);
 
-        List<StudentInternship> completedInternships = studentInternshipService.completedInternships(s);
+        List<StudentInternship> completedInternships = studentInternshipService.completedInternshipsByStudent(s);
         model.addAttribute("completedInternships", completedInternships);
 
         return "dashboard_student";
@@ -107,6 +111,12 @@ public class DashboardController {
 
         List<Internship> inactiveInternships = internshipService.findInactiveInternships(c);
         model.addAttribute("inactiveInternships", inactiveInternships);
+
+        List<StudentInternship> ongoingInternships = studentInternshipService.ongoingInternshipsByCompany(c);
+        model.addAttribute("ongoingInternships", ongoingInternships);
+
+        List<StudentInternship> completedInternships = studentInternshipService.completedInternshipsByCompany(c);
+        model.addAttribute("completedInternships", completedInternships);
 
         return "dashboard_company";
     }

@@ -18,4 +18,6 @@ public interface IUserService {
 
     void deleteUserById(Long id);
 
+    User findUserByCompany(Long id);
+
 }

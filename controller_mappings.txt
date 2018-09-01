@@ -1,6 +1,9 @@
 admin actions:
     /admin/action/entity/id?
 
+companies awaiting for approval
+    /admin/report/companies?awaiting=true
+
 company actions:
     /company/action/id?
 

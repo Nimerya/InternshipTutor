@@ -1,0 +1,115 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Upload final report</title>
+    <!-- head -->
+    <meta th:replace="fragments/head :: head">
+    <!-- head -->
+    <!-- head_scripts -->
+    <meta th:replace="fragments/head_scripts :: head_scripts">
+    <!-- head_scripts -->
+</head>
+<body>
+
+
+<!-- header -->
+<div th:replace="fragments/header :: header"></div>
+<!-- header -->
+
+<div class="codes about">
+    <div class="container">
+        <div id="forms" class="grid_3 grid_4">
+            <div class="col-md-12">
+                <h3 class="w3ls-hdg" th:text="${'Final report for internship: '+internship.getTitle()}"></h3>
+                <div class="tab-content">
+                    <div class="tab-pane active">
+                        <form method="POST" th:action="@{/company/create/finalreport}"
+                              enctype="multipart/form-data"
+                              class="form-horizontal">
+
+                            <input th:value="${studentinternship.getId()}" type="hidden" id="id" name="id">
+
+                            <!-- student -->
+                            <div class="form-group">
+
+                                <label for="student" class="col-sm-2 control-label">Student</label>
+                                <div class="col-sm-10">
+                                    <select name="student" id="student" class="form-control1">
+                                        <option th:value="${student.getId()}" th:text="${student.getMatriculationNumber()}" selected="selected"></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- internship -->
+                            <div class="form-group">
+                                <label for="internship" class="col-sm-2 control-label">Internship</label>
+                                <div class="col-sm-10">
+                                    <select name="internship" id="internship" class="form-control1">
+                                        <option th:value="${internship.getId()}" th:text="${internship.getTitle() +' - '+internship.getCompany().getName()}" selected="selected"></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- professor -->
+                            <div class="form-group">
+                                <label for="professor" class="col-sm-3 control-label">Professor</label>
+                                <div class="col-sm-9">
+                                    <select name="professor" id="professor" class="form-control1">
+                                        <option th:value="${professor.getId()}" th:text="${professor.getFirstName()+' '+professor.getLastName()+' - '+professor.getDepartment().getName()}"></option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <!-- signed final report file -->
+                            <div class="form-group">
+
+
+                                <!-- label -->
+                                <label for="finalReportFile" class="col-sm-2 control-label">Signed final report</label>
+                                <!-- input -->
+                                <div class="col-sm-10">
+                                    <input  type="file" required="required" class="form-control1 file-upload" id="finalReportFile" name="finalReportFile"
+                                            placeholder="Upload the signed final report file">
+                                </div>
+
+                            </div>
+
+                            <!-- submit -->
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <input type="submit" class="btn btn-info btn-block pull-right squared btn-lg"
+                                           value="Submit signed final report"/>
+                                </div>
+                            </div>
+                        </form>
+
+                        <form method="GET" th:action="@{'/company/build/finalreport/' + ${studentinternship.getId()}}"
+                              class="form-horizontal">
+                            <!-- submit -->
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <input type="submit" class="btn btn-success btn-block squared btn-lg"
+                                           value="Download precompiled final report"/>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- footer -->
+<div th:replace="fragments/footer"></div>
+<!-- footer -->
+<!-- footer_scripts -->
+<div th:replace="fragments/footer_scripts"></div>
+<!-- footer_scripts -->
+
+</body>
+
+</html>

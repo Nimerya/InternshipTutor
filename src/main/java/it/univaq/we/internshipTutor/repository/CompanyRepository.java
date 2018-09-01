@@ -60,4 +60,9 @@ public interface CompanyRepository extends JpaRepository<Company, Long>{
                     "LIMIT ?1", nativeQuery = true)
     List<IWorstCompanyProjection> worstCompanies(int limit);
 
+
+    List<Company> findCompaniesByActiveFalse();
+
+    Page<Company> findCompaniesByActiveFalse(Pageable pageable);
+
 }

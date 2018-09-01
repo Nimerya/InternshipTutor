@@ -1,10 +1,13 @@
 package it.univaq.we.internshipTutor.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -44,6 +47,14 @@ public class StudentInternship {
     @Min(1)
     @Max(5)
     private Integer review;
+
+    //resoconto finale
+    @Column(name = "final_report", nullable = true, length = 255)
+    private String finalReport;
+
+    //progetto formativo
+    @Column(name = "training_project", nullable = true, length = 255)
+    private String trainingProject;
 
     @Column(name = "accepted", nullable = true)
     private Boolean accepted;
@@ -136,6 +147,22 @@ public class StudentInternship {
 
     public void setUuid(UUID uuid) {
         this.uuid = uuid;
+    }
+
+    public String getFinalReport() {
+        return finalReport;
+    }
+
+    public void setFinalReport(String finalReport) {
+        this.finalReport = finalReport;
+    }
+
+    public String getTrainingProject() {
+        return trainingProject;
+    }
+
+    public void setTrainingProject(String trainingProject) {
+        this.trainingProject = trainingProject;
     }
 
     @Override

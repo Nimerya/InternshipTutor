@@ -62,5 +62,13 @@ public class CompanyService implements ICompanyService {
     public List<IWorstCompanyProjection> worstCompanies(int limit){
         return companyRepository.worstCompanies(limit);
     }
+
+    @Override
+    public List<Company> findCompaniesByActiveFalse(){ return companyRepository.findCompaniesByActiveFalse();};
+
+    @Override
+    public Page<Company> findCompaniesByActiveFalse(Pageable pageable){return companyRepository.findCompaniesByActiveFalse(pageable);}
+
+
 }
 

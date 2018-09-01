@@ -40,6 +40,10 @@ public class Professor {
     @NotEmpty
     private String email;
 
+    @Column(name = "phone_number", nullable = false, length = 255)
+    @NotEmpty
+    private String phoneNumber;
+
     public Professor() {}
 
     public Professor(UUID uuid) { setUuid(uuid); }
@@ -50,6 +54,14 @@ public class Professor {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public Department getDepartment() {

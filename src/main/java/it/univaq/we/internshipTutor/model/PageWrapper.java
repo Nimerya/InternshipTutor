@@ -50,6 +50,10 @@ public class PageWrapper<T> {
         }
     }
 
+    public Boolean isEmpty(){
+        return items.size() == 0;
+    }
+
     public List<PageItem> getItems() {
         return items;
     }

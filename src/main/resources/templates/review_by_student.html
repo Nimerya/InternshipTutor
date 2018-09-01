@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Submit review</title>
+    <!-- head -->
+    <meta th:replace="fragments/head :: head">
+    <!-- head -->
+    <!-- head_scripts -->
+    <meta th:replace="fragments/head_scripts :: head_scripts">
+    <!-- head_scripts -->
+</head>
+<body>
+
+
+<!-- header -->
+<div th:replace="fragments/header :: header"></div>
+<!-- header -->
+
+<div class="codes about">
+    <div class="container">
+        <div id="forms" class="grid_3 grid_4">
+            <div class="col-md-12">
+                <h3 class="w3ls-hdg" th:text="${'Review for internship: '+internship.getTitle()}"></h3>
+                <div class="tab-content">
+                    <div class="tab-pane active">
+                        <form method="POST" th:action="@{/student/create/review}"
+                              class="form-horizontal">
+
+                            <input th:value="${studentinternship.getId()}" type="hidden" id="id" name="id">
+
+                            <!-- student -->
+                            <div class="form-group">
+
+                                <label for="student" class="col-sm-2 control-label">Student</label>
+                                <div class="col-sm-10">
+                                    <select name="student" id="student" class="form-control1">
+                                        <option th:value="${student.getId()}" th:text="${student.getMatriculationNumber()}" selected="selected"></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- internship -->
+                            <div class="form-group">
+                                <label for="internship" class="col-sm-2 control-label">Internship</label>
+                                <div class="col-sm-10">
+                                    <select name="internship" id="internship" class="form-control1">
+                                        <option th:value="${internship.getId()}" th:text="${internship.getTitle() +' - '+internship.getCompany().getName()}" selected="selected"></option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <!-- review -->
+                            <div class="form-group">
+
+
+                                <!-- label -->
+                                <label for="review" class="col-sm-2 control-label">Review</label>
+                                <!-- input -->
+                                <div class="col-sm-10">
+                                    <input type="number" min="1" max="5" class="form-control1" required="required"
+                                           id="review" name="review" placeholder="Insert a review (1 to 5)">
+                                </div>
+
+                            </div>
+
+                            <!-- submit -->
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <input type="submit" class="btn btn-info btn-block pull-right squared btn-lg"
+                                           value="Submit review"/>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- footer -->
+<div th:replace="fragments/footer"></div>
+<!-- footer -->
+<!-- footer_scripts -->
+<div th:replace="fragments/footer_scripts"></div>
+<!-- footer_scripts -->
+
+</body>
+
+</html>
