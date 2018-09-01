@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ICompanyService {
 
-    void registerCompany(Company c, User u);
+    void registerCompany(Company c, User u) throws Exception;
 
     List<Company> findAll();
 

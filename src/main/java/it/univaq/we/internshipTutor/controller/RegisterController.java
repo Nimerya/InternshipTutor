@@ -102,9 +102,6 @@ public class RegisterController {
         try {
             // else perform the insertion
             studentService.registerStudent(student, user);
-            /*studentService.save(student);
-            user.setStudent(student);
-            userService.save(user);*/
         } catch (Throwable e) {
             if (e.getMessage().contains("email_UNIQUE")) {
                 redirectAttributes.addFlashAttribute("popup", new Popup("warning", "E-mail already in use!"));
@@ -188,9 +185,6 @@ public class RegisterController {
         try {
             // else perform the insertion
             companyService.registerCompany(company, user);
-            /*companyService.save(company);
-            user.setCompany(company);
-            userService.save(user);*/
         } catch (Throwable e) {
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
             // email already in use

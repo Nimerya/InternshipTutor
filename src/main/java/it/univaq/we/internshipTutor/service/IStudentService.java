@@ -9,13 +9,13 @@ import java.util.List;
 
 public interface IStudentService {
 
-    void registerStudent(Student s, User u);
+    void registerStudent(Student s, User u) throws Exception;
 
-    public List<Student> findAll();
+    List<Student> findAll();
 
     Page<Student> findAll(Pageable pageable);
 
-    public Student findStudentById(Long id);
+    Student findStudentById(Long id);
 
     <S extends Student> S save(S student);
 

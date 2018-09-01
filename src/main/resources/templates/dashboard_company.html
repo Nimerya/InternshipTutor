@@ -23,7 +23,7 @@
             <div class="row margin-bottom-30">
                 <!-- image -->
                 <div class="col-md-4">
-                    <img src="" th:src="${'/files/images/'+user.getImage()}" class="profile-image">
+                    <img src="" th:src="@{${'/images/'+user.getImage()}}" class="profile-image">
                 </div>
                 <!-- student details -->
                 <div class="col-md-8">
