@@ -87,7 +87,7 @@
                             <tr>
                                 <th class="col-md-1 hidden-sm hidden-xs text-center">#</th>
                                 <th class="col-xs-6 col-md-5">Company - Title</th>
-                                <th class="col-xs-3">Professor</th>
+                                <th class="col-xs-3 text-center">Professor</th>
                                 <th class="col-xs-3 text-right">Training Project</th>
 
                             </tr>
@@ -101,7 +101,7 @@
                                 <td th:text="${item.getInternship().getInfo()}"
                                     class="col-xs-6 col-md-5 no-border-right">
                                 </td>
-                                <td th:text="${item.getProfessor().getInfo()}" class="col-xs-3 no-border-right">
+                                <td th:text="${item.getProfessor().getInfo()}" class="col-xs-3 no-border-right text-center">
                                 </td>
                                 <td class="col-xs-3 text-right">
                                     <th:block th:if="${item.getTrainingProject() != null}">
@@ -154,7 +154,7 @@
                                 <td th:text="${item.getInternship().getInfo()}"
                                     class="col-xs-5 col-md-4 no-border-right">
                                 </td>
-                                <td class="col-xs-3 text-center">
+                                <td class="col-xs-3 text-center no-border-right">
                                     <th:block th:if="${item.getTrainingProject() != null}">
                                         <a th:href="@{${'/download/trainingproject/' + item.getTrainingProject()}}"
                                            class="btn-success-border btn-xs squared">
@@ -167,7 +167,7 @@
                                     </th:block>
                                 </td>
 
-                                <td class="col-xs-3 text-center">
+                                <td class="col-xs-3 text-center no-border-right">
                                     <th:block th:if="${item.getFinalReport() != null}">
                                         <a th:href="@{${'/download/finalreport/' + item.getFinalReport()}}"
                                            class="btn-success-border btn-xs squared">

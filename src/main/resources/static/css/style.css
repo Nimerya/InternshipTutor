@@ -987,7 +987,7 @@ ul#flexiselDemo1 li a h4:hover{
 	float:right;
 }
 .footer-right-map {
-    margin-top: 2em;
+    /*margin-top: 2em;*/
 }
 .footer-right-map iframe {
     width: 100%;
