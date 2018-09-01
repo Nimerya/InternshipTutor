@@ -89,8 +89,19 @@ public class UserController {
         }
 
         try{
-            // else perform the insertion
-            userService.save(user);
+            User c = null;
+            User s = null;
+
+            if(user.getCompany() != null){
+                c = userService.findUserByCompany(user.getCompany().getId());
+            }
+            if(user.getStudent() != null){
+                s = userService.findUserByStudent(user.getStudent().getId());
+            }
+            if(c == null && s == null){
+                userService.save(user);
+            }else throw new Exception("this company/student is already bound to another user");
+
         }catch (Exception e){
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));
@@ -152,7 +163,19 @@ public class UserController {
             String oldPassword = userService.findUserById(user.getId()).getPassword();
             user.setPassword(oldPassword);
 
-            userService.save(user);
+            User c = null;
+            User s = null;
+
+            if(user.getCompany() != null){
+                c = userService.findUserByCompany(user.getCompany().getId());
+            }
+            if(user.getStudent() != null){
+                s = userService.findUserByStudent(user.getStudent().getId());
+            }
+            if(c == null && s == null){
+                userService.save(user);
+            }else throw new Exception("this company/student is already bound to another user");
+
         }catch (Exception e){
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN_SAVE));

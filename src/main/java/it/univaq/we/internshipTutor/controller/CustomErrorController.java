@@ -20,10 +20,6 @@ public class CustomErrorController implements ErrorController {
         Integer errorCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
         Exception exception = (Exception) request.getAttribute("javax.servlet.error.exception");
 
-        Logger.getAnonymousLogger().warning(String.valueOf(errorCode));
-        Logger.getAnonymousLogger().warning(exception.getMessage());
-        exception.printStackTrace();
-
         String errorMessage;
 
         switch (errorCode) {
@@ -60,7 +56,6 @@ public class CustomErrorController implements ErrorController {
         try{
             exception.printStackTrace();
         }catch (Exception e){
-
         }
 
         return "error_page";
