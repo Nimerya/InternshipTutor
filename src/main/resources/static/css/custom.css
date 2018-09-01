@@ -257,3 +257,27 @@
     text-decoration:none;
     outline:none;
 }
+
+.sad-smile{
+    color:#d9534f!important;
+}
+
+.margin-bottom-50{
+    margin-bottom: 50px!important;
+}
+
+.error-container{
+    margin-top: 50px!important;
+}
+
+.error-home-btn{
+    max-width: 200px!important;
+}
+
+.text-big{
+    font-size: 7em!important;
+}
+
+.text-small{
+    font-size: 1em!important;
+}

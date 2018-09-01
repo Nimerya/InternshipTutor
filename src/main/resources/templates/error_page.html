@@ -9,9 +9,19 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="icon" type="image/png" sizes="32x32" th:href="@{/images/favicon/favicon-32x32.png}">
+    <link rel="icon" type="image/png" sizes="96x96" th:href="@{/images/favicon/favicon-96x96.png}">
+    <link rel="icon" type="image/png" sizes="16x16" th:href="@{/images/favicon/favicon-16x16.png}">
     <!-- TODO add keywords -->
     <meta name="keywords" content=""/>
-
+    <!-- Custom Theme files -->
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet" href="/static/css/bootstrap.css" type="text/css"/>
+    <link th:href="@{/css/style.css}" rel="stylesheet" href="/static/css/style.css" type="text/css"/>
+    <link th:href="@{/css/font-awesome.css}" href="/static/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+    <!-- //Custom Theme files -->
+    <link th:href="@{/css/custom.css}" rel="stylesheet" href="/static/css/custom.css" type="text/css"/>
+    <link th:href="@{/plugins/toastr/toastr.css}" href="/static/plugins/toastr/toastr.css" rel="stylesheet"
+          type="text/css"/>
 
     <!-- fonts -->
     <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic"
@@ -19,20 +29,22 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <link href="//fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic,700" rel="stylesheet"
           type="text/css">
     <!-- //fonts -->
-    <link th:href="@{/css/error.css}" rel="stylesheet" href="/static/css/style.css" type="text/css"/>
+
+    <title>Error :(</title>
 
 </head>
 <body>
-<div class="error_main">
-    <div class="content margin-top-50">
-        <div class="error_content">
-            <span class="fa fa-frown-o"></span>
-            <h2 class="agileits-title margin-bottom-20" th:text="${errorCode}"></h2>
-            <p class="custom_p" th:text="${errorMessage}">error message</p>
-            <a class="b-home" th:href="@{/}">Back to Home</a>
-        </div>
+<div class="container error-container">
+    <div class="jumbotron">
+        <div class="text-center"><i class="fa fa-5x fa-frown-o sad-smile"></i></div>
+        <h1 class="text-center text-big" th:text="${errorCode}">404</h1>
+        <p class=" text-center text-small"> Oh noes everything broke :(</p>
+        <p class="text-center" th:text="${errorMessage}"> Oh noes everything broke :(</p>
+        <p class="text-center margin-bottom-50 error-home-btn center-block">
+            <a class="btn btn-info btn-block pull-right squared btn-lg" href="/internshiptutor/">
+                <i class="fa fa-home"></i> Home</a>
+        </p>
     </div>
-
 </div>
 
 </body>
