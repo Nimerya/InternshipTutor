@@ -225,7 +225,7 @@ public class InternshipController {
 
         if(!model.containsAttribute("internship")){
             //TODO set the company by looking at the one is session
-            Long userId = 20L;
+            Long userId = 47L;
             Internship internship = new Internship(UUID.randomUUID());
             internship.setCompany(userService.findUserById(userId).getCompany());
             model.addAttribute("internship", internship);

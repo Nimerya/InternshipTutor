@@ -209,7 +209,7 @@
                                 <label for="image" class="col-sm-3 control-label">Current Image</label>
                                 <!-- input -->
                                 <div class="col-sm-9">
-                                    <img th:src="@{'/images/' + *{image}}" src="/static/images/default.jpg" class="form-image"/>
+                                    <img th:src="@{'/files/images/' + *{image}}" src="/static/images/default.jpg" class="form-image"/>
                                     <input type="hidden" th:field="*{image}" name="image" id="image">
                                 </div>
 

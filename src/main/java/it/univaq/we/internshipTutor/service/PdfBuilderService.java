@@ -194,15 +194,16 @@ public class PdfBuilderService implements IPdfBuilderService {
             PDField codice_identificativo_tirocinio = acroForm.getField("codice_identificativo_tirocinio");
             PDField sede_tirocinio = acroForm.getField("sede_tirocinio");
             PDField tirocinante_nome_cognome = acroForm.getField("tirocinante_nome_cognome");
+            PDField ore = acroForm.getField("ore");
 
             azienda.setValue(c.getName());
             codice_fiscale_azienda.setValue(c.getVatNumber());
             tirocinante_cognome.setValue(s.getUser().getLastName());
             tirocinante_nome.setValue(s.getUser().getFirstName());
-            //TODO maybe check language
             codice_identificativo_tirocinio.setValue("id associazione studente-tirocinio: "+ studentInternship.getId());
             sede_tirocinio.setValue(i.getAddress());
             tirocinante_nome_cognome.setValue(s.getUser().getFirstName()+" "+s.getUser().getLastName());
+            ore.setValue(String.valueOf(i.getLength()));
 
             form.save(new File(docsPath, fileName));
             form.close();

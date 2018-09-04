@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,12 +16,23 @@ import java.util.logging.Logger;
 public class CustomErrorController implements ErrorController {
 
     @RequestMapping(value="/error", method = {RequestMethod.GET})
-    public String error(HttpServletRequest request, ModelMap model) {
+    public String error(HttpServletRequest request, ModelMap model,
+                        @RequestParam(value = "code", required = false) Integer code) {
 
-        Integer errorCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
-        Exception exception = (Exception) request.getAttribute("javax.servlet.error.exception");
-
+        Integer errorCode;
         String errorMessage;
+
+        if(code == null) {
+            errorCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
+            Exception exception = (Exception) request.getAttribute("javax.servlet.error.exception");
+            try{
+                exception.printStackTrace();
+            }catch (Exception e){
+                // there is nothing that I can do :(
+            }
+        }else{
+            errorCode = code;
+        }
 
         switch (errorCode) {
             case 401:
@@ -52,11 +64,6 @@ public class CustomErrorController implements ErrorController {
 
         model.addAttribute("errorCode", errorCode);
         model.addAttribute("errorMessage", errorMessage);
-
-        try{
-            exception.printStackTrace();
-        }catch (Exception e){
-        }
 
         return "error_page";
     }
