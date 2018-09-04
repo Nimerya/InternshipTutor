@@ -1,18 +1,38 @@
 package it.univaq.we.internshipTutor.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.firewall.HttpFirewall;
 import org.springframework.security.web.firewall.StrictHttpFirewall;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import javax.sql.DataSource;
 
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+
+    @Value("${spring.queries.users-query}")
+    private String usersQuery;
+
+    @Value("${spring.queries.roles-query}")
+    private String rolesQuery;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    private DataSource dataSource;
 
     // allow semicolons in url
     @Bean
@@ -33,18 +53,33 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                     .antMatchers("/", "/index", "/register/**").permitAll()
-                    .antMatchers("/admin/**").permitAll()
-                    //.antMatchers("/admin/**").hasAnyRole("ADMIN")
-                    .antMatchers("/student/**").permitAll()
-                    //.antMatchers("/student/**").hasAnyRole("STUDENT")
-                    .antMatchers("/company/**").permitAll()
-                    //.antMatchers("/company/**").hasAnyRole("COMPANY")
+                    //.antMatchers("/admin/**").permitAll()
+                    .antMatchers("/admin/**").hasAnyRole("ADMIN")
+                    //.antMatchers("/student/**").permitAll()
+                    .antMatchers("/student/**").hasAnyRole("STUDENT")
+                    //.antMatchers("/company/**").permitAll()
+                    .antMatchers("/company/**").hasAnyRole("COMPANY")
                 .anyRequest().permitAll()
                 .and()
-                .logout()
-                    .permitAll()
-                .and()
-                .exceptionHandling().accessDeniedPage("/403");
+                .csrf().disable().formLogin()
+                .loginPage("/login").failureUrl("/login?error=true")
+                .defaultSuccessUrl("/")
+                .usernameParameter("email")
+                .passwordParameter("password")
+                .and().logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/").and().exceptionHandling()
+                .accessDeniedPage("/error?code=403");
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.
+                jdbcAuthentication()
+                .usersByUsernameQuery(usersQuery)
+                .authoritiesByUsernameQuery(rolesQuery)
+                .dataSource(dataSource)
+                .passwordEncoder(bCryptPasswordEncoder);
     }
 
 }
