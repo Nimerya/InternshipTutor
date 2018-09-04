@@ -76,7 +76,7 @@ public class DashboardController {
         model.addAttribute("userType",  "Student");
 
         //TODO retrieve userid from session
-        Long userId = 61L;
+        Long userId = 57L;
 
         User u = userService.findUserById(userId);
         Student s = u.getStudent();
@@ -100,7 +100,7 @@ public class DashboardController {
         model.addAttribute("userType",  "Company");
 
         //TODO retrieve userid from session
-        Long userId = 54L;
+        Long userId = 47L;
 
         User u = userService.findUserById(userId);
         Company c = u.getCompany();
