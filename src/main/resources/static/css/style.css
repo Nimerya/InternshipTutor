@@ -184,7 +184,7 @@ div#bs-example-navbar-collapse-1 {
 }
 .top-nav ul li{
     display: inline-block;
-    margin: 0 !important;
+    margin: 0;
     float: none;	
 }
 .glyphicon-home {
@@ -293,7 +293,7 @@ ul.dropdown-menu {
     border-radius: 6px 0 6px 6px;
 }
 .top-nav ul li.login {
-    margin-left: 33% !important;
+    margin-left: 33%;
 }
 /*--Login --*/
 #loginContainer {

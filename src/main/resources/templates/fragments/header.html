@@ -50,7 +50,7 @@
                                                                                 aria-hidden="true"></span></a></li>
                             <li><a th:href="@{/}" class="active">Home</a></li>
 
-                            <li><a href="">Affiliated companies</a></li>
+                            <li><a th:href="@{/affiliatedCompanies}">Affiliated companies</a></li>
 
                             <li sec:authorize="hasRole('STUDENT')"><a th:href="@{/student/dashboard}">Dashboard</a></li>
                             <li sec:authorize="hasRole('ADMIN')"><a th:href="@{/admin/dashboard}">Dashboard</a></li>
@@ -179,7 +179,7 @@
 
                                 <li sec:authorize="hasRole('COMPANY')"><a href="">Publish an offer</a></li>
 
-                                <li sec:authorize="isAnonymous()" class="login w3">
+                                <li sec:authorize="isAnonymous()" class="login w3 margin-left-57">
                                     <div id="loginContainer"><a href="#" id="loginButton"><span> Login</span></a>
                                         <div id="loginBox">
                                             <form id="loginForm" th:action="@{/login}" method="POST">
@@ -199,7 +199,17 @@
                                     </div>
                                 </li>
 
-                            <li sec:authorize="isAuthenticated()" class="login w3">
+                            <li sec:authorize="hasRole('COMPANY')" class="login w3 margin-left-29">
+                                <div><a th:href="@{/logout}"><span>Logout</span></a>
+                                </div>
+                            </li>
+
+                            <li sec:authorize="hasRole('STUDENT')" class="login w3 margin-left-45">
+                                <div><a th:href="@{/logout}"><span>Logout</span></a>
+                                </div>
+                            </li>
+
+                            <li sec:authorize="hasRole('ADMIN')" class="login w3">
                                 <div><a th:href="@{/logout}"><span>Logout</span></a>
                                 </div>
                             </li>
