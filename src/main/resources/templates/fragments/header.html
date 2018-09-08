@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
 
 </head>
@@ -50,14 +50,13 @@
                                                                                 aria-hidden="true"></span></a></li>
                             <li><a th:href="@{/}" class="active">Home</a></li>
 
-                            <!-- TODO Student/Anonymous only -->
                             <li><a href="">Affiliated companies</a></li>
 
-                            <!-- TODO parametric student/company not visible to anonymous-->
-                            <li><a th:href="@{/admin/dashboard}" href="">Dashboard </a></li>
+                            <li sec:authorize="hasRole('STUDENT')"><a th:href="@{/student/dashboard}">Dashboard</a></li>
+                            <li sec:authorize="hasRole('ADMIN')"><a th:href="@{/admin/dashboard}">Dashboard</a></li>
+                            <li sec:authorize="hasRole('COMPANY')"><a th:href="@{/company/dashboard}">Dashboard</a></li>
 
-                            <!-- TODO Admin only -->
-                            <li>
+                            <li sec:authorize="hasRole('ADMIN')">
                                 <a href="#" class="dropdown-toggle hvr-bounce-to-bottom"
                                    data-toggle="dropdown" role="button" aria-haspopup="true"
                                    aria-expanded="true">Actions
@@ -178,29 +177,30 @@
                                 </ul>
                             </li>
 
-                            <!-- TODO Company only -->
-                            <th:block th:if="1 == 0">
-                                <li><a href="">Publish an offer</a></li>
-                            </th:block>
+                                <li sec:authorize="hasRole('COMPANY')"><a href="">Publish an offer</a></li>
 
-
-                            <li class="login w3">
-                                <div id="loginContainer"><a href="#" id="loginButton"><span>Login</span></a>
-                                    <div id="loginBox">
-                                        <form id="loginForm" th:action="@{/login}" method="POST">
-                                            <fieldset id="body">
-                                                <fieldset>
-                                                    <label for="email">Email Address</label>
-                                                    <input type="text" name="email" id="email" required="">
+                                <li sec:authorize="isAnonymous()" class="login w3">
+                                    <div id="loginContainer"><a href="#" id="loginButton"><span> Login</span></a>
+                                        <div id="loginBox">
+                                            <form id="loginForm" th:action="@{/login}" method="POST">
+                                                <fieldset id="body">
+                                                    <fieldset>
+                                                        <label for="email">Email Address</label>
+                                                        <input type="text" name="email" id="email" required="">
+                                                    </fieldset>
+                                                    <fieldset>
+                                                        <label for="password">Password</label>
+                                                        <input type="password" name="password" id="password" required="">
+                                                    </fieldset>
+                                                    <input type="submit" id="login" class="loginButton btn btn-info btn-block squared" value="Login">
                                                 </fieldset>
-                                                <fieldset>
-                                                    <label for="password">Password</label>
-                                                    <input type="password" name="password" id="password" required="">
-                                                </fieldset>
-                                                <input type="submit" id="login" class="loginButton btn btn-info btn-block squared" value="Login">
-                                            </fieldset>
-                                        </form>
+                                            </form>
+                                        </div>
                                     </div>
+                                </li>
+
+                            <li sec:authorize="isAuthenticated()" class="login w3">
+                                <div><a th:href="@{/logout}"><span>Logout</span></a>
                                 </div>
                             </li>
                         </ul>

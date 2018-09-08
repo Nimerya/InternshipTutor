@@ -9,7 +9,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -63,6 +65,20 @@ public class CompanyService implements ICompanyService {
     }
 
     @Override
+    public Map<Long, Double> findCompaniesAverage(){
+
+        Map<Long, Double> companiesAverage = new HashMap<>();
+
+        List<IAverageCompanyProjection> companies = companyRepository.findCompaniesAverage();
+
+        for (IAverageCompanyProjection company: companies){
+            companiesAverage.put(company.getId(), company.getAverage());
+        }
+
+        return companiesAverage;
+    }
+
+    @Override
     public List<IWorstCompanyProjection> worstCompanies(int limit){
         return companyRepository.worstCompanies(limit);
     }
@@ -72,6 +88,12 @@ public class CompanyService implements ICompanyService {
 
     @Override
     public Page<Company> findCompaniesByActiveFalse(Pageable pageable){return companyRepository.findCompaniesByActiveFalse(pageable);}
+
+    @Override
+    public List<Company> findCompaniesByActiveTrue(){ return companyRepository.findCompaniesByActiveTrue();};
+
+    @Override
+    public Page<Company> findCompaniesByActiveTrue(Pageable pageable){return companyRepository.findCompaniesByActiveTrue(pageable);}
 
 
 }

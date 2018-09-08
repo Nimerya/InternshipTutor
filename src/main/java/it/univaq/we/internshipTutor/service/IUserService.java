@@ -22,5 +22,6 @@ public interface IUserService {
 
     User findUserByStudent(Long id);
 
+    User findUserByEmail(String email);
 
 }

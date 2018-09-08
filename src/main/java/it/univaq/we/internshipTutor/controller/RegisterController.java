@@ -75,7 +75,7 @@ public class RegisterController {
         }
 
         // set student permissions
-        user.setRole(roleService.findRoleByName("STUDENT"));
+        user.setRole(roleService.findRoleByName("ROLE_STUDENT"));
 
         // set no handicap if not already set
         if (student.getHandicap() == null) {
@@ -160,7 +160,7 @@ public class RegisterController {
         }
 
         // set company permissions
-        user.setRole(roleService.findRoleByName("COMPANY"));
+        user.setRole(roleService.findRoleByName("ROLE_COMPANY"));
 
         // set no active as default
         company.setActive(Boolean.FALSE);
@@ -193,7 +193,8 @@ public class RegisterController {
             }// company name already in use
             else if (e.getMessage().contains("name_UNIQUE")) {
                 redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Company name already in use!"));
-            }else{
+            }
+            else{
                 redirectAttributes.addFlashAttribute("popup", new Popup("warning", e.getMessage()));
             }
             return "redirect:/register/company";
