@@ -92,7 +92,7 @@ public class PdfBuilderService implements IPdfBuilderService {
             PDField check_handicap_no = acroForm.getField("check_handicap_no");
             PDField azienda_ospitante = acroForm.getField("azienda_ospitante");
             PDField luogo_effettuazione_tirocinio = acroForm.getField("luogo_effettuazione_tirocinio");
-            PDField periodo_di_tirocinio_n = acroForm.getField("periodo_di_tirocinio_n");
+            PDField numero_ore_tirocinio = acroForm.getField("numero_ore_tirocinio");
             PDField numero_cfu = acroForm.getField("numero_cfu");
             PDField tutore_universitario = acroForm.getField("tutore_universitario");
             PDField telefono_tutore_universitario = acroForm.getField("telefono_tutore_universitario");
@@ -132,7 +132,7 @@ public class PdfBuilderService implements IPdfBuilderService {
             }
             azienda_ospitante.setValue(c.getName());
             luogo_effettuazione_tirocinio.setValue(i.getAddress());
-            periodo_di_tirocinio_n.setValue(String.valueOf(i.getLength()));
+            numero_ore_tirocinio.setValue(String.valueOf(i.getLength()));
 
             numero_cfu.setValue(String.valueOf(studentInternship.getCfu()));
             tutore_universitario.setValue(studentInternship.getProfessor().getFirstName()+studentInternship.getProfessor().getLastName());
@@ -141,20 +141,19 @@ public class PdfBuilderService implements IPdfBuilderService {
             tutore_aziendale.setValue(companyTutor.getFirstName()+companyTutor.getLastName());
             telefono_tutore_aziendale.setValue(companyTutor.getPhoneNumber());
 
-            // TODO check language
             String obiettivo = i.getGoalsItIt();
             String modalita = i.getModeItIt();
 
             try{
-                obiettivo_tirocinio_1.setValue(obiettivo.substring(0, 65+1));
-                obiettivo_tirocinio_2.setValue(obiettivo.substring(65, 65*2+1));
-                obiettivo_tirocinio_3.setValue(obiettivo.substring(65*2+1, 65*3+1));
-                obiettivo_tirocinio_4.setValue(obiettivo.substring(65*3+1, 65*4+1));
+                obiettivo_tirocinio_1.setValue(obiettivo.substring(0, 100+1));
+                obiettivo_tirocinio_2.setValue(obiettivo.substring(100, 100*2+1));
+                obiettivo_tirocinio_3.setValue(obiettivo.substring(100*2+1, 100*3+1));
+                obiettivo_tirocinio_4.setValue(obiettivo.substring(100*3+1, 100*4+1));
 
-                modalita_tirocinio_1.setValue(modalita.substring(0, 65+1));
-                modalita_tirocinio_2.setValue(modalita.substring(65, 65*2+1));
-                modalita_tirocinio_3.setValue(modalita.substring(65*2+1, 65*3+1));
-                modalita_tirocinio_4.setValue(modalita.substring(65*3+1, 65*4+1));
+                modalita_tirocinio_1.setValue(modalita.substring(0, 100+1));
+                modalita_tirocinio_2.setValue(modalita.substring(100, 100*2+1));
+                modalita_tirocinio_3.setValue(modalita.substring(100*2+1, 100*3+1));
+                modalita_tirocinio_4.setValue(modalita.substring(100*3+1, 100*4+1));
             }catch (StringIndexOutOfBoundsException e){
                 //e.printStackTrace();
             }
