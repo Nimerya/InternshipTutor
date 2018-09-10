@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ICompanyService {
 
@@ -26,9 +27,14 @@ public interface ICompanyService {
 
     List<IWorstCompanyProjection> worstCompanies(int limit);
 
+    Map<Long, Double> findCompaniesAverage();
+
     List<Company> findCompaniesByActiveFalse();
 
     Page<Company> findCompaniesByActiveFalse(Pageable pageable);
 
+    List<Company> findCompaniesByActiveTrue();
+
+    Page<Company> findCompaniesByActiveTrue(Pageable pageable);
 
 }

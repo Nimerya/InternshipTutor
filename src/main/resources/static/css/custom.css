@@ -281,3 +281,25 @@
 .text-small{
     font-size: 1em!important;
 }
+
+.pull-right-login {
+    float: right !important;
+    padding-top: 24px !important;
+}
+
+/* Header margin-left adjustment */
+
+/* Anonymous */
+.margin-left-57{
+    margin-left: 57% !important;
+}
+
+/* Company */
+.margin-left-29{
+    margin-left: 29% !important;
+}
+
+/* Student */
+.margin-left-45{
+    margin-left: 45% !important;
+}

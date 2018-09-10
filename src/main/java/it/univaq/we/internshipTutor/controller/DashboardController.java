@@ -9,6 +9,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -71,12 +72,12 @@ public class DashboardController {
     }
 
     @RequestMapping(value = {"/student/dashboard"}, method = RequestMethod.GET)
-    public String renderStudentDashboard(ModelMap model) {
+    public String renderStudentDashboard(ModelMap model, Principal principal) {
 
         model.addAttribute("userType",  "Student");
 
-        //TODO retrieve userid from session
-        Long userId = 57L;
+        User user = userService.findUserByEmail(principal.getName());
+        Long userId = user.getId();
 
         User u = userService.findUserById(userId);
         Student s = u.getStudent();
@@ -95,12 +96,12 @@ public class DashboardController {
     }
 
     @RequestMapping(value = {"/company/dashboard"}, method = RequestMethod.GET)
-    public String renderCompanyDashboard(ModelMap model) {
+    public String renderCompanyDashboard(ModelMap model, Principal principal) {
 
         model.addAttribute("userType",  "Company");
 
-        //TODO retrieve userid from session
-        Long userId = 47L;
+        User user = userService.findUserByEmail(principal.getName());
+        Long userId = user.getId();
 
         User u = userService.findUserById(userId);
         Company c = u.getCompany();
