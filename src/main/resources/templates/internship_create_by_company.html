@@ -205,12 +205,12 @@
 
 
                                 <!-- label -->
-                                <label for="length" class="col-sm-2 control-label">Length</label>
+                                <label for="length" class="col-sm-2 control-label">Length (hours)</label>
                                 <!-- input -->
                                 <div class="col-sm-10">
-                                    <input th:field="*{length}" type="number" min="1" max="24" required="required"
+                                    <input th:field="*{length}" type="number" min="1" max="999" required="required"
                                            class="form-control1" id="length"
-                                           placeholder="Insert internship length">
+                                           placeholder="Insert internship length in hours">
                                 </div>
 
                                 <!-- help text
@@ -306,7 +306,7 @@
                                         Remote</label></div>
                                     <div class="checkbox-inline"><label><input th:field="*{refund}" type="checkbox">
                                         Refund</label></div>
-                                    <div class="checkbox-inline"><label><input th:field="*{active}" type="checkbox">
+                                    <div class="checkbox-inline"><label><input th:field="*{active}" type="checkbox" >
                                         Active</label></div>
                                 </div>
                             </div>

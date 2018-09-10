@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Affiliated Companies</title>
+    <!-- head -->
+    <meta th:replace="fragments/head :: head">
+    <!-- head -->
+    <!-- head_scripts -->
+    <meta th:replace="fragments/head_scripts :: head_scripts">
+    <!-- head_scripts -->
+</head>
+<body>
+
+
+<!-- header -->
+<div th:replace="fragments/header :: header"></div>
+<!-- header -->
+
+<div class="codes about">
+    <div class="container">
+
+        <div th:replace="fragments/search"></div>
+
+        <!-- pagination -->
+        <th:block th:if="${!internships.isEmpty()}">
+            <th:block th:replace="fragments/pagination_bar :: pagination_bar(${page})">
+                will be replaced
+            </th:block>
+        </th:block>
+
+
+        <div class="well" th:unless="${!internships.isEmpty()}" th:text="${'No internships found! Try change keywords'}">
+            Empty report message
+        </div>
+    </div>
+</div>
+
+
+<!-- footer -->
+<div th:replace="fragments/footer"></div>
+<!-- footer -->
+<!-- footer_scripts -->
+<div th:replace="fragments/footer_scripts"></div>
+<!-- footer_scripts -->
+
+</body>
+</html>

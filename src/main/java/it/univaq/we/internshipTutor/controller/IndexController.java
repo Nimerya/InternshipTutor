@@ -1,6 +1,12 @@
 package it.univaq.we.internshipTutor.controller;
 
+import it.univaq.we.internshipTutor.model.Company;
+import it.univaq.we.internshipTutor.model.Internship;
 import it.univaq.we.internshipTutor.model.Popup;
+import it.univaq.we.internshipTutor.model.User;
+import it.univaq.we.internshipTutor.service.InternshipService;
+import it.univaq.we.internshipTutor.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,15 +16,33 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class IndexController {
 
-    @RequestMapping(value={"/", "/index", "/index.html"}, method = RequestMethod.GET)
-    public String index(HttpSession httpSession, ModelMap model) {
+    @Autowired
+    InternshipService internshipService;
 
-        model.addAttribute("popup", httpSession.getAttribute("popup"));
-        httpSession.removeAttribute("popup");
+    @Autowired
+    UserService userService;
+
+    @RequestMapping(value={"/", "/index", "/index.html"}, method = RequestMethod.GET)
+    public String index(ModelMap model) {
+
+        Map<Long, User> pippo = new HashMap<>();
+
+        List<Internship> internships = internshipService.findAll();
+
+        for(Internship internship : internships){
+            pippo.put(internship.getId(), userService.findUserByCompany(internship.getCompany().getId()));
+        }
+
+        model.addAttribute("internships", internships);
+        model.addAttribute("pippo", pippo);
+
         return "index";
     }
 

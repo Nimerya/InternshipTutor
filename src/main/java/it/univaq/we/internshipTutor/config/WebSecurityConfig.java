@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -52,13 +53,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                    .antMatchers("/", "/index", "/register/**").permitAll()
+                    .antMatchers("/", "/index", "/register/**", "/internships").permitAll()
                     //.antMatchers("/admin/**").permitAll()
                     .antMatchers("/admin/**").hasAnyRole("ADMIN")
                     //.antMatchers("/student/**").permitAll()
                     .antMatchers("/student/**").hasAnyRole("STUDENT")
                     //.antMatchers("/company/**").permitAll()
                     .antMatchers("/company/**").hasAnyRole("COMPANY")
+                    .antMatchers(HttpMethod.POST, "/internship/**").hasAnyRole("STUDENT")
                 .anyRequest().permitAll()
                 .and()
                 .csrf().disable().formLogin()

@@ -177,9 +177,9 @@
                                 </ul>
                             </li>
 
-                                <li sec:authorize="hasRole('COMPANY')"><a href="">Publish an offer</a></li>
+                                <li sec:authorize="hasRole('COMPANY')"><a th:href="@{/company/create/internship}">Publish an offer</a></li>
 
-                                <li sec:authorize="isAnonymous()" class="login w3 margin-left-57">
+                                <li sec:authorize="isAnonymous()" class="login w3 anonymous">
                                     <div id="loginContainer"><a href="#" id="loginButton"><span> Login</span></a>
                                         <div id="loginBox">
                                             <form id="loginForm" th:action="@{/login}" method="POST">
