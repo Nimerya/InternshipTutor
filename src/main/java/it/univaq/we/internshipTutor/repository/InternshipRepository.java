@@ -29,5 +29,6 @@ public interface InternshipRepository extends JpaRepository<Internship, Long> {
     //List of all inactive internships published by a given company
     List<Internship> findInternshipsByCompanyAndActiveFalse(Company c);
 
+    Page<Internship> findInternshipByTitleIgnoreCaseContainingOrDetailsEnGbIgnoreCaseContainingOrModeEnGbIgnoreCaseContainingOrGoalsEnGbIgnoreCaseContainingOrFacilitationsIgnoreCaseContaining(Pageable pageable, String q1, String q2, String q3, String q4, String q5);
 
 }

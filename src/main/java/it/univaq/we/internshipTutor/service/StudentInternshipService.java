@@ -95,11 +95,15 @@ public class StudentInternshipService implements IStudentInternshipService  {
         return studentInternshipRepository.findStudentInternshipsByStudentAndAcceptedFalseAndRejectedFalseAndCompletedFalse(s);
     }
 
-
     //List of all student internship that represent the list of students that are candidate for a certain internship
     @Override
     public Page<StudentInternship> findCandidatesByInternship(Pageable p, Internship i){
         return studentInternshipRepository.findStudentInternshipsByInternship/*AndAcceptedFalseAndRejectedFalse*/(p, i);
+    }
+
+    @Override
+    public List<StudentInternship> findStudentInternshipByStudentAndInternship(Student student, Internship internship){
+        return studentInternshipRepository.findStudentInternshipByStudentAndInternship(student, internship);
     }
 
     @Override

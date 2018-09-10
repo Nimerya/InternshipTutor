@@ -57,13 +57,13 @@ public class Internship {
 
     @Column(name = "length", nullable = false)
     @Min(1)
-    @Max(24)
+    @Max(999)
     private int length;
 
-    @Column(name = "mode_it_it", nullable = false, length = 255)
+    @Column(name = "mode_it_it", nullable = false, length = -1)
     private String modeItIt;
 
-    @Column(name = "mode_en_gb", nullable = true, length = 255)
+    @Column(name = "mode_en_gb", nullable = true, length = -1)
     @NotEmpty
     private String modeEnGb;
 

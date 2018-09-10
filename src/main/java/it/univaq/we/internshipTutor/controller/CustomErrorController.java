@@ -42,6 +42,9 @@ public class CustomErrorController implements ErrorController {
             case 404:
                 errorMessage = "The resource you were looking for cannot be found.";
                 break;
+            case 405:
+                errorMessage = "You are not authorized to access this resource.";
+                break;
             case 500:
             case 501:
             case 502:

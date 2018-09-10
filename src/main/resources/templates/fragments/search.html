@@ -1,9 +1,7 @@
-<div class="news" id="news" xmlns:th="http://www.w3.org/1999/xhtml">
+<div id="news" xmlns:th="http://www.w3.org/1999/xhtml">
     <!-- container -->
     <div class="container">
-        <div class="news-info agileits-w3layouts">
-            <h3>Latest Internships</h3>
-        </div>
+
         <div class="col-md-12 col-sm-12 header-top-right search-bar margin-bottom-30">
             <form th:action="@{/internships}" method="GET">
                 <input type="text" name="s" placeholder="Search" required="">
@@ -11,10 +9,11 @@
                 <div class="clearfix"> </div>
             </form>
         </div>
+
         <div th:if="${!internships.isEmpty()}" class="news-grids">
             <div th:each="item: ${internships}" class="col-md-12 news-wthreegrid">
                 <div class="news-grid-left">
-                    <div class="col-md-2 col-sm-12">
+                    <div class="col-md-2">
                         <img src="" th:src="@{'/files/images/'+ ${pippo.get(item.getId()).getImage()}}" class="profile-image">
                     </div>
                     <div class="col-md-10 date-info">

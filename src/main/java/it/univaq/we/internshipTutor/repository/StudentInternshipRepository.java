@@ -39,6 +39,6 @@ public interface StudentInternshipRepository extends JpaRepository<StudentIntern
     //List of all student internship that represent the list of students that are candidate for a certain internship
     Page<StudentInternship> findStudentInternshipsByInternship/*AndAcceptedFalseAndRejectedFalse*/ (Pageable p, Internship i);
 
-
+    List<StudentInternship> findStudentInternshipByStudentAndInternship(Student student, Internship internship);
 
 }

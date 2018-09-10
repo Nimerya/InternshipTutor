@@ -290,6 +290,7 @@
 /* Header margin-left adjustment */
 
 /* Anonymous */
+@media (max)
 .margin-left-57{
     margin-left: 57% !important;
 }
@@ -303,3 +304,8 @@
 .margin-left-45{
     margin-left: 45% !important;
 }
+
+.search-bar{
+    width: 100% !important;
+}
+

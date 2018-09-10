@@ -27,8 +27,6 @@ public interface IInternshipService {
     //List of all inactive internships published by a given company
     List<Internship> findInactiveInternships(Company c);
 
-
-
-
+    Page<Internship> findIntershipsByQuery(Pageable pageable, String q);
 
 }
