@@ -34,7 +34,7 @@ public class IndexController {
     @RequestMapping(value={"/", "/index", "/index.html"}, method = RequestMethod.GET)
     public String index(ModelMap model) {
 
-        Map<Long, User> pippo = new HashMap<>();
+        Map<Long, User> map = new HashMap<>();
 
         List<Internship> internships = internshipService.findActiveInternships();
 
@@ -42,12 +42,13 @@ public class IndexController {
 
         int limit = Math.min(3, internships.size());
         internships = internships.subList(0, limit);
+        
         for(Internship internship : internships){
-            pippo.put(internship.getId(), userService.findUserByCompany(internship.getCompany().getId()));
+            map.put(internship.getId(), userService.findUserByCompany(internship.getCompany().getId()));
         }
 
         model.addAttribute("internships", internships);
-        model.addAttribute("pippo", pippo);
+        model.addAttribute("map", map);
 
         return "index";
     }

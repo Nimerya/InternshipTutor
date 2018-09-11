@@ -28,6 +28,11 @@ public class InternshipService implements IInternshipService {
     }
 
     @Override
+    public Page<Internship> findActiveInternships(Pageable pageable) {
+        return internshipRepository.findInternshipsByActiveTrue(pageable);
+    }
+
+    @Override
     public Page<Internship> findAll(Pageable pageable){return internshipRepository.findAll(pageable);}
 
     public Internship findInternshipById(Long id) {

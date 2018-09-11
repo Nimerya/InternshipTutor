@@ -16,6 +16,8 @@ public interface InternshipRepository extends JpaRepository<Internship, Long> {
 
     List<Internship> findInternshipsByActiveTrue();
 
+    Page<Internship> findInternshipsByActiveTrue(Pageable pageable);
+
     Page<Internship> findAll(Pageable pageable);
 
     Internship findInternshipById(Long id);

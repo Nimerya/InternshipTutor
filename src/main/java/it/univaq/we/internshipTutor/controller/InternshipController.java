@@ -430,21 +430,22 @@ public class InternshipController {
     @RequestMapping(value = {"/internships"}, method = RequestMethod.GET)
     public String renderInternship(ModelMap model, @RequestParam(value = "s", required = false) String query, Pageable pageable){
 
-        Map<Long, User> pippo = new HashMap<>();
+        Map<Long, User> map = new HashMap<>();
         Page<Internship> internships;
 
         if(query != null && query.length() > 0){
             internships = internshipService.findIntershipsByQuery(pageable, query);
         } else {
-            internships = internshipService.findAll(pageable);
+            internships = internshipService.findActiveInternships(pageable);
         }
 
         for(Internship internship : internships){
-            pippo.put(internship.getId(), userService.findUserByCompany(internship.getCompany().getId()));
+            map.put(internship.getId(), userService.findUserByCompany(internship.getCompany().getId()));
         }
 
         PageWrapper<Internship> page = new PageWrapper<>(internships, "/internships");
         model.addAttribute("internships", internships.getContent());
+        model.addAttribute("map", map);
         model.addAttribute("page", page);
         return "search";
     }

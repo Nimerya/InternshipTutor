@@ -13,7 +13,7 @@
             <div th:each="item: ${internships}" class="col-md-12 news-wthreegrid">
                 <div class="news-grid-left">
                     <div class="col-md-2">
-                        <img src="" th:src="@{'/files/images/'+ ${pippo.get(item.getId()).getImage()}}" class="profile-image">
+                        <img src="" th:src="@{'/files/images/'+ ${map.get(item.getId()).getImage()}}" class="profile-image">
                     </div>
                     <div class="col-md-10 date-info">
                         <a th:href="@{'/internship/' + ${item.getId()}}" th:text="${item.getTitle()}"></a>

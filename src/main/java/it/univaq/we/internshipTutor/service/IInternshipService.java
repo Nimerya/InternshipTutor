@@ -13,6 +13,8 @@ public interface IInternshipService {
 
     List<Internship> findActiveInternships();
 
+    Page<Internship> findActiveInternships(Pageable pageable);
+
     Page<Internship> findAll(Pageable pageable);
 
     Internship findInternshipById(Long id);
