@@ -290,9 +290,31 @@
 /* Header margin-left adjustment */
 
 /* Anonymous */
-@media (max)
-.margin-left-57{
+
+.anonymous {
     margin-left: 57% !important;
+}
+
+
+@media (max-width: 1199px){
+    .anonymous {
+        margin-left: 51% !important;
+
+    }
+}
+
+@media (max-width: 1000px){
+    .anonymous {
+        margin-left: 50% !important;
+
+    }
+}
+
+@media (max-width: 991px){
+    .anonymous {
+        margin-left: 40% !important;
+
+    }
 }
 
 /* Company */
