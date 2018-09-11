@@ -207,7 +207,7 @@
 
                         </form>
 
-                        <th:block th:if="${company.getAgreement() == null}">
+                        <th:block>
                             <form method="GET" th:action="@{'/admin/build/agreement/' + ${company.getId()}}"
                                   class="form-horizontal">
                                 <!-- submit -->

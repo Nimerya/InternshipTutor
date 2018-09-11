@@ -1,6 +1,7 @@
 package it.univaq.we.internshipTutor.service;
 
 import it.univaq.we.internshipTutor.model.*;
+import org.apache.commons.text.WordUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentCatalog;
 import org.apache.pdfbox.pdmodel.interactive.form.PDAcroForm;
@@ -31,7 +32,7 @@ public class PdfBuilderService implements IPdfBuilderService {
     public String buildAgreement(Company company) {
 
         String agreementForm = docsPath + "/forms/form_agreement.pdf";
-        String fileName = "precompiled_agreement_" + company.getName()+".pdf";
+        String fileName = "precompiled_agreement_" + company.getName() + ".pdf";
 
         try {
             Path path = Paths.get(agreementForm);
@@ -65,7 +66,7 @@ public class PdfBuilderService implements IPdfBuilderService {
     public String buildTrainingProject(StudentInternship studentInternship) {
 
         String trainingProjectForm = docsPath + "/forms/form_training_project.pdf";
-        String fileName = "precompiled_training_project_" + studentInternship.getInternship().getTitle()+"_"+studentInternship.getStudent().getMatriculationNumber()+".pdf";
+        String fileName = "precompiled_training_project_" + studentInternship.getInternship().getTitle() + "_" + studentInternship.getStudent().getMatriculationNumber() + ".pdf";
 
         try {
             Path path = Paths.get(trainingProjectForm);
@@ -125,9 +126,9 @@ public class PdfBuilderService implements IPdfBuilderService {
             tirocinante_codice_fiscale.setValue(s.getFiscalCode());
             tirocinante_telefono.setValue(s.getUser().getPhoneNumber());
 
-            if(s.getHandicap()){
+            if (s.getHandicap()) {
                 ((PDCheckBox) check_handicap_si).check();
-            }else{
+            } else {
                 ((PDCheckBox) check_handicap_no).check();
             }
             azienda_ospitante.setValue(c.getName());
@@ -135,28 +136,67 @@ public class PdfBuilderService implements IPdfBuilderService {
             numero_ore_tirocinio.setValue(String.valueOf(i.getLength()));
 
             numero_cfu.setValue(String.valueOf(studentInternship.getCfu()));
-            tutore_universitario.setValue(studentInternship.getProfessor().getFirstName()+studentInternship.getProfessor().getLastName());
+            tutore_universitario.setValue(studentInternship.getProfessor().getFirstName() + studentInternship.getProfessor().getLastName());
             telefono_tutore_universitario.setValue(studentInternship.getProfessor().getPhoneNumber());
             User companyTutor = userService.findUserByCompany(c.getId());
-            tutore_aziendale.setValue(companyTutor.getFirstName()+companyTutor.getLastName());
+            tutore_aziendale.setValue(companyTutor.getFirstName() + companyTutor.getLastName());
             telefono_tutore_aziendale.setValue(companyTutor.getPhoneNumber());
+
+
 
             String obiettivo = i.getGoalsItIt();
             String modalita = i.getModeItIt();
+            /*Numero di righe disponibili nella sezione obiettivo e modalità del pdf*/
+            int numberOfRows = 4;
+
+            try {
+                int lenObiettivo = obiettivo.length();
+                /*Numero di caratteri da inserire in ogni riga della sezione obiettivo del pdf*/
+                /*Nota: lenObiettivo potrebbe non essere divisibile per 4, quindi calcoliamo un float*/
+                float subtotalObiettivo = lenObiettivo / numberOfRows;
+                /*Prendiamo la parte intera superiore del valore calcolato precedentemente:
+                 * se la parte intera inferiore è minore di 65 (dopo una verifica manuale è
+                 * stato deciso che il numero di caratteri "accettabili" in una sola riga non
+                 * potesse essere superiore a 65) allora settiamo il valore a 65, altrimenti
+                 * lasciamo il valore calcolato */
+                int charsInEachObjectiveRow = ((int) Math.floor(subtotalObiettivo) < 65) ? 65 : (int) Math.floor(subtotalObiettivo);
+                String wrapped = WordUtils.wrap(obiettivo, charsInEachObjectiveRow);
+                String[] wrapsObiettivo = wrapped.split(System.lineSeparator());
+
+                /*I wrap comutati vengono inseriti effettivamente nelle rispettive righe della sezione obiettivo del pdf*/
+                obiettivo_tirocinio_1.setValue(wrapsObiettivo[0]);
+                obiettivo_tirocinio_2.setValue((wrapsObiettivo.length >= 2) ? wrapsObiettivo[1] : "");
+                obiettivo_tirocinio_3.setValue((wrapsObiettivo.length >= 3) ? wrapsObiettivo[2] : "");
+                obiettivo_tirocinio_4.setValue((wrapsObiettivo.length >= 4) ? wrapsObiettivo[3] : "");
+
+            }catch (Exception e){
+                // non c'è l'obiettivo
+            }
 
             try{
-                obiettivo_tirocinio_1.setValue(obiettivo.substring(0, 100+1));
-                obiettivo_tirocinio_2.setValue(obiettivo.substring(100, 100*2+1));
-                obiettivo_tirocinio_3.setValue(obiettivo.substring(100*2+1, 100*3+1));
-                obiettivo_tirocinio_4.setValue(obiettivo.substring(100*3+1, 100*4+1));
+                int lenModalita = modalita.length();
+                /*Numero di caratteri da inserire in ogni riga della sezione modalità del pdf*/
+                /*Nota: lenModalita potrebbe non essere divisibile per 4, quindi calcoliamo un float*/
+                float subtotalModalita = lenModalita / numberOfRows;
+                /*Prendiamo la parte intera superiore del valore calcolato precedentemente:
+                 * se la parte intera inferiore è minore di 65 (dopo una verifica manuale è
+                 * stato deciso che il numero di caratteri "accettabili" in una sola riga non
+                 * potesse essere superiore a 65) allora settiamo il valore a 65, altrimenti
+                 * lasciamo il valore calcolato */
+                int charsInEachModalityRow = ((int) Math.floor(subtotalModalita) < 65) ? 65 : (int) Math.floor(subtotalModalita);
+                String wrapped = WordUtils.wrap(modalita, charsInEachModalityRow);
+                String[] wrapsModalita = wrapped.split(System.lineSeparator());
 
-                modalita_tirocinio_1.setValue(modalita.substring(0, 100+1));
-                modalita_tirocinio_2.setValue(modalita.substring(100, 100*2+1));
-                modalita_tirocinio_3.setValue(modalita.substring(100*2+1, 100*3+1));
-                modalita_tirocinio_4.setValue(modalita.substring(100*3+1, 100*4+1));
-            }catch (StringIndexOutOfBoundsException e){
-                //e.printStackTrace();
+                /*I wrap comutati vengono inseriti effettivamente nelle rispettive righe della sezione modalita del pdf*/
+                modalita_tirocinio_1.setValue(wrapsModalita[0]);
+                modalita_tirocinio_2.setValue((wrapsModalita.length >= 2) ? wrapsModalita[1] : "");
+                modalita_tirocinio_3.setValue((wrapsModalita.length >= 3) ? wrapsModalita[2] : "");
+                modalita_tirocinio_4.setValue((wrapsModalita.length >= 4) ? wrapsModalita[3] : "");
+            }catch (Exception e){
+                // non c'è la modalità
             }
+
+
 
             facilitazioni.setValue(i.getFacilitations());
 
@@ -173,7 +213,7 @@ public class PdfBuilderService implements IPdfBuilderService {
     public String buildFinalReport(StudentInternship studentInternship) {
 
         String finalReportForm = docsPath + "/forms/form_final_report.pdf";
-        String fileName = "precompiled_final_report_" + studentInternship.getInfo() +".pdf";
+        String fileName = "precompiled_final_report_" + studentInternship.getInfo() + ".pdf";
 
         try {
             Path path = Paths.get(finalReportForm);
@@ -199,9 +239,9 @@ public class PdfBuilderService implements IPdfBuilderService {
             codice_fiscale_azienda.setValue(c.getVatNumber());
             tirocinante_cognome.setValue(s.getUser().getLastName());
             tirocinante_nome.setValue(s.getUser().getFirstName());
-            codice_identificativo_tirocinio.setValue("id associazione studente-tirocinio: "+ studentInternship.getId());
+            codice_identificativo_tirocinio.setValue("id associazione studente-tirocinio: " + studentInternship.getId());
             sede_tirocinio.setValue(i.getAddress());
-            tirocinante_nome_cognome.setValue(s.getUser().getFirstName()+" "+s.getUser().getLastName());
+            tirocinante_nome_cognome.setValue(s.getUser().getFirstName() + " " + s.getUser().getLastName());
             ore.setValue(String.valueOf(i.getLength()));
 
             form.save(new File(docsPath, fileName));
@@ -215,7 +255,7 @@ public class PdfBuilderService implements IPdfBuilderService {
 
     @Override
     public void clean(String fileName) throws IOException {
-        Path path = Paths.get(docsPath+fileName);
+        Path path = Paths.get(docsPath + fileName);
         Files.deleteIfExists(path);
     }
 }
