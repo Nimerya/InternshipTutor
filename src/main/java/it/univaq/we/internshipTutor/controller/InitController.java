@@ -19,7 +19,7 @@ public class InitController {
 
     @ModelAttribute
     public void addAttributes(Model model) {
-        model.addAttribute("language", "italian");
+        model.addAttribute("language", "english");
     }
 
     @InitBinder

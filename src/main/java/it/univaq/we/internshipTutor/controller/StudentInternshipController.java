@@ -374,7 +374,7 @@ public class StudentInternshipController {
             return "redirect:/error?code=403";
         }
         // Check the StudentInternship not to be completed
-        if(currStudentInternship.getCompleted()){
+        if(!currStudentInternship.getCompleted()){
             return "redirect:/error?code=403";
         }
 

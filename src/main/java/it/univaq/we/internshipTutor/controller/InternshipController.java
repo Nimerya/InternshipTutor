@@ -433,7 +433,7 @@ public class InternshipController {
         Map<Long, User> pippo = new HashMap<>();
         Page<Internship> internships;
 
-        if(query != null){
+        if(query != null && query.length() > 0){
             internships = internshipService.findIntershipsByQuery(pageable, query);
         } else {
             internships = internshipService.findAll(pageable);
@@ -443,9 +443,7 @@ public class InternshipController {
             pippo.put(internship.getId(), userService.findUserByCompany(internship.getCompany().getId()));
         }
 
-        model.addAttribute("pippo", pippo);
-
-        PageWrapper<Internship> page = new PageWrapper<>(internships, "/internship");
+        PageWrapper<Internship> page = new PageWrapper<>(internships, "/internships");
         model.addAttribute("internships", internships.getContent());
         model.addAttribute("page", page);
         return "search";

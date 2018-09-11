@@ -14,7 +14,7 @@ public class LoginController {
     @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
     public String renderReport(@Nullable @RequestParam(value = "error") String error, ModelMap model) {
 
-        if(!(error == null)) {
+        if(error != null) {
             model.addAttribute("error", error);
         }
 

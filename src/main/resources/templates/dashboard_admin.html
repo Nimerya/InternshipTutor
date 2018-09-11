@@ -178,7 +178,7 @@
                                 <td th:text="${item.getName()}" class="col-xs-6 col-md-5 no-border-right">
                                 </td>
                                 <td class="col-xs-3 no-border-right text-center">
-                                    <span class="badge badge-custom" th:text="${item.getAverage()}">999</span>
+                                    <span class="badge badge-custom" th:text="${(item.getAverage() == null)?'-':item.getAverage()}">999</span>
                                 </td>
                                 <td class="col-xs-3 text-right">
                                     <a th:href="@{'/admin/update/company/'+${item.getId()}}"
@@ -221,7 +221,7 @@
                                 <td th:text="${item.getName()}" class="col-xs-6 col-md-5 no-border-right">
                                 </td>
                                 <td class="col-xs-3 no-border-right text-center">
-                                    <span class="badge badge-custom" th:text="${item.getAverage()}">999</span>
+                                    <span class="badge badge-custom" th:text="${(item.getAverage() == null)?'-':item.getAverage()}">999</span>
                                 </td>
                                 <td class="col-xs-3 text-right">
                                     <a th:href="@{'/admin/update/company/'+${item.getId()}}"

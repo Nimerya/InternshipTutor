@@ -99,6 +99,14 @@ public class RegisterController {
             return "redirect:/register/student";
         }
 
+        // check if uploaded file is a valid image and set it
+        try {
+            user.setImage(fileUploadService.uploadImage(imageFile, user.getFirstName() + "_" + user.getLastName()));
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", e.getMessage()));
+            return "redirect:/register/student";
+        }
+
         try {
             // else perform the insertion
             studentService.registerStudent(student, user);
@@ -108,14 +116,6 @@ public class RegisterController {
             }else{
                 redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
             }
-            return "redirect:/register/student";
-        }
-
-        // check if uploaded file is a valid image and set it
-        try {
-            user.setImage(fileUploadService.uploadImage(imageFile, user.getFirstName() + "_" + user.getLastName()));
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("popup", new Popup("warning", e.getMessage()));
             return "redirect:/register/student";
         }
 
@@ -182,6 +182,14 @@ public class RegisterController {
             return "redirect:/register/company";
         }
 
+        // check if uploaded file is a valid image and set it
+        try {
+            user.setImage(fileUploadService.uploadImage(imageFile, user.getFirstName() + "_" + user.getLastName()));
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("popup", new Popup("warning", e.getMessage()));
+            return "redirect:/register/company";
+        }
+
         try {
             // else perform the insertion
             companyService.registerCompany(company, user);
@@ -197,14 +205,6 @@ public class RegisterController {
             else{
                 redirectAttributes.addFlashAttribute("popup", new Popup("warning", e.getMessage()));
             }
-            return "redirect:/register/company";
-        }
-
-        // check if uploaded file is a valid image and set it
-        try {
-            user.setImage(fileUploadService.uploadImage(imageFile, user.getFirstName() + "_" + user.getLastName()));
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("popup", new Popup("warning", e.getMessage()));
             return "redirect:/register/company";
         }
 
