@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -30,6 +31,9 @@ public class StudentInternshipController {
 
     @Autowired
     StudentService studentService;
+
+    @Autowired
+    UserService userService;
 
     @Autowired
     InternshipService internshipService;
@@ -148,12 +152,22 @@ public class StudentInternshipController {
     @RequestMapping(value = {"/company/accept/studentinternship"}, method = RequestMethod.POST)
     public String doAcceptByCompany(RedirectAttributes redirectAttributes,
                                     @RequestParam("id") Long id,
-                                    @RequestParam("trainingProjectFile") MultipartFile trainingProjectFile) {
+                                    @RequestParam("trainingProjectFile") MultipartFile trainingProjectFile, Principal principal) {
 
-        //TODO check that the company is accepting a student into one of its own internships
-        //TODO check that this studentinternship is active
+        User user = userService.findUserByEmail(principal.getName());
 
         StudentInternship studentInternship = studentinternshipService.findStudentInternshipById(id);
+
+        // Check that the company is accepting its own internship
+        if(!(studentInternship.getInternship().getCompany().getId().equals(user.getCompany().getId()))){
+            return "redirect:/error?code=403";
+        }
+
+        // Check the internship to be active
+        if(!studentInternship.getInternship().getActive()){
+            return "redirect:/error?code=403";
+        }
+
         Long internshipId = studentInternship.getInternship().getId();
 
         try {
@@ -179,12 +193,22 @@ public class StudentInternshipController {
     }
 
     @RequestMapping(value = {"/company/accept/studentinternship/{id}"}, method = RequestMethod.GET)
-    public String renderAcceptByCompany(ModelMap model, @PathVariable(value = "id") Long id, Pageable pageable, RedirectAttributes redirectAttributes) {
+    public String renderAcceptByCompany(ModelMap model, @PathVariable(value = "id") Long id, Pageable pageable, Principal principal) {
 
-        //TODO security checks (only the authorized company can see this form)
-        //TODO do not allow to access this page if the studentinternship has already been accepted
+        User user = userService.findUserByEmail(principal.getName());
+        StudentInternship studentInternship = studentinternshipService.findStudentInternshipById(id);
+
+        // Check that the company is viewing its own internship
+        if(!(studentInternship.getInternship().getCompany().getId().equals(user.getCompany().getId()))){
+            return "redirect:/error?code=403";
+        }
+        // Check the StudentInternship not to be completed
+        if(studentInternship.getCompleted()){
+            return "redirect:/error?code=403";
+        }
 
         StudentInternship studentinternship = studentinternshipService.findStudentInternshipById(id);
+
         model.addAttribute("studentinternship", studentinternship);
 
         Student student = studentinternship.getStudent();
@@ -205,10 +229,22 @@ public class StudentInternshipController {
     }
 
     @RequestMapping(value = {"/company/reject/studentinternship/{id}"}, method = RequestMethod.GET)
-    public String doRejectByCompany(@PathVariable(value = "id") Long id, RedirectAttributes redirectAttributes) {
+    public String doRejectByCompany(@PathVariable(value = "id") Long id, RedirectAttributes redirectAttributes, Principal principal) {
 
-        //TODO check that the company is accepting a student into one of its own internships
-        //TODO check that this studentinternship is active
+
+        User user = userService.findUserByEmail(principal.getName());
+
+        StudentInternship studentInternship = studentinternshipService.findStudentInternshipById(id);
+
+        // Check that the company is rejecting its own internship
+        if(!(studentInternship.getInternship().getCompany().getId().equals(user.getCompany().getId()))){
+            return "redirect:/error?code=403";
+        }
+
+        // Check the internship to be active
+        if(!studentInternship.getInternship().getActive()){
+            return "redirect:/error?code=403";
+        }
 
         Long internshipId = studentinternshipService.findStudentInternshipById(id).getInternship().getId();
 
@@ -229,18 +265,27 @@ public class StudentInternshipController {
 
     @RequestMapping(value = {"/student/create/review/{id}"}, method = RequestMethod.GET)
     public String renderCreateReviewByStudent(ModelMap model, @PathVariable(value = "id") Long id,
-                                              RedirectAttributes redirectAttributes) {
+                                              RedirectAttributes redirectAttributes, Principal principal) {
 
-        //TODO security checks
-
+        Student currStudent = userService.findUserByEmail(principal.getName()).getStudent();
         StudentInternship studentinternship = studentinternshipService.findStudentInternshipById(id);
+
+        if(!(studentinternship.getStudent().getId().equals(currStudent.getId()))){
+            return "redirect:/error?code=403";
+        }
+
+        // Check the StudentInternship to be completed
+        if(!studentinternship.getCompleted()){
+            return "redirect:/error?code=403";
+        }
+
         model.addAttribute("studentinternship", studentinternship);
 
         Student student = studentinternship.getStudent();
         model.addAttribute("student", student);
 
-        Internship intership = studentinternship.getInternship();
-        model.addAttribute("internship", intership);
+        Internship internship = studentinternship.getInternship();
+        model.addAttribute("internship", internship);
 
         Professor professor = studentinternship.getProfessor();
         model.addAttribute("professor", professor);
@@ -250,11 +295,20 @@ public class StudentInternshipController {
 
     @RequestMapping(value = {"/student/create/review"}, method = RequestMethod.POST)
     public String doCreateReviewByStudent(RedirectAttributes redirectAttributes,
-                                    @RequestParam("id") Long id, @RequestParam("review") Integer review) {
+                                    @RequestParam("id") Long id, @RequestParam("review") Integer review, Principal principal) {
 
-        //TODO security checks
-
+        Student student = userService.findUserByEmail(principal.getName()).getStudent();
         StudentInternship studentInternship = studentinternshipService.findStudentInternshipById(id);
+
+        if(!(studentInternship.getStudent().getId().equals(student.getId()))){
+            return "redirect:/error?code=403";
+        }
+
+        // Check the StudentInternship to be completed
+        if(!studentInternship.getCompleted()){
+            return "redirect:/error?code=403";
+        }
+
 
         if (review < 1 || review > 5){
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Review value not valid."));
@@ -278,10 +332,19 @@ public class StudentInternshipController {
 
     @RequestMapping(value = {"/company/create/finalreport/{id}"}, method = RequestMethod.GET)
     public String renderCreateFinalReportByCompany(ModelMap model, @PathVariable(value = "id") Long id,
-                                        RedirectAttributes redirectAttributes) {
+                                        RedirectAttributes redirectAttributes, Principal principal) {
 
-        //TODO security checks (only the authorized company can see this form)
-        //TODO do not allow to access this page if the studentinternship is not completed
+        User user = userService.findUserByEmail(principal.getName());
+        StudentInternship studentInternship = studentinternshipService.findStudentInternshipById(id);
+
+        // Check that the company is viewing its own internship
+        if(!(studentInternship.getInternship().getCompany().getId().equals(user.getCompany().getId()))){
+            return "redirect:/error?code=403";
+        }
+        // Check the StudentInternship to be completed
+        if(!studentInternship.getCompleted()){
+            return "redirect:/error?code=403";
+        }
 
         StudentInternship studentinternship = studentinternshipService.findStudentInternshipById(id);
         model.addAttribute("studentinternship", studentinternship);
@@ -301,9 +364,19 @@ public class StudentInternshipController {
     @RequestMapping(value = {"/company/create/finalreport"}, method = RequestMethod.POST)
     public String doCreateFinalReportByCompany(RedirectAttributes redirectAttributes,
                                     @RequestParam("id") Long id,
-                                    @RequestParam("finalReportFile") MultipartFile finalReportFile) {
+                                    @RequestParam("finalReportFile") MultipartFile finalReportFile, Principal principal) {
 
-        //TODO security/integrity checks
+        User user = userService.findUserByEmail(principal.getName());
+        StudentInternship currStudentInternship = studentinternshipService.findStudentInternshipById(id);
+
+        // Check that the company is viewing its own internship
+        if(!(currStudentInternship.getInternship().getCompany().getId().equals(user.getCompany().getId()))){
+            return "redirect:/error?code=403";
+        }
+        // Check the StudentInternship not to be completed
+        if(currStudentInternship.getCompleted()){
+            return "redirect:/error?code=403";
+        }
 
         StudentInternship studentInternship = studentinternshipService.findStudentInternshipById(id);
 

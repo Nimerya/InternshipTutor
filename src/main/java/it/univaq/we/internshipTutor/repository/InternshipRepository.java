@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -29,6 +30,15 @@ public interface InternshipRepository extends JpaRepository<Internship, Long> {
     //List of all inactive internships published by a given company
     List<Internship> findInternshipsByCompanyAndActiveFalse(Company c);
 
-    Page<Internship> findInternshipByTitleIgnoreCaseContainingOrDetailsEnGbIgnoreCaseContainingOrModeEnGbIgnoreCaseContainingOrGoalsEnGbIgnoreCaseContainingOrFacilitationsIgnoreCaseContaining(Pageable pageable, String q1, String q2, String q3, String q4, String q5);
+    @Query(value = "select * from " +
+            "internship where " +
+            "active=1 and" +
+            "((upper(title) like CONCAT('%', upper(:q1), '%')) or " +
+            "(upper(details_en_gb) like CONCAT('%', upper(:q2), '%')) or " +
+            "(upper(mode_en_gb) like CONCAT('%', upper(:q3), '%')) or " +
+            "(upper(goals_en_gb) like CONCAT('%', upper(:q4), '%')) or " +
+            "(upper(facilitations) like CONCAT('%', upper(:q5), '%')))", nativeQuery = true)
+    Page<Internship> findInternshipByQuery(Pageable pageable, @Param("q1") String q1, @Param("q2") String q2,
+                                           @Param("q3") String q3, @Param("q4") String q4, @Param("q5") String q5);
 
 }

@@ -295,27 +295,115 @@
     margin-left: 57% !important;
 }
 
+/* Student */
+.student {
+    margin-left: 45% !important;
+}
+
+/* Company */
+
+.company {
+    margin-left: 29% !important;
+}
+
+/* Admin */
+
+.admin {
+    margin-left: 35% !important;
+}
+
 
 @media (max-width: 1199px){
     .anonymous {
         margin-left: 51% !important;
+    }
 
+    .student{
+        margin-left: 37% !important;
+    }
+
+    .company {
+        margin-left: 20% !important;
     }
 }
 
 @media (max-width: 1000px){
     .anonymous {
         margin-left: 50% !important;
+    }
+}
 
+@media (max-width: 1024px){
+    .student {
+        margin-left: 35% !important;
+    }
+
+    .company {
+        margin-left: 16% !important;
+    }
+
+    .admin {
+        margin-left: 23% !important;
+    }
+}
+
+@media (max-width: 994px){
+    .student {
+        margin-left: 34% !important;
     }
 }
 
 @media (max-width: 991px){
     .anonymous {
         margin-left: 40% !important;
+    }
 
+    .student {
+        margin-left: 28% !important;
+    }
+
+    .company {
+        margin-left: 10% !important;
     }
 }
+
+@media (max-width: 957px){
+    .company {
+        margin-left: 7% !important;
+    }
+}
+
+@media (max-width: 929px){
+    .student {
+        margin-left: 24% !important;
+    }
+}
+
+@media (max-width: 907px){
+    .company {
+        margin-left: 2% !important;
+    }
+}
+
+@media (max-width: 837px){
+    .company {
+        margin-left: 3% !important;
+    }
+}
+
+
+@media (max-width: 802px){
+    .company {
+        margin-left: 0 !important;
+    }
+}
+
+@media (max-width: 768px){
+    .admin {
+        margin-left: 15% !important;
+    }
+}
+
 
 /* Company */
 .margin-left-29{

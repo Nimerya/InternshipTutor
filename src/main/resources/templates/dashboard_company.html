@@ -38,7 +38,7 @@
                             <a th:href="@{/company/create/internship}" class="margin-top-42 white-text btn btn-info btn-block squared btn-lg"> Insert an internship offer</a>
                         </div>
                         <div class="col-md-6 no-padding-right">
-                            <a th:href="@{/download/agreement/${user.getCompany().getAgreement()}}" class="margin-top-42 white-text btn btn-success btn-block squared btn-lg"> Download agreement</a>
+                            <a th:href="@{'/download/agreement/' + ${user.getCompany().getAgreement()}}" class="margin-top-42 white-text btn btn-success btn-block squared btn-lg"> Download agreement</a>
                         </div>
                     </div>
                 </div>

@@ -14,8 +14,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.thymeleaf.expression.Lists;
 
 import javax.servlet.http.HttpSession;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,8 +36,12 @@ public class IndexController {
 
         Map<Long, User> pippo = new HashMap<>();
 
-        List<Internship> internships = internshipService.findAll();
+        List<Internship> internships = internshipService.findActiveInternships();
 
+        Collections.reverse(internships);
+
+        int limit = Math.min(3, internships.size());
+        internships = internships.subList(0, limit);
         for(Internship internship : internships){
             pippo.put(internship.getId(), userService.findUserByCompany(internship.getCompany().getId()));
         }
