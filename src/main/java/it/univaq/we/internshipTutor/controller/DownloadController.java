@@ -6,7 +6,6 @@ import it.univaq.we.internshipTutor.model.User;
 import it.univaq.we.internshipTutor.service.FileDownloadService;
 import it.univaq.we.internshipTutor.service.StudentInternshipService;
 import it.univaq.we.internshipTutor.service.UserService;
-import netscape.security.ForbiddenTargetException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
