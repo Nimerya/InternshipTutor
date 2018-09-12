@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.Collections;
 
 
 @Controller
@@ -263,19 +264,6 @@ public class InternshipController {
     public String doApplyInternship(@ModelAttribute("studentInternship") StudentInternship studentInternship, BindingResult result,
                                     @PathVariable(value = "id") Long id, RedirectAttributes redirectAttributes, Principal principal) {
 
-        //if (result.hasErrors()) {
-        //    // if there are errors during the binding (e.g. NotNull, Min, etc.)
-        //    // redirect to the form displaying the errors
-        //    System.out.println("#####     Bindingresult errors:     #####");
-        //    List<FieldError> errors = result.getFieldErrors();
-        //    for (FieldError error : errors ) {
-        //        System.out.println (error.getField() + " - " + error.getDefaultMessage());
-        //    }
-        //    redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
-        //    redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.internship", result);
-        //    redirectAttributes.addFlashAttribute("studentInternship", studentInternship);
-        //    return "redirect:/internship/" + id;
-        //}
 
         Student currStudent = userService.findUserByEmail(principal.getName()).getStudent();
 
@@ -313,6 +301,11 @@ public class InternshipController {
 
     @RequestMapping(value={"/company/create/internship"}, method = RequestMethod.GET)
     public String renderCreateByCompany(ModelMap model, Pageable pageable, Principal principal) {
+
+        Company loggedCompany = userService.findUserByEmail(principal.getName()).getCompany();
+        if(!loggedCompany.getActive()){
+            return "redirect:/error?code=999";
+        }
 
         if(!model.containsAttribute("internship")){
             Long userId = userService.findUserByEmail(principal.getName()).getId();
@@ -428,7 +421,7 @@ public class InternshipController {
     }
 
     @RequestMapping(value = {"/internships"}, method = RequestMethod.GET)
-    public String renderInternship(ModelMap model, @RequestParam(value = "s", required = false) String query, Pageable pageable){
+    public String renderInternships(ModelMap model, @RequestParam(value = "s", required = false) String query, Pageable pageable){
 
         Map<Long, User> map = new HashMap<>();
         Page<Internship> internships;
@@ -437,13 +430,14 @@ public class InternshipController {
             internships = internshipService.findIntershipsByQuery(pageable, query);
         } else {
             internships = internshipService.findActiveInternships(pageable);
+            query="";
         }
 
         for(Internship internship : internships){
             map.put(internship.getId(), userService.findUserByCompany(internship.getCompany().getId()));
         }
 
-        PageWrapper<Internship> page = new PageWrapper<>(internships, "/internships");
+        PageWrapper<Internship> page = new PageWrapper<>(internships, "/internships?s="+query);
         model.addAttribute("internships", internships.getContent());
         model.addAttribute("map", map);
         model.addAttribute("page", page);

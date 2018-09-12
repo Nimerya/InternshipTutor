@@ -25,7 +25,6 @@
                 <div class="col-md-4">
                     <img src="" th:src="@{${'/files/images/'+user.getImage()}}" class="profile-image">
                 </div>
-                <!-- student details -->
                 <div class="col-md-8">
                     <h3 class="w3ls-hdg">Info</h3>
                     <div class="list-group list-group-alternate my-group-list squared">
@@ -34,12 +33,14 @@
                         <!--<span class="list-group-item"><span class="badge" th:text="${user.getCompany().getVatNumber()}">value</span> VAT n.</span>-->
                         <span class="list-group-item"><span class="badge" th:text="${user.getCompany().getFiscalCode()}">value</span> Fiscal Code</span>
                         <!--<span class="list-group-item"><span class="badge" th:text="${user.getCompany().getAttorney()}">value</span> Attorney</span>-->
-                        <div class="col-md-6 no-padding-left">
-                            <a th:href="@{/company/create/internship}" class="margin-top-42 white-text btn btn-info btn-block squared btn-lg"> Insert an internship offer</a>
-                        </div>
-                        <div class="col-md-6 no-padding-right">
-                            <a th:href="@{'/download/agreement/' + ${user.getCompany().getAgreement()}}" class="margin-top-42 white-text btn btn-success btn-block squared btn-lg"> Download agreement</a>
-                        </div>
+                        <th:block th:if="${user.getCompany().getActive()}">
+                            <div class="col-md-6 no-padding-left">
+                                <a th:href="@{/company/create/internship}" class="margin-top-42 white-text btn btn-info btn-block squared btn-lg"> Insert an internship offer</a>
+                            </div>
+                            <div class="col-md-6 no-padding-right">
+                                <a th:href="@{'/download/agreement/' + ${user.getCompany().getAgreement()}}" class="margin-top-42 white-text btn btn-success btn-block squared btn-lg"> Download agreement</a>
+                            </div>
+                        </th:block>
                     </div>
                 </div>
             </div>

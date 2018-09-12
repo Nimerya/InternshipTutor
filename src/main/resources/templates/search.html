@@ -19,7 +19,14 @@
 <div class="codes about">
     <div class="container">
 
-        <div th:replace="fragments/search"></div>
+        <div th:replace="fragments/search :: search"></div>
+
+        <div class="col-md-12">
+            <div class="well" th:unless="${!internships.isEmpty()}" th:text="${'No internships found! Try to change the keywords.'}">
+                Empty report message
+            </div>
+        </div>
+
 
         <!-- pagination -->
         <th:block th:if="${!internships.isEmpty()}">
@@ -29,9 +36,7 @@
         </th:block>
 
 
-        <div class="well" th:unless="${!internships.isEmpty()}" th:text="${'No internships found! Try change keywords'}">
-            Empty report message
-        </div>
+
 
     </div>
 </div>

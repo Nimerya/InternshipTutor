@@ -23,15 +23,14 @@
 
             <div class="row margin-bottom-30">
                 <!-- image -->
-                <div class="col-md-4 margin-top-42">
+                <div class="col-md-4 margin-top-20">
                     <img src="" th:src="@{${'/files/images/'+ user.getImage()}}" class="profile-image">
                 </div>
                 <!-- student details -->
                 <div class="col-md-8">
-                    <h3 class="w3ls-hdg" style="margin-bottom: 10px;" th:text="${internship.getTitle()}"></h3>
+                    <h3 class="w3ls-hdg margin-bottom-10" th:text="${internship.getTitle()}"></h3>
                     <p th:text="${company.getName()}"></p>
                     <div class="list-group list-group-alternate my-group-list squared">
-                        <span class="list-group-item"><span class="badge" th:text="${internship.getSchedule()}">value</span> Schedule</span>
                         <span class="list-group-item"><span class="badge" th:text="${internship.getLength()} + ' Hours'">value</span> Length</span>
                         <span class="list-group-item"><span class="badge" th:text="${internship.getState()}">value</span> State</span>
                         <span class="list-group-item"><span class="badge" th:text="${internship.getCity()}">value</span> City</span>
@@ -70,7 +69,15 @@
                 </div>
             </div>
 
-            <!-- Goals -->
+            <!-- Schedule -->
+            <div class="row padding-top-30">
+                <div class="col-md-12">
+                    <h3 class="w3ls-hdg">Schedule</h3>
+                    <p th:text="${internship.getSchedule()}">
+                    </p>
+                </div>
+            </div>
+
             <div class="row padding-top-30">
                 <div class="col-md-6">
                     <h3 class="w3ls-hdg">Facilitations</h3>
@@ -81,10 +88,12 @@
                     <h3 class="w3ls-hdg">Further Informations</h3>
                     <div class="list-group list-group-alternate my-group-list squared">
                         <span class="list-group-item"><span class="badge" th:text="${internship.getRefund() ? 'Yes' : 'No'}">value</span> Refunds</span>
-                        <span class="list-group-item"><span class="badge" th:text="${internship.getRefund() ? 'Yes' : 'No'}">value</span> Working By Remote</span>
+                        <span class="list-group-item"><span class="badge" th:text="${internship.getRefund() ? 'Yes' : 'No'}">value</span> Work remotely</span>
                     </div>
                 </div>
             </div>
+
+
 
             <!-- submit -->
             <div sec:authorize="isAnonymous() || hasRole('STUDENT')" class="row padding-top-30">

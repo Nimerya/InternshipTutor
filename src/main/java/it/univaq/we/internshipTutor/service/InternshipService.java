@@ -24,12 +24,12 @@ public class InternshipService implements IInternshipService {
 
     @Override
     public List<Internship> findActiveInternships() {
-        return internshipRepository.findInternshipsByActiveTrue();
+        return internshipRepository.findInternshipsByActiveTrueOrderByIdDesc();
     }
 
     @Override
     public Page<Internship> findActiveInternships(Pageable pageable) {
-        return internshipRepository.findInternshipsByActiveTrue(pageable);
+        return internshipRepository.findInternshipsByActiveTrueOrderByIdDesc(pageable);
     }
 
     @Override

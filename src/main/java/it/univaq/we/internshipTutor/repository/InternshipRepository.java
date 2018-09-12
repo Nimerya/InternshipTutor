@@ -14,9 +14,9 @@ public interface InternshipRepository extends JpaRepository<Internship, Long> {
 
     List<Internship> findAll();
 
-    List<Internship> findInternshipsByActiveTrue();
+    List<Internship> findInternshipsByActiveTrueOrderByIdDesc();
 
-    Page<Internship> findInternshipsByActiveTrue(Pageable pageable);
+    Page<Internship> findInternshipsByActiveTrueOrderByIdDesc(Pageable pageable);
 
     Page<Internship> findAll(Pageable pageable);
 
@@ -39,7 +39,7 @@ public interface InternshipRepository extends JpaRepository<Internship, Long> {
             "(upper(details_en_gb) like CONCAT('%', upper(:q2), '%')) or " +
             "(upper(mode_en_gb) like CONCAT('%', upper(:q3), '%')) or " +
             "(upper(goals_en_gb) like CONCAT('%', upper(:q4), '%')) or " +
-            "(upper(facilitations) like CONCAT('%', upper(:q5), '%')))", nativeQuery = true)
+            "(upper(facilitations) like CONCAT('%', upper(:q5), '%'))) order by id desc", nativeQuery = true)
     Page<Internship> findInternshipByQuery(Pageable pageable, @Param("q1") String q1, @Param("q2") String q2,
                                            @Param("q3") String q3, @Param("q4") String q4, @Param("q5") String q5);
 

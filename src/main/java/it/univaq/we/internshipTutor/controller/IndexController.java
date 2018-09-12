@@ -38,8 +38,6 @@ public class IndexController {
 
         List<Internship> internships = internshipService.findActiveInternships();
 
-        Collections.reverse(internships);
-
         int limit = Math.min(3, internships.size());
         internships = internships.subList(0, limit);
         

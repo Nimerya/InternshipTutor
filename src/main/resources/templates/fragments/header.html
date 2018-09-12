@@ -51,7 +51,7 @@
                                                                                 aria-hidden="true"></span></a></li>
                             <li><a th:href="@{/}" class="active">Home</a></li>
 
-                            <li><a th:href="@{/affiliatedCompanies}">Affiliated companies</a></li>
+                            <li><a th:href="@{/affiliatedcompanies}">Affiliated companies</a></li>
 
                             <li sec:authorize="hasRole('STUDENT')"><a th:href="@{/student/dashboard}">Dashboard</a></li>
                             <li sec:authorize="hasRole('ADMIN')"><a th:href="@{/admin/dashboard}">Dashboard</a></li>

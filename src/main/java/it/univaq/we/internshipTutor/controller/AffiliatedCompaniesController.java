@@ -29,12 +29,12 @@ public class AffiliatedCompaniesController {
     @Autowired
     CompanyService companyService;
 
-    @RequestMapping(value = {"/affiliatedCompanies"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/affiliatedcompanies"}, method = RequestMethod.GET)
     public String renderReport(ModelMap model, Pageable pageable) {
 
         Map<Long, Double> averages = companyService.findCompaniesAverage();
         Page<Company> affiliatedCompanies = companyService.findCompaniesByActiveTrue(pageable);
-        PageWrapper<Company> page = new PageWrapper<>(affiliatedCompanies, "/affiliatedCompanies");
+        PageWrapper<Company> page = new PageWrapper<>(affiliatedCompanies, "/affiliatedcompanies");
         model.addAttribute("affiliatedCompanies", affiliatedCompanies.getContent());
         model.addAttribute("page", page);
         model.addAttribute("averages", averages);

@@ -144,8 +144,8 @@ public class PdfBuilderService implements IPdfBuilderService {
 
 
 
-            String obiettivo = i.getGoalsItIt();
-            String modalita = i.getModeItIt();
+            String obiettivo = i.getGoalsEnGb();
+            String modalita = i.getModeEnGb();
             /*Numero di righe disponibili nella sezione obiettivo e modalità del pdf*/
             int numberOfRows = 4;
 

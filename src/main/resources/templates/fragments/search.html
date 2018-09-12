@@ -1,29 +1,36 @@
-<th:block xmlns:th="http://www.w3.org/1999/xhtml">
-    <!-- container -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<th:block th:fragment="search">
+    <div class="col-md-12 col-sm-12 header-top-right search-bar margin-bottom-30">
+        <form th:action="@{/internships}" method="GET">
+            <input type="text" name="s" placeholder="Search">
+            <input type="submit" value="">
+            <div class="clearfix"></div>
+        </form>
+    </div>
 
-        <div class="col-md-12 col-sm-12 header-top-right search-bar margin-bottom-30">
-            <form th:action="@{/internships}" method="GET">
-                <input type="text" name="s" placeholder="Search">
-                <input type="submit" value="">
-                <div class="clearfix"> </div>
-            </form>
-        </div>
-
-        <div th:if="${!internships.isEmpty()}" class="news-grids">
-            <div th:each="item: ${internships}" class="col-md-12 news-wthreegrid">
-                <div class="news-grid-left">
-                    <div class="col-md-2">
-                        <img src="" th:src="@{'/files/images/'+ ${map.get(item.getId()).getImage()}}" class="profile-image">
-                    </div>
-                    <div class="col-md-10 date-info">
-                        <a th:href="@{'/internship/' + ${item.getId()}}" th:text="${item.getTitle()}"></a>
-                        <p th:text="${#strings.abbreviate(item.getDetailsEnGb(), 255)}"></p>
-                        <div class="news-button">
-                            <a th:href="@{'/internship/' + ${item.getId()}}">More</a>
-                        </div>
-                    </div>
-                    <div class="clearfix"> </div>
+    <div th:if="${!internships.isEmpty()}" class="news-grids">
+        <div th:each="item: ${internships}" class="col-md-12 news-wthreegrid">
+            <div class="news-grid-left">
+                <div class="col-md-2 margin-top-3">
+                    <img src="" th:src="@{'/files/images/'+ ${map.get(item.getId()).getImage()}}" class="profile-image">
                 </div>
+                <div class="col-md-10 date-info">
+                    <a th:href="@{'/internship/' + ${item.getId()}}" th:text="${item.getTitle()}"></a>
+                    <p th:text="${#strings.abbreviate(item.getDetailsEnGb(), 250)}"></p>
+                    <div class="news-button">
+                        <a th:href="@{'/internship/' + ${item.getId()}}">More</a>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
             </div>
         </div>
+    </div>
 </th:block>
+</body>
+</html>

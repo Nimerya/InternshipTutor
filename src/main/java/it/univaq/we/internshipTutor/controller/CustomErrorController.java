@@ -59,7 +59,10 @@ public class CustomErrorController implements ErrorController {
             case 511:
                 errorMessage = "Something went wrong on our end.";
                 break;
-
+            case 999:
+                errorMessage = "You cannot insert an offer as your profile has not yet been activated.";
+                break;
+                
             default:
                 errorMessage = "Something went wrong.";
                 break;
