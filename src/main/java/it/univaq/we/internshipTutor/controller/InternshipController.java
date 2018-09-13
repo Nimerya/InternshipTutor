@@ -427,7 +427,7 @@ public class InternshipController {
         Page<Internship> internships;
 
         if(query != null && query.length() > 0){
-            internships = internshipService.findIntershipsByQuery(pageable, query);
+            internships = internshipService.findInternshipsByQuery(pageable, query);
         } else {
             internships = internshipService.findActiveInternships(pageable);
             query="";
