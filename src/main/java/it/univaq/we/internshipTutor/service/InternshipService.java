@@ -62,8 +62,8 @@ public class InternshipService implements IInternshipService {
     }
 
     @Override
-    public Page<Internship> findIntershipsByQuery(Pageable pageable, String q){
-        return internshipRepository.findInternshipByQuery(pageable, q, q, q, q, q);
+    public Page<Internship> findInternshipsByQuery(Pageable pageable, String q){
+        return internshipRepository.findInternshipByQuery(pageable, q, q, q, q, q, q, q, q, q);
     }
 
 
