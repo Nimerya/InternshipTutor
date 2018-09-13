@@ -231,12 +231,12 @@ public class InternshipController {
         }
 
         // check that the values of "active" and "company" are the same as they were before the update
-        if(!(oldInternship.getActive().equals(internship.getActive()))){
+        /*if(!(oldInternship.getActive().equals(internship.getActive()))){
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", "Cannot change Active attribute!"));
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.internship", result);
             redirectAttributes.addFlashAttribute("internship", internship);
             return "redirect:/company/update/internship/" + internship.getId();
-        }
+        }*/
 
         if(!(oldInternship.getCompany().getId().equals(internship.getCompany().getId()))){
             redirectAttributes.addFlashAttribute("popup", new Popup("warning", WAR_MSG_EN));
