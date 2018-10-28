@@ -2,6 +2,6 @@ Web application developed with Spring Boot that allow students to apply to liste
 
 Authors:
 - Stefano Valentini https://github.com/valent0ne
-- Valentina Cecchini https://gitlab.com/Nimerya
+- Valentina Cecchini https://github.com/Nimerya
 - Federico Battista
 - Daniele Berardini
